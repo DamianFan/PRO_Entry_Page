@@ -1,0 +1,28 @@
+<div id="filter_category_dropdown" class="dropdown">
+    <small>Display Category: </small>
+    <button type="button" class="btn btn-default btn-xs"
+            id="filter_category_dropdown_button"
+            data-toggle="dropdown" role="button">
+        <span id="selected"> All </span><span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a>All</a></li>
+        {% for s in forms %}
+            {% if s.count > 0 %}
+                {# if the page is organism specific, only display organism specific categories #}
+                {% if 'organism' in cat and 'organism' in s.name %}
+                    <li><a>{{s.1}}</a></li>
+                {% elif 'organism' not in cat %}
+                    <li><a>{{s.1}}</a></li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+
+<style>
+    #filter_category_dropdown a {
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>

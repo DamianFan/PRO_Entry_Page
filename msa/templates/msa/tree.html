@@ -1,0 +1,53 @@
+{% extends "msa/base.html" %}
+{% load staticfiles %}
+
+{% block msa-title %}Tree View {{ id }}{% endblock %}
+
+{% block msa-scripts %}
+    <script>
+        var treeData = {{ result|safe }};
+        var msaUrl = "{% url 'msa:home'%}";
+        var msaFullUrl = "{% url 'msa:view' 'full' id%}";
+    </script>
+    <script type="text/javascript" src="{% static 'msa/jquery.dynatree.js' %}"></script>
+    <script type="text/javascript" src="{% static 'msa/func_tree.js' %}?v=0406"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'msa/skin/ui.dynatree.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'msa/style_tree.css' %}"/>
+{% endblock %}
+
+{% block msa-body %}
+    <table id="treeTable">
+        <thead><tr><th colspan="2"> Multiple Sequence Alignment </th></tr></thead>
+        <tbody><tr>
+            <td id="td-1">
+                <div id="navigation">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <div id="treeActions" class="dropdown">
+                            <button class="btn dropdown-toggle btn-sm" type="button"  data-toggle="dropdown">
+                                Tree Actions<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                <li name="treeActionsLi" value="btnSelectAll">Select all</li>
+                                <li name="treeActionsLi" value="btnDeselectAll">Deselect all</li>
+                                <li name="treeActionsLi" value="btnToggleSelect">Toggle select</li>
+                                <hr>
+                                <li name="treeActionsLi" value="btnCollapseAll">Collapse all</li>
+                                <li name="treeActionsLi" value="btnExpandAll">Expand all</li>
+                            </ul>
+                        </div>
+                        <a type="button" id="btnGet" class="btn btn-default btn-sm pull-right">
+                            Align <span class="glyphicon glyphicon-play"></span>
+                        </a>
+                    </nav>
+                    <div id="tree"></div>
+                </div>
+            </td>
+            <td id="td-2">
+                <div id="msaResult">
+{#                    <center><img id="msaProcess" src="{% static 'msa/images/progress.gif' %}" alt="loading" style="position:relative;margin-top:60px;"/></center>#}
+{#                    <iframe id="msaIframe" name="msaIframeName" src="" width="100%" height="100%" frameborder="0" style="visibility:hidden;" onload='document.getElementById("msaProcess").style.display="none";this.style.visibility="visible";'>#}
+{#                        <p>Your browser does not support iframes.</p>#}
+{#                    </iframe>#}
+                </div>
+            </td></tr></tbody></table>
+{% endblock %}

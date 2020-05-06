@@ -1,0 +1,209 @@
+<table id="functional-annotation" class="table table-condensed table-bordered table-pro-th table-pro-toggle">
+    <thead>
+    <tr>
+        <th colspan="4">
+            <div class="table-pro-toggle-icon"><span class="glyphicon glyphicon-collapse-down"></span></div> Functional Annotation
+            <div id="paf-switch-div" role="tabpanel" class="pull-right">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#paf-pro" aria-controls="paf-pro" role="tab" data-toggle="tab">PRO Centric View</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#paf-go" aria-controls="paf-go" role="tab" data-toggle="tab">GO Centric View</a>
+                    </li>
+                </ul>
+            </div>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr><td>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="paf-pro">
+                <table class="table table-condensed borderless table-rowspan-striped table-pro-th-second">
+                    <thead>
+                    <tr>
+                        <th class="col-md-3 text-center">PRO Term</th>
+                        <th class="col-md-6 text-center" colspan="2">GO Annotation</th>
+                        <th class="col-md-3 text-center"> Evidence</th>
+                    </tr>
+                    </thead>
+
+                    {% for key in paf %}
+                        <tbody>
+                        <tr id="paf-{{ key.0 }}" class="paf-{{ key.0 }}">
+                        <td rowspan="{{ key.3 }}">
+                            <a target="_blank" href="/entry/{{ key.0 }}" title="">{{ key.0 }}</a><br/>
+                            {{ key.1 }}<br/>
+                        </td>
+                        </tr>
+                        {% for i in key.2 %}
+                            <tr class="paf-{{ key.0 }}">
+                            <td class="text-right">{{ i.1 }}</td>
+                            <td>
+                                <b>{{ i.0 }}</b>
+                                {{ i.2|safe }}
+                                {{ i.3 }}
+                            </td>
+                            <td>
+                                {% for evi in i.4 %}
+                                    {{ evi|safe}}
+                                    {% endfor %}
+                            </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    {% endfor %}
+
+                </table>
+            </div>
+
+
+
+{#<a target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/12732634" title="">PMID:12732634</a>#}
+
+            <div role="tabpanel" class="tab-pane" id="paf-go">
+                        <table class="table table-condensed borderless table-rowspan-striped table-pro-th-second">
+{#                            <thead>#}
+{#                            <tr>#}
+{#                                <th class="col-md-4 text-center"> GO Term</th>#}
+{#                                <th class="col-md-6 text-center"> Protein Forms & Complexes </th>#}
+{#                                <th class="col-md-2 text-center"> Evidence</th>#}
+{#                            </tr>#}
+{#                            </thead>#}
+{#                        {% for key in go %}#}
+{#                            <tbody>#}
+{#                                <tr id="paf-{{ key.2.0 }}" class="paf-{{ key.2.0 }}">#}
+{#                                <td rowspan="{{ key.3 }}">#}
+{##}
+{#                                    <a target="_blank" href="http://amigo.geneontology.org/amigo/term/{{ key.0 }}" title="">{{ key.0 }}</a>#}
+{#                                    <br>{{ key.1 }}#}
+{#                                </td>#}
+{#                                </tr>#}
+{#                                {% for i in key.2 %}#}
+{#                                    <tr id="paf-{{ i.0 }}" class="paf-{{ i.0 }}">#}
+{#                                        <td>#}
+{#                                            <a target="_blank" href="/entry/{{ i.0 }}" title="">{{ i.0 }}</a>#}
+{#                                            {{ i.1 }}#}
+{#                                        </td>#}
+{#                                        <td>#}
+{#                                            {% for j in i.2 %}#}
+{#                                                {{ j|safe }}#}
+{#                                            {% endfor %}#}
+{#                                        </td>#}
+{#                                    </tr>#}
+{#                                {% endfor %}#}
+{#                            </tbody>#}
+{#                        {% endfor %}#}
+
+                        {% if checkgobiological %}
+                        <thead>
+                            <tr>
+                                <th class="col-md-4 text-center"> Biological GO Term</th>
+                                <th class="col-md-6 text-center"> Protein Forms & Complexes </th>
+                                <th class="col-md-2 text-center"> Evidence</th>
+                            </tr>
+                            </thead>
+                        {% for key in gobiological %}
+                            <tbody>
+                                <tr id="paf-{{ key.2.0 }}" class="paf-{{ key.2.0 }}">
+                                <td rowspan="{{ key.3 }}">
+
+                                    <a target="_blank" href="http://amigo.geneontology.org/amigo/term/{{ key.0 }}" title="">{{ key.0 }}</a>
+                                    <br>{{ key.1 }}
+                                </td>
+                                </tr>
+                                {% for i in key.2 %}
+                                    <tr id="paf-{{ i.0 }}" class="paf-{{ i.0 }}">
+                                        <td>
+                                            <a target="_blank" href="/entry/{{ i.0 }}" title="">{{ i.0 }}</a>
+                                            {{ i.1 }}
+                                        </td>
+                                        <td>
+                                            {% for j in i.2 %}
+                                                {{ j|safe }}
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        {% endfor %}
+                        {% endif %}
+                        {% if checkgocellular %}
+                        <thead>
+                            <tr>
+                                <th class="col-md-4 text-center"> Cellular GO Term</th>
+                                <th class="col-md-6 text-center"> Protein Forms & Complexes </th>
+                                <th class="col-md-2 text-center"> Evidence</th>
+                            </tr>
+                            </thead>
+                        {% for key in gocellular %}
+                            <tbody>
+                                <tr id="paf-{{ key.2.0 }}" class="paf-{{ key.2.0 }}">
+                                <td rowspan="{{ key.3 }}">
+
+                                    <a target="_blank" href="http://amigo.geneontology.org/amigo/term/{{ key.0 }}" title="">{{ key.0 }}</a>
+                                    <br>{{ key.1 }}
+                                </td>
+                                </tr>
+                                {% for i in key.2 %}
+                                    <tr id="paf-{{ i.0 }}" class="paf-{{ i.0 }}">
+                                        <td>
+                                            <a target="_blank" href="/entry/{{ i.0 }}" title="">{{ i.0 }}</a>
+                                            {{ i.1 }}
+                                        </td>
+                                        <td>
+                                            {% for j in i.2 %}
+                                                {{ j|safe }}
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        {% endfor %}
+                        {% endif %}
+
+
+                        {% if checkgomolecular %}
+                            <thead>
+                            <tr>
+                                <th class="col-md-4 text-center"> Molecular GO Term</th>
+                                <th class="col-md-6 text-center"> Protein Forms & Complexes </th>
+                                <th class="col-md-2 text-center"> Evidence</th>
+                            </tr>
+                            </thead>
+                        {% for key in gomolecular %}
+                            <tbody>
+                                <tr id="paf-{{ key.2.0 }}" class="paf-{{ key.2.0 }}">
+                                <td rowspan="{{ key.3 }}">
+
+                                    <a target="_blank" href="http://amigo.geneontology.org/amigo/term/{{ key.0 }}" title="">{{ key.0 }}</a>
+                                    <br>{{ key.1 }}
+                                </td>
+                                </tr>
+                                {% for i in key.2 %}
+                                    <tr id="paf-{{ i.0 }}" class="paf-{{ i.0 }}">
+                                        <td>
+                                            <a target="_blank" href="/entry/{{ i.0 }}" title="">{{ i.0 }}</a>
+                                            {{ i.1 }}
+                                        </td>
+                                        <td>
+                                            {% for j in i.2 %}
+                                                {{ j|safe }}
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        {% endfor %}
+
+
+                        {% endif %}
+                        </table>
+
+            </div>
+        </div>
+    </td></tr>
+    </tbody>
+</table>
+<br/>

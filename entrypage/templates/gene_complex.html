@@ -1,0 +1,31 @@
+<table id="complex" class="table table-condensed table-bordered table-pro-th table-pro-toggle">
+    <thead>
+    <tr>
+        <th colspan="2"><div class="table-pro-toggle-icon"><span class="glyphicon glyphicon-collapse-down"></span></div> {{ short_label }} forms found in complexes</th>
+    </tr>
+    <tbody>
+    <tr>
+        <td>
+            <table class="table table-condensed table-striped table-hover borderless table-pro-th-second">
+                <thead>
+                <tr>
+                    <th class="col-md-4" style="width: 50%">{{ name }} Component</th>
+                    <th class="col-md-8">Complexes</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for c in copx_and_conp %}
+                    <tr id="complex-{{ c.3 }}" class="complex-{{ c.3 }}">
+                        <td>
+                            <a href="{{ c.2 }}">{{ c.0 }}</a> {{ c.1 }}
+                        </td>
+                        <td> <a href="{{ c.5 }}">{{ c.3 }}</a> {{ c.4 }} </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br/>

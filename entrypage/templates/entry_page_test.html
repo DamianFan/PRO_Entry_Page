@@ -1,0 +1,98 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="google" content="notranslate">
+    <meta http-equiv="Content-Language" content="en">
+    <title>PRO Interactive Sequence Alignment View</title>
+
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <!-- Angular.js -->
+    <script src="{% static "msa/angular.min.js" %}"></script>
+    <!--MSA-->
+    <script type="text/javascript" src="{% static 'msa/setting.js' %}"></script>
+    <!--tooltipster-->
+    <script type="text/javascript" src="{% static 'msa/jquery.tooltipster.min.js' %}"></script>
+    <!-- Bootstrap -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <!-- jQuery UI-->
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script type="text/javascript" src="{% static 'msa/msa_functions.js' %}"></script>
+    <script type="text/javascript" src="{% static 'msa/msa_functions_pro.js' %}"></script>
+    <script type="text/javascript" src="{% static 'msa/app.js' %}"></script>
+    <script>
+        var dataUrl = "{% url 'msa:data' mod query %}";
+        var prologo =  '<img id="iconPRO" class="icon-link" src="{% static 'pro/pirwww/images/PROlogofinal300.png' %}" alt="PRO" title="PRO Entry Report">';
+        var prourl = '';
+        var cytologo = '<img id="iconCyto" class="icon-link" src="{% static 'msa/images/cyto-logo.gif' %}" alt="Cyto" title="Cytoscape View">';
+        var cytourl = '/app{% if test_site%}_test{%endif%}/visual/cytoscape/pro/';
+        var daglogo =  '<img id="iconDag" class="icon-link" src="{% static 'pro/pirwww/images/hierarchy.png' %}" alt="DAG" title="DAG View">';
+        var dagurl = '/cgi-bin/browser_pro{% if test_site%}_test.pl{%endif%}?ids='
+    </script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <!-- jQuery UI-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <!--MSA-->
+    <link rel="stylesheet" type="text/css" href="{% static 'msa/style_msa.css' %}"/>
+    <!--tooltipster-->
+    <link rel="stylesheet" type="text/css" href="{% static 'msa/tooltipster.css' %}"/>
+
+    <!-- other scripts -->
+    {% block msa-scripts %} {% endblock %}
+
+</head>
+
+<body>
+<h3 id="loadingMsg">Loading...</h3>
+
+
+
+<table id="sequence-alignment" class="table table-condensed table-bordered table-pro-th table-pro-toggle">
+    <thead>
+    <tr>
+        <th colspan="2"><div class="table-pro-toggle-icon"><span class="glyphicon glyphicon-collapse-down"></span></div> Interactive Sequence View
+            <span class="pull-right">
+                   <a href="/msa/tree/" class="pretty" target="_blank">
+               Select/align proteoforms across species</a>
+            </span>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td colspan="2" id="msaCell" height="400" align="center">
+            <div id="msaResult"></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+
+<div id="msa" ng-app="msaApp" style="display: none;" onshow="init_tooltip('pro')">
+    <nav id="msaHeader" class="navbar navbar-default" role="navigation">
+        <div id="msaMenu">
+{#            <form id="msaProSwitch" ng-controller="msaProSwitchController">#}
+{#                <ul class="nav navbar-nav navbar-left">#}
+{#                   <li ng-click="toggle = !toggle" class="dropdown">#}
+{#                       <a class="dropdown-toggle msa-menu-header" href="">#}
+{#                           <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> {+toggleText+} PRO entries</a>#}
+{#                   </li>#}
+{#                </ul>#}
+{#            </form>#}
+            <ul id="msaMenuUl" class="nav navbar-nav navbar-left"></ul>
+        </div>
+        <div id="msaViewSwitch" class="right" msa-view="OV"></div>
+    </nav>
+    <div ng-controller="msaController as msaCtrl">
+        {% include 'msa/msa-detailview.html' %}
+        {% include 'msa/msa-overview.html' %}
+    </div>
+</div>
+</body>
+</html>

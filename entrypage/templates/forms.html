@@ -1,0 +1,73 @@
+{% load staticfiles %}
+
+
+<link rel="stylesheet" href="{% static 'js/skin-win7/ui.fancytree.css' %}">
+<script type="text/javascript" src="{% static 'js/jquery.fancytree.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.fancytree.gridnav.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.fancytree.table.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/forms.js' %}?v=0612"></script>
+<script type="text/javascript">
+    {#var proEntryUrl = "{% url 'webpage:entry' '.' %}".slice(0, -2);#}
+    {#var ROOT = eval('(' + '{{ json|replace:"'||\'"|safe }}' + ')');#}
+</script>
+<style>
+    span.fancytree-title {
+        cursor: default !important;
+    }
+</style>
+
+<table id="forms" class="table table-condensed table-bordered table-pro-th table-pro-toggle">
+    <thead>
+    <tr>
+        <th colspan="7">
+            <div class="table-pro-toggle-icon">
+                <span class="glyphicon glyphicon-collapse-down"></span>
+            </div> 
+            {{formTableName}} Forms
+            <div class="pull-right">
+                {% include 'filter_category_dropdown.html' %}
+            </div>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            <table id="tree" class="table table-condensed table-striped table-hover borderless table-pro-th-second">
+                <colgroup>
+                    <col width="260px"> {# pro_id #}
+                    <col width="200px"> {# name #}
+                    <col width="max-width:15%"> {# label #}
+                    <col width="max-width:50%; min-width:30%"> {# def#}
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>PRO ID & Category
+                        <span class="label label-warning pull-right">Annotation</span>
+                        {% if formTableName == "Protein" %}
+                            <span class="label label-success pull-right">Complex</span>
+                        {% else %}
+                            <span class="label label-primary pull-right">Subunits</span>
+                        {% endif %}
+                    </th> 
+                    <th>Name</th>
+                    <th>Short Label</th>
+                    <th>Definition & Comment</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in forms %}
+                    <tr>
+                    <td><a href="/entry/{{ i.0 }}" target="_blank" title="">{{ i.0 }}</a></td>
+                    <td>{{ i.1 }}</td>
+                    <td>{{ i.4 }}</td>
+                    <td>{{ i.2|safe }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br/>
