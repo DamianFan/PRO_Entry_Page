@@ -9,7 +9,7 @@ djangorestframework==3.9.0
 djangorestframework-stubs==0.4.2
 djangorestframework-xml==1.4.0
 get==2018.11.19
-httpie==1.0.2
+httpie==1.0.3
 idna==2.8
 numpy==1.16.5
 pandas==0.24.1
