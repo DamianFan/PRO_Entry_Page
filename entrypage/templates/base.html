@@ -11,7 +11,7 @@
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <script type="text/javascript" src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/jstree.min.js"></script>
+
     <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -19,7 +19,22 @@
     <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/themes/default/style.min.css" />
-
+    <style>
+        .wrapper1, .wrapper2 {
+            width: 293px;
+            height:auto;
+            overflow-x: scroll;
+            overflow-y:hidden;
+        }
+        .div1 {
+            width:293px;
+            height: 20px;
+        }
+        .sidarbar-span {
+            width:293px;
+            overflow: auto;
+        }
+    </style>
     <script src="{% static 'js/test_js.js' %}"></script>
     <script src="{% static 'js/qtip.js' %}"></script>
 {#    local css#}
@@ -46,7 +61,7 @@
 
 </head>
 <body>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/jstree.min.js"></script>
 <span id="top"></span>
 
 
@@ -149,7 +164,9 @@
 
 <div  id="lsidebar" class="lsidebar">
 <div id="functionset">
-
+{#<div class="wrapper1">#}
+{#    <div class="div1"></div>#}
+{#</div>#}
      <img id="treeicon" src="{% static '/images/leafLessTree.png' %}" width="20" height="20">
      <input type="button" id="showname" onclick="showname()" style="width: 130px;font-weight: bold; color:#336699; height: 28px;  font-size: 13px"; value="Show PRO Name">
 </div>
@@ -160,7 +177,11 @@
 {#        <button  type="button" id="zoomin" onclick="fullscreen()" style="width: 30px;font-weight: bold; color:#336699; height: 28px; font-size: 13px; float: right;">#}
 {#            <img id="arr" src="{% static '/images/arrow01.png' %}" width="10" height="10">#}
 {#        </button>#}
-    <div id="hierarchytree" class="sidarbar-span"></div>
+    <div class="wrapper2">
+    <div id="hierarchytree" class="sidarbar-span">
+    </div>
+    </div>
+
 
 </div>
 
@@ -295,6 +316,7 @@
 </body>
 
 
+
 <script>
 
     {#var treeid = "{{ jstreeurl }}";#}
@@ -331,8 +353,8 @@ function showname(){
     if (j % 2!== 0){
                     treeid = treename;
                     na2.value="Hide PRO Name";
-                    document.getElementById('container').style.gridTemplateColumns = "100% 0 0";
-                    document.getElementById('menu-toggle2').style.display = "none";
+                    {#document.getElementById('container').style.gridTemplateColumns = "100% 0 0";#}
+                    {#document.getElementById('menu-toggle2').style.display = "none";#}
     $('#hierarchytree').data('jstree', false).empty();
     $(function() {
   $('#hierarchytree').jstree({'plugins':["wholerow"],
@@ -353,8 +375,8 @@ function showname(){
             else{
                 treeid = id;
                 na2.value="Show PRO Name";
-                document.getElementById('container').style.gridTemplateColumns = "20% 70% 10%";
-                document.getElementById('menu-toggle2').style.display = "inline";
+                {#document.getElementById('container').style.gridTemplateColumns = "20% 70% 10%";#}
+                {#document.getElementById('menu-toggle2').style.display = "inline";#}
             $('#hierarchytree').data('jstree', false).empty();
             $(function() {
             $('#hierarchytree').jstree({'plugins':["wholerow"],
@@ -392,6 +414,7 @@ $(function() {
     }
 
   })
+
 });
 
 
@@ -433,6 +456,7 @@ function zoomhierarchy(){
 
     if(leftflag==0){
         if (rightflag==0){
+            {#$('#hierarchytree').empty();#}
         $('#hierarchytree').data('jstree', false).empty();
         document.getElementById('lsidebar').style.visibility='none';
         document.getElementById('showname').style.display='none';
@@ -539,7 +563,10 @@ $(function () {
 })
 </script>
 
+<script>
 
+
+</script>
 
 
 
@@ -628,4 +655,14 @@ $(function () {
     })
 </script>
 
+{#<script>#}
+{#    $(function(){#}
+{#        $(".wrapper1").scroll(function(){#}
+{#            $(".wrapper2").scrollLeft($(".wrapper1").scrollLeft());#}
+{#        });#}
+{#        $(".wrapper2").scroll(function(){#}
+{#            $(".wrapper1").scrollLeft($(".wrapper2").scrollLeft());#}
+{#        });#}
+{#    });#}
+{#</script>#}
 </html>
