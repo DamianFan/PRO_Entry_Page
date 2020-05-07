@@ -48,6 +48,7 @@ def load_entry(id):
     content['checkrcr'] = True
     content['checkanno'] = True
     content['termscategory'] = False
+    content['msaEntryUrl'] = '/msa/view/entry/'+id
     # content['msaview'] = loadingMSA(request,'entry',id)
     xref_set = get_xref(id)
     for i in range(len(xref_set)):

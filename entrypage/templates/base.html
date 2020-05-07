@@ -38,6 +38,8 @@
     <script src="{% static 'js/test_js.js' %}"></script>
     <script src="{% static 'js/qtip.js' %}"></script>
     <script src="{% static 'js/for_entrypage.js' %}"></script>
+{#    <script src="{% static 'js/entry.js' %}"></script>#}
+    <script> var msaEntryUrl={{ msaEntryUrl }}; </script>
 {#    local css#}
     <link rel="stylesheet" href="{% static "css/simple-sidebar.css" %}" >
     <link rel="stylesheet" href="{% static "css/style.css" %}">
@@ -215,8 +217,33 @@
     </div>
     {% endif %}
     <div id="msa" style="display: none;">
-    this is msa
-    {{ msaview|safe }}
+{#        {% include 'alignment.html' %}#}
+            <table id="sequence-alignment" class="table table-condensed table-bordered table-pro-th table-pro-toggle">
+        <thead>
+        <tr>
+            <th colspan="2"><div class="table-pro-toggle-icon"><span class="glyphicon glyphicon-collapse-down"></span></div> Interactive Sequence View
+                <span class="pull-right">
+                   {% if category == 'organism-gene' %}
+                       <a href="{{ url }}" class="pretty" target="_blank">
+                   {% else %}
+                       <a href="{{ url }}" class="pretty" target="_blank">
+                   {% endif %}Select/align proteoforms across species</a>
+                </span>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td colspan="2" id="msaCell" height="400" align="center">
+                <div id="msaResult">
+
+                    <object width="100%" height="400" data="{{ msaEntryUrl }}" type="text/html"></object>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br/>
     </div>
 
     <div id="forms">
@@ -672,6 +699,12 @@ $(function () {
         })
 
     })
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#msaResult").html('<object  width="100%" height="400" data="' + {{ msaEntryUrl }} + '" type="text/html">');
+    });
 </script>
 
 {#<script>#}

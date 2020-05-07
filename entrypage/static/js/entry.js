@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 
-    $("#msaResult").html('<object  width="100%" height="400" data="' + msaEntryUrl + '" type="text/html">');
+    // $("#msaResult").html('<object  width="100%" height="400" data="' + msaEntryUrl + '" type="text/html">');
 
     add_links();
 
