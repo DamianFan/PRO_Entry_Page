@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="85dd86d8-0fa4-482e-8fd6-dddc600ed137" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/entrypage/static/js/for_entrypage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entrypage/entry.py" beforeDir="false" afterPath="$PROJECT_DIR$/entrypage/entry.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entrypage/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/entrypage/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entrypage/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/entrypage/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entrypage/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/entrypage/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="85dd86d8-0fa4-482e-8fd6-dddc600ed137" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/entrypage/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-665">
-              <caret line="508" column="8" lean-forward="true" selection-start-line="508" selection-start-column="8" selection-end-line="508" selection-end-column="8" />
+            <state relative-caret-position="353">
+              <caret line="513" column="87" lean-forward="true" selection-start-line="513" selection-start-column="87" selection-end-line="513" selection-end-column="87" />
               <folding>
                 <element signature="n#div#0;n#body#0;n#html#0;n#!!top" />
               </folding>
@@ -76,7 +69,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>first-child</find>
       <find>tr</find>
       <find>main</find>
       <find>taxon</find>
@@ -106,6 +98,7 @@
       <find>grid</find>
       <find>print</find>
       <find>sidarbar-span</find>
+      <find>#show</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -360,18 +353,18 @@
       <workItem from="1588779485368" duration="211000" />
       <workItem from="1588780554152" duration="6183000" />
       <workItem from="1588793292173" duration="9339000" />
-      <workItem from="1588819549623" duration="1338000" />
+      <workItem from="1588819549623" duration="1451000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="187242000" />
+    <option name="totallyTimeSpent" value="187355000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1469" y="23" width="1891" height="1056" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1200649" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1200649" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
@@ -393,7 +386,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="4" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="5" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="6" weight="0.25" />
-      <window_info anchor="right" id="Terminal" order="7" sideWeight="0.49945295" visible="true" weight="0.16333152" />
+      <window_info active="true" anchor="right" id="Terminal" order="7" sideWeight="0.49945295" visible="true" weight="0.25743645" />
     </layout>
     <layout-to-restore>
       <window_info id="Favorites" order="0" side_tool="true" />
@@ -820,8 +813,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/entrypage/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-665">
-          <caret line="508" column="8" lean-forward="true" selection-start-line="508" selection-start-column="8" selection-end-line="508" selection-end-column="8" />
+        <state relative-caret-position="353">
+          <caret line="513" column="87" lean-forward="true" selection-start-line="513" selection-start-column="87" selection-end-line="513" selection-end-column="87" />
           <folding>
             <element signature="n#div#0;n#body#0;n#html#0;n#!!top" />
           </folding>
