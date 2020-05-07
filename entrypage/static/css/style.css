@@ -37,13 +37,13 @@ table.docTitle {font-family: Arial, Helvetica, sans-serif; font-size: 15px; COLO
 
 #rsidebar{
     display: grid;
-    grid-template-rows: 106px;
+    grid-template-rows: 120px;
 }
 
 #showname{
     position: absolute;
     left: 30px;
-    top: 175px;
+    top: 195px;
 }
 
 
@@ -54,7 +54,7 @@ table.docTitle {font-family: Arial, Helvetica, sans-serif; font-size: 15px; COLO
 
 #treeicon{
     position: absolute;
-    top: 180px;
+    top: 200px;
 }
 
 
@@ -62,7 +62,7 @@ table.docTitle {font-family: Arial, Helvetica, sans-serif; font-size: 15px; COLO
 
 .lsidebar{
     display: grid;
-    grid-template-rows: 105px;
+    grid-template-rows: 125px;
     font-size: 4em;
 }
 .msidebar{

@@ -37,6 +37,7 @@
     </style>
     <script src="{% static 'js/test_js.js' %}"></script>
     <script src="{% static 'js/qtip.js' %}"></script>
+    <script src="{% static 'js/for_entrypage.js' %}"></script>
 {#    local css#}
     <link rel="stylesheet" href="{% static "css/simple-sidebar.css" %}" >
     <link rel="stylesheet" href="{% static "css/style.css" %}">
@@ -312,10 +313,11 @@
 <!-- /#sidebar-wrapper -->
 <!-- Sidebar -->
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/jstree.min.js"></script>
 
 </body>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/jstree.min.js"></script>
+
 
 <script>
 
@@ -344,40 +346,47 @@ function fullscreen(){
     i++;
 }
 
+var url = "";
 var treeid = "{{ jstreeurl }}";
 var id = treeid;
 var treename = "{{ jstreenameurl }}";
 var na2=document.getElementById("showname");
 var j = 1;
 function showname(){
-    if (j % 2!== 0){
+    //if (j % 2!== 0){
+    if(na2.value=="Show PRO Name") {
                     treeid = treename;
+                    url = treename;
                     na2.value="Hide PRO Name";
                     {#document.getElementById('container').style.gridTemplateColumns = "100% 0 0";#}
                     {#document.getElementById('menu-toggle2').style.display = "none";#}
-    $('#hierarchytree').data('jstree', false).empty();
+    //$('#hierarchytree').data('jstree', false).empty();
+    $('#hierarchytree').jstree("destroy").empty();
     $(function() {
-  $('#hierarchytree').jstree({'plugins':["wholerow"],
-    'core' : {
-      'data' : {
-          //[{"text" : "amino acid chain","a_attr" : "{'href': 'http://purl.obolibrary.org/obo/PR_000018263'}"}, "chidren": []]
-          "url": treeid,
-        "dataType" : "json" ,// needed only if you do not supply JSON headers
-      },
-        'themes' : {
-          "icons" : false
-        }
-    }
-
-  })
+          $('#hierarchytree').jstree({'plugins':["wholerow"],
+            'core' : {
+              'data' : {
+                  //[{"text" : "amino acid chain","a_attr" : "{'href': 'http://purl.obolibrary.org/obo/PR_000018263'}"}, "chidren": []]
+                  "url": treeid,
+                "dataType" : "json" ,// needed only if you do not supply JSON headers
+              },
+                'themes' : {
+                  "icons" : false
+                }
+            }
+          }).bind("loaded.jstree", function (event, data) {
+        $(this).jstree("open_all");
+        })
 });
             }
             else{
                 treeid = id;
+                url = id;
                 na2.value="Show PRO Name";
                 {#document.getElementById('container').style.gridTemplateColumns = "20% 70% 10%";#}
                 {#document.getElementById('menu-toggle2').style.display = "inline";#}
-            $('#hierarchytree').data('jstree', false).empty();
+            //$('#hierarchytree').data('jstree', false).empty();
+            $('#hierarchytree').jstree("destroy").empty();
             $(function() {
             $('#hierarchytree').jstree({'plugins':["wholerow"],
     'core' : {
@@ -392,14 +401,19 @@ function showname(){
     }
 
   })
+  .bind("loaded.jstree", function (event, data) {
+        $(this).jstree("open_all");
+        })
 });
             }
+
             j++;
         }
 
 
 
 $(function() {
+//alert(url);
   $('#hierarchytree').jstree({'plugins':["wholerow"],
     'core' : {
       'data' : {
@@ -428,6 +442,10 @@ window.open(link, '_blank');
 
 });
 
+
+
+</script>
+<script>
 $(function () {
     var $treeview = $("#hierarchytree");
 $treeview
@@ -436,9 +454,7 @@ $treeview
     $treeview.jstree('open_all');
 })
 });
-
 </script>
-
 
 <script>
     $("#menu-toggle").click(function(e) {
@@ -457,17 +473,19 @@ function zoomhierarchy(){
     if(leftflag==0){
         if (rightflag==0){
             {#$('#hierarchytree').empty();#}
-        $('#hierarchytree').data('jstree', false).empty();
+        //$('#hierarchytree').data('jstree', false).empty();
         document.getElementById('lsidebar').style.visibility='none';
         document.getElementById('showname').style.display='none';
         document.getElementById('treeicon').style.display='none';
+        $('#hierarchytree').jstree("destroy").empty();
         document.getElementById('container').style.gridTemplateColumns = "0% 90% 10%";
         document.getElementById('buttext').innerText = 'Show Hierarchy';}
         else{
-            $('#hierarchytree').data('jstree', false).empty();
+           // $('#hierarchytree').data('jstree', false).empty();
         document.getElementById('lsidebar').style.visibility='none';
         document.getElementById('showname').style.display='none';
         document.getElementById('treeicon').style.display='none';
+        $('#hierarchytree').jstree("destroy").empty();
         document.getElementById('container').style.gridTemplateColumns = "0% 100% 0%";
         document.getElementById('buttext').innerText = 'Show Hierarchy';
         }
@@ -492,6 +510,7 @@ function zoomhierarchy(){
         document.getElementById('lsidebar').style.visibility='visible';
         document.getElementById('showname').style.display='inline';
         document.getElementById('buttext').innerText = 'Hide Hierarchy';
+        document.getElementById('hierarchytree').style.display='block';
         document.getElementById('container').style.gridTemplateColumns = "20% 70% 10%";
         document.getElementById('treeicon').style.display='inline';}
         else{

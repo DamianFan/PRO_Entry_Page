@@ -8,7 +8,9 @@ import re
 import string
 import requests
 import request
+import database.root_setting as g
 
+hroot = g.ROOT+g.DELROOT
 
 def content_test(request):
     content = {}
@@ -21,6 +23,8 @@ def add_url(id):
 def load_entry(id):
     content = {}
     content['id'] = id
+
+
     content['url'] = add_url(id)
     content['jstreeurl'] = '/idtree/'+id
     content['jstreenameurl'] = '/nametree/'+id
@@ -80,157 +84,162 @@ def load_entry(id):
             definition = info['PRO_termDef']
             content['definition'] = modify_info_url(definition)
         else: content['definition'] = ''
+    if id in hroot:
+        content['has_parent'] = False
+        content['checkforms'] = False
+        content['terms_cat'] = False
+        return content
+    else:
+        paf_frontend = {id: {'name': Name, 'set': []}}
+        dir_parent = get_all_direct_parent(id)
+        if dir_parent != []:
+            content['has_parent'] = True
+            content['dir_parents'] = dir_parent
+            for i in dir_parent:
+                pid = i[0]
+                i.append(add_url(pid))
+        content['checkforms'] = False
+        content['forms'] = [[id,Name,modify_info_url(definition),category,Label,[],[],[],[]]]
+        content['terms_cat'] = ''
+        children = get_children_by_query(id)
+        children.append(id)
+        checkcate = ['gene','organism-gene']
+        if content['category'] in checkcate:
+            content['termscategory'] = True
+             # 0 organism-gene, 1 organism-sequence, 2 organism-modification
+            formschild = True
+            content['terms_cat'] = True
+            has_component,copx_and_conp = pass_complex(id)
+            content['has_component'] = has_component
+            content['copx_and_conp'] = copx_and_conp
+            conp = []
+            for cc in copx_and_conp:
+                if cc[3] not in conp:
+                    conp.append(cc[3])
+            if category == 'organism-gene':
+                ogcount = [0, 0, 0]
+                nodeinfo,formschild = view_organismgene(children)
+                content['checkforms'] = formschild
+                for i in nodeinfo:
+                    i[2] = modify_info_url(i[2])
+                    content['forms'].append(i)
+                for i in content['forms']:
+                    if i[3] == 'organism-gene':
+                        ogcount[0] += 1
+                    if i[3] == 'organism-sequence':
+                        ogcount[1] += 1
+                    if i[3] == 'organism-modification':
+                        ogcount[2] += 1
+                content['term_pro_cat'] = ogcount
+            if category == 'gene':
+                content['terms_cat'] = False
+                ogcount = [0,0,0,0,0,0,0]
+                nodeinfo, formschild = view_organismgene(children)
+                content['checkforms'] = formschild
+                for i in nodeinfo:
+                    content['forms'].append(i)
+                for i in content['forms']:
+                    if i[3] == 'gene':
+                        ogcount[0] += 1
+                    if i[3] == 'organism-gene':
+                        ogcount[1] += 1
+                    if i[3] == 'sequence':
+                        ogcount[2] += 1
+                    if i[3] == 'organism-sequence':
+                        ogcount[3] += 1
+                    if i[3] == 'modification':
+                        ogcount[4] += 1
+                    if i[3] == 'organism-modification':
+                        ogcount[5] += 1
+                    if i[3] == 'union':
+                        ogcount[6] += 1
+                content['term_pro_cat'] = ogcount
+            children.extend(conp)
+        for i in children:
+            paf_frontend[i] = {'name':'','set':[]}
 
-    paf_frontend = {id: {'name': Name, 'set': []}}
-    dir_parent = get_all_direct_parent(id)
-    if dir_parent != []:
-        content['has_parent'] = True
-        content['dir_parents'] = dir_parent
-        for i in dir_parent:
-            pid = i[0]
-            i.append(add_url(pid))
-    content['checkforms'] = False
-    content['forms'] = [[id,Name,modify_info_url(definition),category,Label,[],[],[],[]]]
-    content['terms_cat'] = ''
-    children = get_children_by_query(id)
-    children.append(id)
-    checkcate = ['gene','organism-gene']
-    if content['category'] in checkcate:
-        content['termscategory'] = True
-         # 0 organism-gene, 1 organism-sequence, 2 organism-modification
-        formschild = True
-        content['terms_cat'] = True
-        has_component,copx_and_conp = pass_complex(id)
-        content['has_component'] = has_component
-        content['copx_and_conp'] = copx_and_conp
-        conp = []
-        for cc in copx_and_conp:
-            if cc[3] not in conp:
-                conp.append(cc[3])
-        if category == 'organism-gene':
-            ogcount = [0, 0, 0]
-            nodeinfo,formschild = view_organismgene(children)
-            content['checkforms'] = formschild
-            for i in nodeinfo:
-                i[2] = modify_info_url(i[2])
-                content['forms'].append(i)
-            for i in content['forms']:
-                if i[3] == 'organism-gene':
-                    ogcount[0] += 1
-                if i[3] == 'organism-sequence':
-                    ogcount[1] += 1
-                if i[3] == 'organism-modification':
-                    ogcount[2] += 1
-            content['term_pro_cat'] = ogcount
-        if category == 'gene':
-            content['terms_cat'] = False
-            ogcount = [0,0,0,0,0,0,0]
-            nodeinfo, formschild = view_organismgene(children)
-            content['checkforms'] = formschild
-            for i in nodeinfo:
-                content['forms'].append(i)
-            for i in content['forms']:
-                if i[3] == 'gene':
-                    ogcount[0] += 1
-                if i[3] == 'organism-gene':
-                    ogcount[1] += 1
-                if i[3] == 'sequence':
-                    ogcount[2] += 1
-                if i[3] == 'organism-sequence':
-                    ogcount[3] += 1
-                if i[3] == 'modification':
-                    ogcount[4] += 1
-                if i[3] == 'organism-modification':
-                    ogcount[5] += 1
-                if i[3] == 'union':
-                    ogcount[6] += 1
-            content['term_pro_cat'] = ogcount
-        children.extend(conp)
-    for i in children:
-        paf_frontend[i] = {'name':'','set':[]}
+        paf_result,go_result = get_pafs(children)
+        for paf in paf_result:
+            if paf[0] in paf_frontend:
+                paf_frontend[paf[0]]['name'] = paf[1]
+                if paf[2] not in paf_frontend[paf[0]]['set']:
+                    paf_frontend[paf[0]]['set'].append(paf[2])
 
-    paf_result,go_result = get_pafs(children)
-    for paf in paf_result:
-        if paf[0] in paf_frontend:
-            paf_frontend[paf[0]]['name'] = paf[1]
-            if paf[2] not in paf_frontend[paf[0]]['set']:
-                paf_frontend[paf[0]]['set'].append(paf[2])
+        for go in go_result:
+            if go[0] not in go_frontend:
+                go_frontend[go[0]] = {'name':go[1],'set':go[2]}
+            else:
+                go_frontend[go[0]]['set'].append(go[2][0])
 
-    for go in go_result:
-        if go[0] not in go_frontend:
-            go_frontend[go[0]] = {'name':go[1],'set':go[2]}
-        else:
-            go_frontend[go[0]]['set'].append(go[2][0])
+        paf_frontend_after = []
+        go_frontend_biological = []
+        go_frontend_cellular = []
+        go_frontend_molecular = []
+        for i in paf_frontend:
+            if paf_frontend[i]['set'] != []:
+                resources = paf_frontend[i]['set']
+                for j in resources:
+                    j[2] = modify_space_url(j[2])
+                    evi = j[4].split(',')
+                    evi_after = []
+                    for k in evi:
+                        k = k.replace(' ','')
+                        if k.find('PMID')!=-1:
+                            k = "<a target=\"_blank\" href=\"http://www.ncbi.nlm.nih.gov/pubmed/"+k.replace('PMID:','')+"\" title=\"\">"+k+"</a>"
+                        if k.find('Reactome:')!=-1:
+                            k="<a target=\"_blank\" href=\"http://www.ncbi.nlm.nih.gov/pubmed/"+k.replace('Reactome:','')+"\" title=\"\">"+k+"</a>"
+                        if k.find('PIRSF:')!=-1:
+                            k="<a target=\"_blank\" href=\"http://proteininformationresource.org/cgi-bin/ipcSF?id="+k.replace('PIRSF:','')+"\" title=\"\">"+k+"</a>"
+                        if k.find('DOID:') != -1:
+                            k = '<a href=\"http://disease-ontology.org/term/' + k + '\" target=\"_blank\" title=\"\">' + k + '</a>'
+                        if k.find('GO:') != -1:
+                            k = '<a href=\"http://amigo.geneontology.org/amigo/term/' + k + '\" target=\"_blank\" title=\"\">' + k + '</a>'
+                        evi_after.append(k)
+                    j[4] = evi_after
+                # <a target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/12732634" title="">PMID:12732634</a>
+                # <a target="_blank" href="http://www.reactome.org/content/detail/REACT_7382" title="">Reactome:REACT_7382</a>
+                paf_frontend_after.append([i,paf_frontend[i]['name'],resources,len(paf_frontend[i]['set'])+1])
+        content['paf'] = paf_frontend_after
 
-    paf_frontend_after = []
-    go_frontend_biological = []
-    go_frontend_cellular = []
-    go_frontend_molecular = []
-    for i in paf_frontend:
-        if paf_frontend[i]['set'] != []:
-            resources = paf_frontend[i]['set']
-            for j in resources:
-                j[2] = modify_space_url(j[2])
-                evi = j[4].split(',')
-                evi_after = []
-                for k in evi:
-                    k = k.replace(' ','')
-                    if k.find('PMID')!=-1:
-                        k = "<a target=\"_blank\" href=\"http://www.ncbi.nlm.nih.gov/pubmed/"+k.replace('PMID:','')+"\" title=\"\">"+k+"</a>"
-                    if k.find('Reactome:')!=-1:
-                        k="<a target=\"_blank\" href=\"http://www.ncbi.nlm.nih.gov/pubmed/"+k.replace('Reactome:','')+"\" title=\"\">"+k+"</a>"
-                    if k.find('PIRSF:')!=-1:
-                        k="<a target=\"_blank\" href=\"http://proteininformationresource.org/cgi-bin/ipcSF?id="+k.replace('PIRSF:','')+"\" title=\"\">"+k+"</a>"
-                    if k.find('DOID:') != -1:
-                        k = '<a href=\"http://disease-ontology.org/term/' + k + '\" target=\"_blank\" title=\"\">' + k + '</a>'
-                    if k.find('GO:') != -1:
-                        k = '<a href=\"http://amigo.geneontology.org/amigo/term/' + k + '\" target=\"_blank\" title=\"\">' + k + '</a>'
-                    evi_after.append(k)
-                j[4] = evi_after
-            # <a target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/12732634" title="">PMID:12732634</a>
-            # <a target="_blank" href="http://www.reactome.org/content/detail/REACT_7382" title="">Reactome:REACT_7382</a>
-            paf_frontend_after.append([i,paf_frontend[i]['name'],resources,len(paf_frontend[i]['set'])+1])
-    content['paf'] = paf_frontend_after
+        for i in go_frontend:
+            for j in go_frontend[i]['set']:
+                evis = j[2].split(',')
+                evis_after = []
+                for k in evis:
+                    if k.find('PMID') != -1:
+                        k = "<a target=\"_blank\" href=\"http://www.ncbi.nlm.nih.gov/pubmed/" + k.replace('PMID:','') + "\" title=\"\">" + k + "</a>"
+                    if k.find('Reactome:') != -1:
+                        k = "<a target=\"_blank\" href=\"http://www.ncbi.nlm.nih.gov/pubmed/" + k.replace('Reactome:', '') + "\" title=\"\">" + k + "</a>"
+                    if k.find('PIRSF:') != -1:
+                        k = "<a target=\"_blank\" href=\"http://proteininformationresource.org/cgi-bin/ipcSF?id=" + k.replace('PIRSF:', '') + "\" title=\"\">" + k + "</a>"
+                    evis_after.append(k)
+                j[2] = evis_after
 
-    for i in go_frontend:
-        for j in go_frontend[i]['set']:
-            evis = j[2].split(',')
-            evis_after = []
-            for k in evis:
-                if k.find('PMID') != -1:
-                    k = "<a target=\"_blank\" href=\"http://www.ncbi.nlm.nih.gov/pubmed/" + k.replace('PMID:','') + "\" title=\"\">" + k + "</a>"
-                if k.find('Reactome:') != -1:
-                    k = "<a target=\"_blank\" href=\"http://www.ncbi.nlm.nih.gov/pubmed/" + k.replace('Reactome:', '') + "\" title=\"\">" + k + "</a>"
-                if k.find('PIRSF:') != -1:
-                    k = "<a target=\"_blank\" href=\"http://proteininformationresource.org/cgi-bin/ipcSF?id=" + k.replace('PIRSF:', '') + "\" title=\"\">" + k + "</a>"
-                evis_after.append(k)
-            j[2] = evis_after
+                if j[3] == 'located_in' and [i,go_frontend[i]['name'],go_frontend[i]['set'],len(go_frontend[i]['set'])+1] not in go_frontend_cellular:
+                    go_frontend_cellular.append([i,go_frontend[i]['name'],go_frontend[i]['set'],len(go_frontend[i]['set'])+1])
+                elif j[3] == 'has_function' and [i,go_frontend[i]['name'],go_frontend[i]['set'],len(go_frontend[i]['set'])+1] not in go_frontend_molecular:
+                    go_frontend_molecular.append([i,go_frontend[i]['name'],go_frontend[i]['set'],len(go_frontend[i]['set'])+1])
+                elif [i,go_frontend[i]['name'],go_frontend[i]['set'],len(go_frontend[i]['set'])+1] not in go_frontend_biological:
+                    if j[3] == 'located_in':continue
+                    go_frontend_biological.append([i,go_frontend[i]['name'],go_frontend[i]['set'],len(go_frontend[i]['set'])+1])
 
-            if j[3] == 'located_in' and [i,go_frontend[i]['name'],go_frontend[i]['set'],len(go_frontend[i]['set'])+1] not in go_frontend_cellular:
-                go_frontend_cellular.append([i,go_frontend[i]['name'],go_frontend[i]['set'],len(go_frontend[i]['set'])+1])
-            elif j[3] == 'has_function' and [i,go_frontend[i]['name'],go_frontend[i]['set'],len(go_frontend[i]['set'])+1] not in go_frontend_molecular:
-                go_frontend_molecular.append([i,go_frontend[i]['name'],go_frontend[i]['set'],len(go_frontend[i]['set'])+1])
-            elif [i,go_frontend[i]['name'],go_frontend[i]['set'],len(go_frontend[i]['set'])+1] not in go_frontend_biological:
-                if j[3] == 'located_in':continue
-                go_frontend_biological.append([i,go_frontend[i]['name'],go_frontend[i]['set'],len(go_frontend[i]['set'])+1])
+        content['gocellular'] = go_frontend_cellular
+        content['gomolecular'] = go_frontend_molecular
+        content['gobiological'] = go_frontend_biological
 
-    content['gocellular'] = go_frontend_cellular
-    content['gomolecular'] = go_frontend_molecular
-    content['gobiological'] = go_frontend_biological
+        if len(go_frontend_cellular) > 0:
+            content['checkgocellular'] = True
+        if len(go_frontend_biological) >0:
+            content['checkgobiological'] = True
+        if len(go_frontend_molecular) > 0:
+            content['checkgomolecular'] = True
 
-    if len(go_frontend_cellular) > 0:
-        content['checkgocellular'] = True
-    if len(go_frontend_biological) >0:
-        content['checkgobiological'] = True
-    if len(go_frontend_molecular) > 0:
-        content['checkgomolecular'] = True
+        if content['xref'] == []:
+            content['checkrcr']=False
 
-    if content['xref'] == []:
-        content['checkrcr']=False
-
-    if content['forms'] != []:
-        content['checkforms']=True
-    return content
+        if content['forms'] != []:
+            content['checkforms']=True
+        return content
 
 
 def view_hierarchy(request,proId):

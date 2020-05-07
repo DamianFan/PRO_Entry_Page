@@ -23,7 +23,7 @@ def test(request):
 def entry(request, proId):
 
     content = load_entry(proId)
-    content['msaview'] = loadingMSA(request, 'entry', proId)
+    content['msaview'] = loadingMSA(request, 'entry', "PR:000025934")
 
     return render(request, 'base.html',content)
 
