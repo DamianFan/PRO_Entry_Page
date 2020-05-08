@@ -41,15 +41,13 @@ def proteoforms(proid,sameTaxon,taxon,full=True):
     formObjs = ENTRY.batch_initial(forms, full)
     # clean the forms objects
     for f in formObjs:
-
         # remove unmod forms (they don't have dbxref)
         if check_unmod(f):
-            formObjs.remove(f)
+            del f
             continue
-
         # remove no dbxref terms
         if len(f.dbxrefs) == 0:
-            formObjs.remove(f)
+            del f
             continue
 
         # if dbxref ends with -1, check if request id doesn't have "-1",

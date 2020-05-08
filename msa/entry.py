@@ -94,7 +94,27 @@ class ENTRY(object):
       for case in info:
           cid = case['id']
           entries[cid] = ENTRY(cid)
-          entries[cid].name = case['name']
+          # if case['?synonym']
+          # entries[cid].name = case['name']
+          if 'synonym' in case:
+              if case['name'].find('complex') > -1 or cid.find('CHEBI') > -1:
+                  # print('from frist if')
+                  entries[cid].name = case['name']
+              else:
+                  synonym = case['synonym'].split(';')
+                  for syns in synonym:
+                      # print(syns)
+                      if syns.find('EXACT PRO-short-label') != -1:
+                          # print('exact')
+                          j = syns.split(' ')
+                          entries[cid].name = j[1].replace('"', '')
+                      elif syns.find('UniProtKB') == -1 and syns.find('(') == -1:
+                          # print('from unip')
+                          entries[cid].name = syns
+                          if syns.find('/')!=-1:
+                              ls = syns.split('/')
+                              entries[cid].name = ls[0]
+
           definition = case['PRO_termDef']
           entries[cid].definition = definition
           scategory = case['Category'].split('.')
@@ -158,6 +178,7 @@ class ENTRY(object):
 
             # batch seq
       entries = ENTRY.batch_seq(entries)
+
       return entries.values()
 
 

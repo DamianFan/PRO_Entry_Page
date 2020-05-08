@@ -16,7 +16,11 @@ def modify_residues(residues):
         for i in sites:
             i = i.replace('-','')
             positions = re.findall(r"\d+\.?\d*", i)
-            position = positions[0]
+            # print(positions)
+            if positions != []:
+                position = positions[0]
+            else:
+                position = ''
             abb = i.replace(position, '')
             abb = abb.replace('.','')
             abb = abb.replace(' ','')
