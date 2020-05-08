@@ -205,7 +205,7 @@
 
 
         <button type="button" id="menu-toggle2" style="float: right" onclick="changegrid()">
-            <a id="righttext" style="color:#336699;font-weight: bold;" onclick="">Hide Display</a>
+            <a id="righttext" style="color:#336699;font-weight: bold;" onclick="">Hide Display Options</a>
         </button>
     </div>
     <div id="ontology-information">
@@ -278,7 +278,7 @@
         <table id="display" class="table table-condensed table-bordered table-rsidebar-th table-rsidebar-first-td">
     <thead>
     <tr>
-            <th colspan="2">Display</th>
+            <th colspan="2" style="font-size: small;">Display Options</th>
         </tr>
     </thead>
     <tbody>
@@ -580,7 +580,7 @@ function zoomhierarchy(){
 
             document.getElementById('container').style.gridTemplateColumns = "0% 100% 0%";
         }
-        document.getElementById('righttext').innerText = 'Show Display';
+        document.getElementById('righttext').innerText = 'Show Display Options';
         rightflag=1;
     }
     else{
@@ -591,7 +591,7 @@ function zoomhierarchy(){
         else{
             document.getElementById('container').style.gridTemplateColumns = "0% 90% 10%";
         }
-        document.getElementById('righttext').innerText = 'Hide Display';
+        document.getElementById('righttext').innerText = 'Hide Display Options';
         rightflag=0;
     }
 
