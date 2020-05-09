@@ -99,18 +99,23 @@ def get_seqs(ids):
     for id in ids:
         robj = Sequence()
         unid = ids[id]
-        result = requests.get('http://www.uniprot.org/uniprot/' + unid + '.fasta?include=yes').text
+        result = requests.get('http://www.uniprot.org/uniprot/' + unid + '.fasta').text
         raw = result.split('\n')
         seq = ''.join(raw[1:])
+        if seq.find('>')>0:
+            seq = seq[:seq.find('>')]
         robj.subject = id
+
         robj.sequence = seq
         seqs.append(robj)
+        # print(id,seq)
     return seqs
 
 def get_seq_external(id):
-    result = requests.get('http://www.uniprot.org/uniprot/' + id + '.fasta?include=yes').text
+    result = requests.get('http://www.uniprot.org/uniprot/' + id + '.fasta').text
     raw = result.split('\n')
     seq = ''.join(raw[1:])
+
     return seq
 
 

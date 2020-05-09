@@ -27,6 +27,9 @@ class MuscleWithTimeout(object):
                                             stderr=subprocess.PIPE,
                                             shell=(sys.platform!="win32"))
 
+
+            print('self.data',self.data)
+            # print('self.process.stdin',self.process.stdin)
             SeqIO.write(self.data, self.process.stdin, "fasta")
 
             # print('this is align process stderr: ', self.data)

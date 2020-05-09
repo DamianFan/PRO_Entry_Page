@@ -8,7 +8,7 @@ from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from Bio.Alphabet import IUPAC
 from .utils import *
-
+# from entrypage.entry import get_xref
 # mod = {}
 # with open(os.path.join(os.path.dirname(__file__), 'mod.txt'), 'r') as csvfile:
 #   f = list(csv.reader(csvfile, delimiter='\t'))
@@ -87,7 +87,6 @@ class ENTRY(object):
        if full==False: only collect entry data
        """
       entries = {}
-
       residues = ''
       enzymesit = []
       info = pass_node_info_by_ids(ids)
@@ -114,7 +113,8 @@ class ENTRY(object):
                           if syns.find('/')!=-1:
                               ls = syns.split('/')
                               entries[cid].name = ls[0]
-
+          else:
+              entries[cid].name = case['name']
           definition = case['PRO_termDef']
           entries[cid].definition = definition
           scategory = case['Category'].split('.')
@@ -133,14 +133,28 @@ class ENTRY(object):
               else:
                 ed = len(tar)
                 uni = tar[:ed]
-              entries[cid].dbxrefs.append(uni)
+              if uni != []:
+                  unilist = uni.split('.')
+                  funid = unilist[0]
+              else:
+                  funid = ''
+              entries[cid].dbxrefs.append(funid)
               residues = definition[p:]
-              residues = residues.replace(uni,'')
-              if residues[0] == ',':
-                  residues = residues[1:]
-              if residues[0] == ' ':
-                  residues = residues[1:]
+              residues = residues.replace(funid,'')
+              # print('aftercase', residues)
+
+              if residues != '':
+                  if residues[0] == ',':
+                      residues = residues[1:]
+                  if residues[0] == ' ':
+                      residues = residues[1:]
               entries[cid].description = residues
+          else:
+              xrefs_set = get_xref_for_msa(cid)
+              for xr in xrefs_set:
+                  if xr.find('UniProtKB')!=-1:
+                      tart = xr.replace(' ','')
+                      entries[cid].dbxrefs.append(tart)
 
           if full:
             #batch_mod
@@ -175,10 +189,16 @@ class ENTRY(object):
                 for pos in entries[id].modification.keys():
                     for ptm in entries[id].modification[pos]:
                         ptm.pmid = evidence[id]
-
+      # print('*********',entries['PR:000025934'].description,entries['PR:000025934'].dbxrefs)
             # batch seq
       entries = ENTRY.batch_seq(entries)
+      # print('entries.values()',entries.values())
+      # for i in entries.values():
+      #     print('test id',i.id, i.seq)
+      #     if i.seq == '':
+      #         print('none: ',i.id)
 
+      # print('entriesid',entries['PR:000025934'].seq)
       return entries.values()
 
 
@@ -187,6 +207,7 @@ class ENTRY(object):
     # collect all xref:
     xrefList = []
     for e in entries.values():
+      # print('check xrefs: ',e.id,e.dbxrefs)
       xrefList.extend(e.dbxrefs)
     # create a mapping between "UniProtKB:Q15796-2": "Q15796-2"
     acMap = {}
@@ -201,11 +222,40 @@ class ENTRY(object):
     seq = {}
     for r in get_seqs(acMap):
       seq[r.subject] = Seq(r.sequence, IUPAC.protein)
+      # print('input r for get_seqs:',r.subject)
+      # print('ordinary seq: ',r.sequence)
+      # print('seq[r.subject]',seq[r.subject])
     for ac in acMap.values():
       if ac not in seq:
+        # print('ac: ',ac)
+        # print(get_seq_external(ac))
+        # print('\n')
         seq[ac] = Seq(get_seq_external(ac), IUPAC.protein)
     # add sequence to entry
     for e in entries.values():
+      # print(e)
       if len(e.dbxrefs) > 0:
         e.seq = seq[acMap[e.dbxrefs[0]]]
+      print('e.seq:',e.id,e.seq,e.dbxrefs)
     return entries
+
+def get_xref_for_msa(id):
+    query_id = pass_ids_for_query([id])
+    query = """
+    PREFIX obo: <http://purl.obolibrary.org/obo/> 
+    PREFIX paf: <http://pir.georgetown.edu/pro/paf#> 
+    PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+    SELECT * 
+    where
+    {
+    values ?PRO_term{"""+query_id+"""}
+    ?PRO_term  oboInOwl:hasDbXref ?DbRef .
+    }
+    """
+    sparqlSearch = SparqlSearch()
+    xrefs, error = sparqlSearch.executeQuery(query)
+    xrefslist = []
+    for i in xrefs:
+        if 'DbRef' in i:
+            xrefslist.append(i['DbRef'])
+    return xrefslist

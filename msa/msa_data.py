@@ -15,7 +15,12 @@ def get_terms(ids):
         robj.subject = case['id']
         robj.name = case['name']
         robj.definition = case['PRO_termDef']
-        robj.category = case['Category']
+        CategoryAndComment = case['Category'].split('.')
+        for cat in CategoryAndComment:
+            if cat.find('Category=') != -1:
+                category = cat.replace('Category=','')
+                robj.category = category
+                break
         term_list.append(robj)
     return term_list
 
@@ -28,7 +33,4 @@ def get_direct_parent(id):
 
 def get_children_and_taxon(id):
     childrenlist = []
-
-
-
     return childrenlist
