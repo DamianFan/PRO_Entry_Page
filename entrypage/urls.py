@@ -8,6 +8,6 @@ urlpatterns = [
     url(r'^entry/(?P<proId>.+)$', entry, name='entry'),
     url(r'^idtree/(?P<proId>.+)$', view_hierarchy, name='hierarchy'),
     url(r'^nametree/(?P<proId>.+)$', view_hierarchy_name, name='hierarchyname'),
-    url(r'^idandnametree/(?P<proId>.+)$', view_hierarchy_idandname, name='hierarchyidandname'),
+
 ]
 
