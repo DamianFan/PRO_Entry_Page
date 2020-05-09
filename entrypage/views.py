@@ -6,15 +6,14 @@ from .hierarchy import *
 from msa.collect import *
 import numpy as np
 from msa.views import loadingMSA
-<<<<<<< HEAD
+
 import requests
-=======
+
 from Bio import AlignIO
 from Bio import SeqIO
 from Bio.Align.Applications import MuscleCommandline
 from Bio.Align import MultipleSeqAlignment
 
->>>>>>> 2344454745257f628e59f24bafa6b825736dc7ad
 
 # Create your views here.
 def process(request):
