@@ -5,7 +5,7 @@ from database.sparql import SparqlSearch
 import request
 import requests
 import re
-
+import msa.models as ma
 hierarchy_root = g.ROOT+g.DELROOT
 
 """General Utilities"""
@@ -1078,3 +1078,25 @@ def fetct_childandtaxon_by_ids(ids):
     sparqlSearch = SparqlSearch()
     allchildren, error = sparqlSearch.executeQuery(query)
     return result
+
+def get_sites(ids):
+    results = []
+    robj = ma.MvOboModResidueCompress()
+    for id in ids:
+        urlpatterns = "https://research.bioinformatics.udel.edu/PRO_API/V1/pros/" + id + "?showPROName=false&showPROTermDefinition=true&showCategory=false&showParent=false&showAnnotation=false&showAnyRelationship=false&showChild=false&showComment=false&showEcoCycID=false&showGeneName=false&showHGNCID=false&showMGIID=false&showOrthoIsoform=false&showOrthoModifiedForm=false&showPANTHERID=false&showPIRSFID=false&showPMID=false&showReactomeID=false&showSynonym=true&showUniProtKBID=true"
+        infoset = requests.get(urlpatterns)
+        jinfoset = infoset.json()
+        info = jinfoset[0]
+        tar = info['termDef']
+        x = tar.find('Uni')
+        tar = tar[x:]
+        uni = tar.find(',')
+        tar = tar[uni + 1:]
+        p = tar.find('.')
+        tar = tar[:p]
+        robj.subject = id
+        robj.residue = tar
+        print(tar)
+        results.append(robj)
+
+    return results

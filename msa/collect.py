@@ -25,6 +25,7 @@ def collect_myself(id):
     return all
 
 def collect_pro(proid, sameTaxon=False, taxon=None):
+
     all = {}
     formObjs = proteoforms(proid, sameTaxon, taxon)
     # change entry's Group
@@ -37,7 +38,9 @@ def collect_pro(proid, sameTaxon=False, taxon=None):
 def proteoforms(proid,sameTaxon,taxon,full=True):
 
     forms = get_children_by_query(proid)
+
     forms.append(proid)
+    print('check childrens: ',forms)
     formObjs = ENTRY.batch_initial(forms, full)
     # clean the forms objects
     for f in formObjs:

@@ -30,6 +30,8 @@ def MsaView(request, mod, query):
     requestList = query.split(',')
     id = requestList.pop(0)
     all = get_data(requestList, id, mod)
+    # for i in all:
+    #     print('row in all', i)
     a = ALIGN()
     a.alignment(all)
     # decorate
@@ -47,15 +49,26 @@ def get_data(requestList, id, mod):
 def generate(requestList, id, mod):
     entryset = get_terms([id])
     entry = entryset[0]
+    # print('entry in generate: ',entry)
     if entry.category == "organism-gene":
-        parent = get_all_direct_parent(id)[0]
+        parent = id
+        parentandname = get_all_direct_parent(id)
+        parentset = []
+        for i in parentandname:
+            parentset.append(i[0])
+        parentandcate = get_category_by_ids(parentset)
+        for p in parentandcate:
+            if p['Category']!= '':
+                parent = p['id']
+                break
         assert parent != ''
     else: parent = id
 
     all = None
-
+    # print('parent in generate: ',parent)
     if mod == 'entry':
         if entry.category == 'gene':
+
             all = collect_pro(parent) # this should be collect_pro
         else:
             all = collect_pro(parent)
