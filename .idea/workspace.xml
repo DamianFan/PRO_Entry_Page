@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="1cdbc806-ef88-47dd-bbce-94bcbda5c65c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entrypage/static/js/entry.js" beforeDir="false" afterPath="$PROJECT_DIR$/entrypage/static/js/entry.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entrypage/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/entrypage/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entrypage/entry.py" beforeDir="false" afterPath="$PROJECT_DIR$/entrypage/entry.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entrypage/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/entrypage/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entrypage/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/entrypage/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,12 +27,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="1469" />
-    <option name="y" value="23" />
-    <option name="width" value="1891" />
-    <option name="height" value="1056" />
   </component>
   <component name="ProjectId" id="1beIb8aQhenSiymXCPIPO8UJtrc" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />

@@ -6,6 +6,7 @@ from .hierarchy import *
 from msa.collect import *
 import numpy as np
 from msa.views import loadingMSA
+import requests
 
 # Create your views here.
 def process(request):
@@ -26,5 +27,11 @@ def entry(request, proId):
     content['msaview'] = loadingMSA(request, 'entry', "PR:000025934")
 
     return render(request, 'base.html',content)
+
+def obo(request, proId):
+    url = "https://research.bioinformatics.udel.edu/PRO_API/V1/obo/"+proId
+    response = requests.get(url)
+
+    return HttpResponse(response, content_type="text/plain")
 
 
