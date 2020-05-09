@@ -1,9 +1,9 @@
 $(document).ready(function () {
-    $('[data-toggle="tooltip"]').tooltip();
+    //$('[data-toggle="tooltip"]').tooltip();
 
     // $("#msaResult").html('<object  width="100%" height="400" data="' + msaEntryUrl + '" type="text/html">');
 
-    add_links();
+    //add_links();
 
     // Intitial
     $("table.table-pro-toggle").each(function () {

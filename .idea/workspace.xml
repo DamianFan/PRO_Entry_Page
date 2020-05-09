@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1cdbc806-ef88-47dd-bbce-94bcbda5c65c" name="Default Changelist" comment="" />
+    <list default="true" id="1cdbc806-ef88-47dd-bbce-94bcbda5c65c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entrypage/static/js/entry.js" beforeDir="false" afterPath="$PROJECT_DIR$/entrypage/static/js/entry.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entrypage/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/entrypage/templates/base.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,9 +33,16 @@
     <option name="width" value="1891" />
     <option name="height" value="1056" />
   </component>
+  <component name="ProjectId" id="1beIb8aQhenSiymXCPIPO8UJtrc" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="CSS" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -85,7 +96,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="85dd86d8-0fa4-482e-8fd6-dddc600ed137" name="Default Changelist" comment="" />
+      <changelist id="1cdbc806-ef88-47dd-bbce-94bcbda5c65c" name="Default Changelist" comment="" />
       <created>1585967004132</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -149,5 +160,11 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="369" y="258" key="com.intellij.ide.util.TipDialog" timestamp="1588986210166">
+      <screen x="0" y="23" width="1440" height="801" />
+    </state>
+    <state x="369" y="258" key="com.intellij.ide.util.TipDialog/0.23.1440.801@0.23.1440.801" timestamp="1588986210166" />
   </component>
 </project>
