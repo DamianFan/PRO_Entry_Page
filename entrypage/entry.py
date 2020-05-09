@@ -28,7 +28,8 @@ def load_entry(id):
     content['url'] = add_url(id)
     content['jstreeurl'] = '/idtree/'+id
     content['jstreenameurl'] = '/nametree/'+id
-    content['obo_url'] = 'https://proconsortium.org/app/export/obo/' + id
+    # content['obo_url'] = 'https://proconsortium.org/app/export/obo/' + id
+    content['obo_url'] = '/obo/' + id
     category = ''
     content['copx_and_conp'] = []
     content['formTableName'] = 'Protein'
