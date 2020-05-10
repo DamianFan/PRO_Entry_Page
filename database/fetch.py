@@ -1079,24 +1079,85 @@ def fetct_childandtaxon_by_ids(ids):
     allchildren, error = sparqlSearch.executeQuery(query)
     return result
 
-def get_sites(ids):
-    results = []
-    robj = ma.MvOboModResidueCompress()
-    for id in ids:
-        urlpatterns = "https://research.bioinformatics.udel.edu/PRO_API/V1/pros/" + id + "?showPROName=false&showPROTermDefinition=true&showCategory=false&showParent=false&showAnnotation=false&showAnyRelationship=false&showChild=false&showComment=false&showEcoCycID=false&showGeneName=false&showHGNCID=false&showMGIID=false&showOrthoIsoform=false&showOrthoModifiedForm=false&showPANTHERID=false&showPIRSFID=false&showPMID=false&showReactomeID=false&showSynonym=true&showUniProtKBID=true"
-        infoset = requests.get(urlpatterns)
-        jinfoset = infoset.json()
-        info = jinfoset[0]
-        tar = info['termDef']
-        x = tar.find('Uni')
-        tar = tar[x:]
-        uni = tar.find(',')
-        tar = tar[uni + 1:]
-        p = tar.find('.')
-        tar = tar[:p]
-        robj.subject = id
-        robj.residue = tar
-        print(tar)
-        results.append(robj)
+# def get_sites(ids):
+#     results = []
+#     robj = ma.MvOboModResidueCompress()
+#     for id in ids:
+#         urlpatterns = "https://research.bioinformatics.udel.edu/PRO_API/V1/pros/" + id + "?showPROName=false&showPROTermDefinition=true&showCategory=false&showParent=false&showAnnotation=false&showAnyRelationship=false&showChild=false&showComment=false&showEcoCycID=false&showGeneName=false&showHGNCID=false&showMGIID=false&showOrthoIsoform=false&showOrthoModifiedForm=false&showPANTHERID=false&showPIRSFID=false&showPMID=false&showReactomeID=false&showSynonym=true&showUniProtKBID=true"
+#         infoset = requests.get(urlpatterns)
+#         jinfoset = infoset.json()
+#         info = jinfoset[0]
+#         tar = info['termDef']
+#         x = tar.find('Uni')
+#         tar = tar[x:]
+#         uni = tar.find(',')
+#         tar = tar[uni + 1:]
+#         p = tar.find('.')
+#         tar = tar[:p]
+#         robj.subject = id
+#         robj.residue = tar
+#         results.append(robj)
+#     return results
 
-    return results
+def get_xref_by_ids(ids):
+    query_id = pass_ids_for_query(ids)
+    query = """
+    PREFIX obo: <http://purl.obolibrary.org/obo/> 
+    PREFIX paf: <http://pir.georgetown.edu/pro/paf#> 
+    PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+    SELECT * 
+    where
+    {
+    values ?PRO_term{"""+query_id+"""}
+    ?PRO_term oboInOwl:id ?id .
+    ?PRO_term  oboInOwl:hasDbXref ?DbRef .
+    }
+    """
+    sparqlSearch = SparqlSearch()
+    xrefs, error = sparqlSearch.executeQuery(query)
+    return xrefs
+
+
+def get_enzyme(definition):
+    # subject = models.CharField(primary_key=True, max_length=604)
+    # type = models.CharField(max_length=400)
+    # obo_dbxref_description = models.CharField(max_length=4000, blank=True)
+    # aggkey = models.CharField(max_length=604, blank=True)
+    # abbrev3 = models.CharField(max_length=12, blank=True)
+    # position = models.IntegerField(blank=True, null=True)
+
+
+
+    return ''
+
+def get_residues(id):
+    # subject = models.CharField(primary_key=True, max_length=604)
+    # abbrev3 = models.CharField(max_length=12, blank=True)
+    # position = models.IntegerField(blank=True, null=True)
+    # mod_id = models.CharField(max_length=604, blank=True)
+
+    return ''
+
+def get_only_syn(ids):
+    query_id = pass_ids_for_query(ids)
+    query = """
+    PREFIX obo: <http://purl.obolibrary.org/obo/>
+    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX owl: <http://www.w3.org/2002/07/owl#> 
+    PREFIX has_gene_template: <http://purl.obolibrary.org/obo/pr#has_gene_template>
+    PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+    PREFIX PR: <http://purl.obolibrary.org/obo/PR_>
+    Select distinct ?PRO_term GROUP_CONCAT(DISTINCT ?synonym; separator='; ') as ?synonym
+    where {
+    values ?PRO_term {
+    """ + query_id + """
+    }
+    OPTIONAL {?PRO_term oboInOwl:hasExactSynonym ?synonym .}
+    }
+    """
+    sparqlSearch = SparqlSearch()
+    SynAndProteo, error = sparqlSearch.executeQuery(query)
+    for i in SynAndProteo:
+        print(i)
+    return SynAndProteo

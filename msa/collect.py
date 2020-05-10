@@ -37,7 +37,7 @@ def collect_pro(proid, sameTaxon=False, taxon=None):
 
 def proteoforms(proid,sameTaxon,taxon,full=True):
 
-    forms = get_children_by_query(proid)
+    forms = get_children_by_query(proid) # need to remain only relevent children
 
     forms.append(proid)
     print('check childrens: ',forms)

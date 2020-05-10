@@ -601,6 +601,7 @@ def get_xref(id):
     return xrefslist
 
 
+
 def view_hierarchy_name(request, proId):
     proId = proId.replace(':','_')
     newquery = """PREFIX owl: <http://www.w3.org/2002/07/owl#>

@@ -4,7 +4,7 @@ import urllib
 import request
 import requests
 
-def modify_residues(residues):
+def modify_residues(id,residues):
     res = residues.split('|')
     result = []
     for case in res:
@@ -14,6 +14,7 @@ def modify_residues(residues):
         all = all.replace(',','')
         sites = all.split('/')
         for i in sites:
+            robj = MvOboModResidue()
             i = i.replace('-','')
             positions = re.findall(r"\d+\.?\d*", i)
             # print(positions)
@@ -24,12 +25,15 @@ def modify_residues(residues):
             abb = i.replace(position, '')
             abb = abb.replace('.','')
             abb = abb.replace(' ','')
-            result.append([mod_id,abb,position])
-
+            robj.subject = id
+            robj.abbrev3 = abb
+            robj.position = position
+            robj.mod_id = mod_id
+            result.append(robj)
     return result
 
 
-def modify_enzymes(enzymeString):
+def modify_enzymes(id,enzymeString):
     results = []
     enzymes = ''
     result = []
@@ -48,6 +52,7 @@ def modify_enzymes(enzymeString):
                 ''', enzymeString, re.VERBOSE | re.IGNORECASE)
 
     for x in enzymes:
+        robj = MvOboEnzyme()
         site_num = x[3].count('/')
         sites = x[3]
         # print('enzyme check')
@@ -75,8 +80,15 @@ def modify_enzymes(enzymeString):
                 location = tem[sap + 1:]
                 # print('name: ', name)
                 # print('location: ',location)
-            if [type,obo_dbxref_description,aggkey,location,name] not in result:
-                result.append([type,obo_dbxref_description,aggkey,location,name])
+            robj.subject = id
+            robj.type = type
+            robj.obo_dbxref_description = obo_dbxref_description
+            robj.abbrev3 = name
+            robj.position = location
+            robj.aggkey = aggkey
+            # if [type,obo_dbxref_description,aggkey,location,name] not in result:
+            #     result.append([type,obo_dbxref_description,aggkey,location,name])
+            result.append(robj)
     return result
 
 def modify_xref(definition):
