@@ -183,7 +183,7 @@ def get_UniprotKB_ids(ids):
                 pos = tar.find('UniProtKB')
                 tar = tar[pos:tar.find(',')]
                 uniprotid = tar
-                print('alternative unirptokb id is: ', uniprotid)
+
                 uniprotkb[xref['PRO_ID']] = uniprotid
 
 
@@ -507,3 +507,27 @@ def get_taxon(id):
     # taxon = MvTaxonomy.objects.filter(subject=id)
     robj.taxonomy = TaxonID
     return robj.taxonomy
+
+
+def check_uni(ids):
+    query_id = pass_ids_for_query(ids)
+    query = """
+    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+    PREFIX obo: <http://purl.obolibrary.org/obo/>
+    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+    SELECT ?PRO_ID ?UNIPROTKB_ID
+    WHERE
+    {
+      values ?PRO_term {"""+query_id+"""
+    } .
+      ?PRO_term oboInOwl:id ?PRO_ID .
+      ?PRO_term  oboInOwl:hasDbXref ?UNIPROTKB_ID .
+    }
+    
+    """
+    sparqlSearch = SparqlSearch()
+    resultss, error = sparqlSearch.executeQuery(query)
+
+    return resultss

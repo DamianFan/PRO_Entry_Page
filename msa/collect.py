@@ -40,8 +40,14 @@ def proteoforms(proid,sameTaxon,taxon,full=True):
     forms = get_children_by_query(proid) # need to remain only relevent children
 
     forms.append(proid)
+    xrefs = get_UniprotKB_ids(forms)
+    idfiter = []
+    for a in xrefs.keys():
+        if a not in idfiter:
+            idfiter.append(a)
+    print('idfiter',idfiter)
     print('check childrens: ',forms)
-    formObjs = ENTRY.batch_initial(forms, full)
+    formObjs = ENTRY.batch_initial(idfiter, full)
     # clean the forms objects
     for f in formObjs:
         # remove unmod forms (they don't have dbxref)
