@@ -372,13 +372,14 @@ class ENTRY(object):
      if full==False: only collect entry data
      """
     entries = {}
+    print('input ids for batch_initial: ',ids)
     # build entries object
     for id in ids:
       entries[id] = ENTRY(id)
 
     for r in get_short_label(ids):
       entries[r.subject].name = r.synonym_field
-
+      print('check short label: ',r.synonym_field)
     for r in get_terms(ids):
       if entries[r.subject].name == '':
         entries[r.subject].name = r.name
@@ -391,7 +392,7 @@ class ENTRY(object):
     for r in get_xrefs(ids):
       if r.object.startswith('UniProtKB:'):
         entries[r.subject].dbxrefs.append(r.object)
-
+        print('check get_xrefs: ',r.object)
     if full:
       entries = ENTRY.batch_mod(ids, entries)
       entries = ENTRY.batch_seq(entries)
@@ -443,6 +444,7 @@ class ENTRY(object):
     xrefList = []
     for e in entries.values():
       xrefList.extend(e.dbxrefs)
+      print('xrefList in batch_seq: ',xrefList)
     # create a mapping between "UniProtKB:Q15796-2": "Q15796-2"
     acMap = {}
     for x in list(set(xrefList[:])):
@@ -649,14 +651,13 @@ def get_UniprotKB_ids(ids):
             jinfoset = infoset.json()
             info = jinfoset[0]
             tar = info['termDef']
-            if tar.find('UniProtKB') != -1:
-                pos = tar.find('UniProtKB')
-                tar = tar[pos:tar.find(',')]
-                uniprotid = tar
-                print('alternative unirptokb id is: ', uniprotid)
-                uniprotkb[xref['PRO_ID']] = uniprotid
-
-
+            checklist = tar.split(' ')
+            for i in checklist:
+                if i.find('UniProtKB') != -1:
+                    unid = i.replace('.','')
+                    unid = unid.replace(',','')
+                    uniprotkb[xref['PRO_ID']] = unid
+                    break
 
     return uniprotkb
 
@@ -665,31 +666,31 @@ def get_UniprotKB_ids(ids):
 def get_xrefs(ids):
 
     """this is update"""
-    id_set = ''
-    for i in ids:
-        i = i.replace(':', '_')
-        id_set += 'obo:' + i + ' '
-
-    query_prefix = """PREFIX owl: <http://www.w3.org/2002/07/owl#>
-    PREFIX obo: <http://purl.obolibrary.org/obo/>
-    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
-    SELECT ?PRO_ID ?UNIPROTKB_ID
-    WHERE
-    {
-      values ?PRO_term {"""
-
-    query_tail = """} .
-      ?PRO_term oboInOwl:id ?PRO_ID .
-      ?PRO_term  oboInOwl:hasDbXref ?UNIPROTKB_ID .
-    }"""
-
-    query = query_prefix + id_set + query_tail
+    # id_set = ''
+    # for i in ids:
+    #     i = i.replace(':', '_')
+    #     id_set += 'obo:' + i + ' '
+    #
+    # query_prefix = """PREFIX owl: <http://www.w3.org/2002/07/owl#>
+    # PREFIX obo: <http://purl.obolibrary.org/obo/>
+    # PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    # PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    # PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+    # SELECT ?PRO_ID ?UNIPROTKB_ID
+    # WHERE
+    # {
+    #   values ?PRO_term {"""
+    #
+    # query_tail = """} .
+    #   ?PRO_term oboInOwl:id ?PRO_ID .
+    #   ?PRO_term  oboInOwl:hasDbXref ?UNIPROTKB_ID .
+    # }"""
+    #
+    # query = query_prefix + id_set + query_tail
     x1 = []
     x2 = []
-    sparqlSearch = SparqlSearch()
-    resultss, error = sparqlSearch.executeQuery(query)
+    # sparqlSearch = SparqlSearch()
+    # resultss, error = sparqlSearch.executeQuery(query)
 
     unids = get_UniprotKB_ids(ids)
 
@@ -917,6 +918,7 @@ def get_seqs(ids):
     #     id = 'PR:' + id
     #     newids.append(id)
     # uniprotset = ids
+    print('input for get_Seqs: ',ids)
     seqs = []
     for id in ids:
         robj = Sequence()
@@ -934,6 +936,7 @@ def get_seqs(ids):
     return seqs
 
 def get_seq_external(id):
+    print('input for get_seq_external: ', id)
     result = requests.get('http://www.uniprot.org/uniprot/' + id + '.fasta').text
     raw = result.split('\n')
     seq = ''.join(raw[1:])

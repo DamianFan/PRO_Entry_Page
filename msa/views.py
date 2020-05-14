@@ -47,9 +47,10 @@ def get_data(requestList, id, mod):
     return all
 
 def generate(requestList, id, mod):
+    print('enter generate')
     entryset = get_terms([id])
     entry = entryset[0]
-    # print('entry in generate: ',entry)
+    print('entry in generate: ',entry)
     if entry.category == "organism-gene":
         parent = id
         parentandname = get_all_direct_parent(id)
@@ -63,7 +64,7 @@ def generate(requestList, id, mod):
                 break
         assert parent != ''
     else: parent = id
-
+    print('after check entry category')
     all = None
     # print('parent in generate: ',parent)
     if mod == 'entry':
@@ -82,5 +83,5 @@ def generate(requestList, id, mod):
 
     if not all:
         all = collect_myself(parent)
-
+    print('after generate, all:',all,all.keys())
     return all

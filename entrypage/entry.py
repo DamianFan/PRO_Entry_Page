@@ -40,6 +40,7 @@ def load_entry(id):
     definition = ''
     category = ''
     go_frontend = {}
+    category_types = []
     content['gocellular'] = []
     content['gomolecular'] = []
     content['gobiological'] = []
@@ -67,6 +68,7 @@ def load_entry(id):
                 if i.find('Category=')!= -1:
                     content['category'] = i.replace('Category=','')
                     category = content['category']
+                    break
                 else:
                     if i != '':
                         category = i
@@ -101,7 +103,8 @@ def load_entry(id):
                 pid = i[0]
                 i.append(add_url(pid))
         content['checkforms'] = False
-        content['forms'] = [[id,Name,modify_info_url(definition),category,Label,[],[],[],[]]]
+        forms = [[id,Name,modify_info_url(definition),category,Label,'','','','']]
+        # content['forms'] = [[id,Name,modify_info_url(definition),category,Label,[],[],[],[]]]
         content['terms_cat'] = ''
         children = get_children_by_query(id)
         children.append(id)
@@ -124,8 +127,9 @@ def load_entry(id):
                 content['checkforms'] = formschild
                 for i in nodeinfo:
                     i[2] = modify_info_url(i[2])
-                    content['forms'].append(i)
-                for i in content['forms']:
+                    if i not in forms:
+                        forms.append(i)
+                for i in forms:
                     if i[3] == 'organism-gene':
                         ogcount[0] += 1
                     if i[3] == 'organism-sequence':
@@ -139,8 +143,9 @@ def load_entry(id):
                 nodeinfo, formschild = view_organismgene(children)
                 content['checkforms'] = formschild
                 for i in nodeinfo:
-                    content['forms'].append(i)
-                for i in content['forms']:
+                    if i not in forms:
+                        forms.append(i)
+                for i in forms:
                     if i[3] == 'gene':
                         ogcount[0] += 1
                     if i[3] == 'organism-gene':
@@ -157,6 +162,14 @@ def load_entry(id):
                         ogcount[6] += 1
                 content['term_pro_cat'] = ogcount
             children.extend(conp)
+
+        for i in forms:
+            if i[3] != '' and i[3] not in category_types:
+                category_types.append(i[3])
+
+        content['forms'] = forms
+        content['category_types'] = category_types
+        # print(category_types)
         for i in children:
             paf_frontend[i] = {'name':'','set':[]}
 

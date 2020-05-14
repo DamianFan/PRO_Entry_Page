@@ -6,16 +6,9 @@
         <span id="selected"> All </span><span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
-        <li><a>All</a></li>
-        {% for s in forms %}
-            {% if s.count > 0 %}
-                {# if the page is organism specific, only display organism specific categories #}
-                {% if 'organism' in cat and 'organism' in s.name %}
-                    <li><a>{{s.1}}</a></li>
-                {% elif 'organism' not in cat %}
-                    <li><a>{{s.1}}</a></li>
-                {% endif %}
-            {% endif %}
+        <li><a class="dropdown-selection">All</a></li>
+        {% for i in category_types %}
+            <li><a class="dropdown-selection">{{ i }}</a></li>
         {% endfor %}
     </ul>
 </div>
@@ -26,3 +19,5 @@
         cursor: pointer;
     }
 </style>
+
+

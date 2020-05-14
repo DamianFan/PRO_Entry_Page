@@ -25,7 +25,7 @@ def collect_myself(id):
     return all
 
 def collect_pro(proid, sameTaxon=False, taxon=None):
-
+    print('enter collect pro')
     all = {}
     formObjs = proteoforms(proid, sameTaxon, taxon)
     # change entry's Group
@@ -33,10 +33,11 @@ def collect_pro(proid, sameTaxon=False, taxon=None):
     # add proteoforms as new records
     for formObj in formObjs:
         all[formObj.id] = new_seqrecord(formObj)
+
     return all
 
 def proteoforms(proid,sameTaxon,taxon,full=True):
-
+    print('enter proteoforms')
     forms = get_children_by_query(proid) # need to remain only relevent children
 
     forms.append(proid)

@@ -5,7 +5,7 @@ $(document).ready(function () {
 
     //add_links();
 
-    // Intitial
+   // Intitial
     $("table.table-pro-toggle").each(function () {
         // Add title to thead.
         $(this).find('thead').find('tr').first().attr("title", "Click to show/hide the table.");

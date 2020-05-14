@@ -128,7 +128,7 @@ class ALIGN(object):
             data = self.alnRecords[:20]
         else:
             data = self.alnRecords
-
+        print('data in generate_alignment',data)
         muscle = MuscleWithTimeout(data)
         self.align = muscle.run(timeout=60)
 
