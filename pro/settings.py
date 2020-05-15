@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'pro.wsgi.application'
 
 # MUSCLE_EXE Path
 #MUSCLE_EXE = '/Users/damianfan/p3_pro/muscle/muscle3.8.31_i86darwin64'
-MUSCLE_EXE = '/Users/chenc/Documents/2020/Work/ZidaFan/PRO_Entry_Page/env/muscle3.8.31_i86darwin64'
+MUSCLE_EXE = '/Users/chenc/Documents/2020/Work/ZidaFan/PRO_Entry_Page/muscle/muscle3.8.31_i86darwin64'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
