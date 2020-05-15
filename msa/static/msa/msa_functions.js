@@ -6,7 +6,6 @@ function init() {
 	init_select();
 	init_sortable();
 	//// msa_function_pro.js -> init_tooltip("pro");
-        init_tooltip("pro");
 
 	$(".dropdown-menu").click(function (event) {
 		event.stopPropagation();
@@ -44,11 +43,11 @@ function init() {
 }
 
 
-// $(document).click(function(e){
-// 	  if(!$(e.target).is('.msa-align-result *'))
-// 		msa_view_reset();
-// 		$('div[class*=tooltipster]').hide();
-// });
+$(document).click(function(e){
+	  if(!$(e.target).is('.msa-align-result *'))
+		msa_view_reset();
+		$('div[class*=tooltipster]').hide();
+});
 
 function msa_pro_switch(btn) {
 	if (btn == true)  // hide pro entries

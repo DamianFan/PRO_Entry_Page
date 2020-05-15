@@ -19,7 +19,7 @@ from django.conf.urls import url, include
 
 urlpatterns = [
     url('admin/', admin.site.urls),
-    url(r'^', include('entrypage.urls'), name='entrypage'),
+    url(r'^', include('entrypage.urls', namespace='entrypage')),
     url(r'^msa/', include('msa.urls',namespace='msa'), name='msa'),
     url(r'^cytoscape/', include('cytoscape.urls'), name='cytoscape'),
     #url(r'^', include("pro.urls", namespace="webpage")),

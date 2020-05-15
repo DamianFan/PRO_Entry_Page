@@ -11,9 +11,10 @@ function form_setup() {
     });
 
     $('#filter_category_dropdown').click(function (e) {
+        alert("stop")
         e.stopPropagation();
         e.preventDefault();
-        $('#filter_category_dropdown_button').dropdown('toggle');
+        $('#filter_category_dropdown').dropdown('toggle');
     });
 
     $('#filter_category_dropdown a').click(function (e) {

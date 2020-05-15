@@ -1,8 +1,9 @@
-from django.conf.urls import include, url
-from .views import *
+from django.conf.urls import url
+from msa.views import *
 
 urlpatterns = [
-    url(r'^view/(?P<mod>[\w-]+)/(?P<query>[\w:\-\,]+)/$',loadingMSA, name='view'),
-    url(r'^data/(?P<mod>[\w-]+)/(?P<query>[\w:\-\,]+)/$',MsaView, name='data'),
-    url(r'^test/$', test, name='msatest'),
+   url(r'^$', MsaHomeView.as_view(), name='home'),
+   url(r'^tree/(?P<query>[\w:\-]+)/$', MsaTreeView.as_view(), name='tree'),
+   url(r'^data/(?P<mod>[\w-]+)/(?P<query>[\w:\-\,]+)/$', MsaView, name='data'),
+   url(r'^view/(?P<mod>[\w-]+)/(?P<query>[\w:\-\,]+)/$', loadingMSA, name='view'),
 ]

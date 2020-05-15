@@ -91,6 +91,16 @@ class MvOboModResidue(models.Model):
     position = models.IntegerField(blank=True, null=True)
     mod_id = models.CharField(max_length=604, blank=True)
 
+    def __str__(self):
+        str = "["
+        str += "subject: "+self.subject+", "
+        str += "abbrev3: "+ self.abbrev3+", "
+        str += "position: "+self.position + ", "
+        str += "mod_id: "+self.mod_id
+        str += "]"
+
+    def __eq__(self, other):
+        return self.subject == other.subject and self.abbrev3 == other.abbrev3 and self.position == other.position and self.mod_id == other.mod_id
     # class Meta:
     #     managed = False
     #     db_table = 'mv_obo_mod_residue'
@@ -99,6 +109,7 @@ class MvOboModResidue(models.Model):
 class MvOboModResidueCompress(models.Model):
     subject = models.CharField(primary_key=True, max_length=604)
     residue = models.CharField(max_length=4000, blank=True)
+
 
     class Meta:
         managed = False
@@ -132,6 +143,13 @@ class MvOboRelationship(models.Model):
     modname = models.CharField(max_length=4000, blank=True)
     modvalue = models.CharField(max_length=400, blank=True)
     obo_dbxref_description = models.CharField(max_length=4000, blank=True)
+
+    def __str__(self):
+        str = "["
+        str += "subject: " + self.subject+", "
+        str += "object: " + self.object
+        str += "]"
+        return str
 
     class Meta:
         managed = False

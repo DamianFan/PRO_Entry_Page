@@ -28,12 +28,7 @@ $(document).ready(function () {
         //$(this).closest('table').find('tfoot').toggle();
     });
 
-    // stop propagation
-    $("#paf-switch-div ul li a").click(function(e){
-        e.stopPropagation();
-        e.preventDefault();
-        $(this).tab('show');
-    });
+
 });
 
 function add_links() {

@@ -3,7 +3,6 @@ import json
 
 def dump_view(d):
     seqRec = []
-    print('dump_view, d.order',d.order)
     for id in d.order:
         obj = d.records[id]
         r = obj.seqRecord

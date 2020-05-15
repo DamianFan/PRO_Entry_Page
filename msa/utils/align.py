@@ -9,6 +9,10 @@ from Bio import SeqIO
 from Bio.Align.Applications import MuscleCommandline
 from Bio.Align import MultipleSeqAlignment
 
+from Bio.SeqRecord import SeqRecord
+from Bio.Seq import Seq
+from Bio.Alphabet import IUPAC
+
 class MuscleWithTimeout(object):
     """
     Timeout func: http://stackoverflow.com/questions/1191374/using-module-subprocess-with-timeout
@@ -19,25 +23,23 @@ class MuscleWithTimeout(object):
         self.alignment = None
 
     def run(self, timeout):
+        #print("???", self.data)
+        #self.data = [SeqRecord(seq=Seq('MQPLWLCWALWVLPLASPGAALTGEQLLGSLLRQLQLKEVPTLDRADMEELVIP...LQP', IUPAC.protein), id=u'PR:000000643', name=u'LEFTY1/iso:1/Clv:1', description='', dbxrefs=[u'UniProtKB:O75610-1']), SeqRecord(seq=Seq('MPFLWLCWALWALSLVSLREALTGEQILGSLLQQLQLDQPPVLDKADVEGMVIP...LQP', IUPAC.protein), id=u'PR:000036547', name=u'mLEFTY1/iso:1/Clv:1', description='', dbxrefs=[u'UniProtKB:Q64280-1'])]
+
         def target():
             muscleCline = MuscleCommandline(settings.MUSCLE_EXE,clwstrict=True)
+            #print(str(muscleCline))
             self.process = subprocess.Popen(str(muscleCline),
                                             stdin=subprocess.PIPE,
                                             stdout=subprocess.PIPE,
                                             stderr=subprocess.PIPE,
                                             shell=(sys.platform!="win32"))
 
-
-            print('self.data',self.data)
-            # print('self.process.stdin',self.process.stdin)
+            # for d in self.data:
+            #     print(data[d] + " | "+ data[d].seqRecord)
             SeqIO.write(self.data, self.process.stdin, "fasta")
-
-            # print('this is align process stderr: ', self.data)
-            # print('this is align process stdout: ',self.process.stdout.read())
             self.process.stdin.close()
-            # print('this is align process stderr: ', self.process.stderr.read())
-            # print('this is align process stdin: ', self.process.stdin.read())
-            # print('this is align process stdout: ',self.process.stdout.read())
+            #print(self.process.stdout)
             self.alignment = AlignIO.read(self.process.stdout, "clustal")
 
         thread = threading.Thread(target=target)
@@ -89,6 +91,7 @@ class ALIGN(object):
 
     def alignment(self, all):
         self.records = all
+        #print(self.records)
         # separate records that needs alignment or just decorate
         self.set_align_mod()
         # MUSCLE multiple sequence alignment
@@ -114,18 +117,19 @@ class ALIGN(object):
                 self.alnRecords.append(r)
             else:
                 self.modRecords.append(r)
-            # msa check points
-
 
 
     def generate_alignment(self):
         """Perform alignment by MUSCLE, save result in align attribute."""
+        #print(self.alnRecords)
         alen = len(self.alnRecords)
         if alen == 1:
+            #print(self.alnRecords[0])
             self.align = MultipleSeqAlignment([self.alnRecords[0]])
             return
         elif alen > 20:
             data = self.alnRecords[:20]
+            print "Only show first 20 entries"
         else:
             data = self.alnRecords
 
@@ -134,7 +138,7 @@ class ALIGN(object):
 
 
     def data_organize(self):
-        """mv each alignment to corresponded MSARecords."""
+        """mv each alignment to corresponded MSARecords."""       
         for aln in self.align:
             id = aln.id
             self.records[id].align = aln
@@ -153,19 +157,19 @@ class ALIGN(object):
             id = r.id
             ref = self.records[id].seqRecord.dbxrefs[0]
             # if isoform is in align
-            if ref in self.records:
+            if self.records.has_key(ref):
                 self.records[id].align = self.records[ref].align
             # check alnRef for more reference
-            elif ref in self.alnRef:
+            elif self.alnRef.has_key(ref):
                 self.records[id].align = self.alnRef[ref]
             # fail to find alignment
-            # else:
-            #     # print "Can't get alignment for "+ r.id
+            else:
+                print "Can't get alignment for "+ r.id
 
 
     def data_order(self):
         """ check records group to determine order """
-        order = [[] for x in range(4)]
+        order = [[] for x in xrange(4)]
         for r in self.records.values():
             r = r.seqRecord
             g = r.annotations["relationship"]

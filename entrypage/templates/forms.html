@@ -1,14 +1,15 @@
 {% load staticfiles %}
-
+{% load pro_extras %}
 
 <link rel="stylesheet" href="{% static 'js/skin-win7/ui.fancytree.css' %}">
+<script type="text/javascript" src="{% static 'js/forms.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/jquery.fancytree.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/jquery.fancytree.gridnav.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/jquery.fancytree.table.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/forms.js' %}?v=0612"></script>
+
 <script type="text/javascript">
-    {#var proEntryUrl = "{% url 'webpage:entry' '.' %}".slice(0, -2);#}
-    {#var ROOT = eval('(' + '{{ json|replace:"'||\'"|safe }}' + ')');#}
+<!--    var proEntryUrl = "{% url 'entrypage:entry' '.' %}".slice(0, -2);-->
+<!--    var ROOT = eval('(' + '{{ json|replace:"'||\'"|safe }}' + ')');-->
 </script>
 <style>
     span.fancytree-title {

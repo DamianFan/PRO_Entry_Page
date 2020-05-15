@@ -1,6 +1,6 @@
 from collections import defaultdict
-from .msaview import *
-from .record import *
+from msa.utils.msaview import *
+from msa.utils.record import *
 
 modTypeList = ['p', 'ac', 'g', 'm', 'ub']
 conservedModAa = {'p': ["S", "T"],
@@ -41,15 +41,17 @@ class DECORATE(object):
         self.stat["enzyme"] = {}
         for id in self.records:
             ptms = self.records[id].seqRecord.annotations["modification"]
+            #print(ptms)
             for pos in ptms:
                 ptmArray = ptms[pos]
                 for ptm in ptmArray:
+                    #print(pos + " | "+ptm.modType)
                     mod = ptm.modType
                     if not mod in modTypeList:
                         mod = 'o'
                     self.stat["modType"].append(mod)
                     if not len(ptm.enzyme) == 0:
-                        self.stat["enzyme"] = dict(ptm.enzyme.items())
+                        self.stat["enzyme"] = dict(ptm.enzyme.items() + self.stat["enzyme"].items())
                         self.records[id].enzymes.extend(ptm.enzyme.values())
                     if not ptm.source == '':
                         self.stat["source"].append(ptm.source)
@@ -67,18 +69,20 @@ class DECORATE(object):
             obj = self.records[id]
             alnSeq = obj.align
             gapCounter = 0
-
-            for p in range(len(alnSeq)):
+            for p in xrange(len(alnSeq)):
                 aa = alnSeq[p]
                 if aa == '-':
                     gapCounter += 1
                 else:
                     seqPos = p - gapCounter + 1
                     sites = obj.seqRecord.annotations["modification"]
-                    if seqPos in sites:
+                    # print(type(seqPos))
+                    # print(type(sites.keys()[0]))
+                    if sites.has_key(seqPos):
                         self.conservation[p] = (aa, sites[seqPos][0].modType)
                         # ptm summary
                         ptmArray = obj.seqRecord.annotations["modification"][seqPos]
+                        #print(ptmArray)
                         cls, title = [], []
                         if len(ptmArray) > 1:
                             # how many distinct mod type in multiple ptm sites
@@ -91,8 +95,7 @@ class DECORATE(object):
                             mod = ptmObj.modType
                             modaapos = mod + alnSeq[p] + '-' + str(seqPos)
                             enz = ",".join(set(ptmObj.enzyme.values())) if len(ptmObj.enzyme) > 0 else ''
-
-                            if enz not in ptmSum[modaapos]:
+                            if not ptmSum[modaapos].has_key(enz):
                                 ptmSum[modaapos][enz] = []
                             ptmSum[modaapos][enz].extend(ptmObj.pmid)
                             if not mod in modTypeList:
@@ -118,17 +121,17 @@ class DECORATE(object):
             alnSeq = obj.align
 
             gapCounter = 0
-            for p in range(len(alnSeq)):
+            for p in xrange(len(alnSeq)):
                 aa = alnSeq[p]
                 cls, seqPos, gapCounter = self.__mark_position_gap(p, aa, gapCounter)
                 title = ''
                 if not aa == '-':
-                    if p in obj.ptmInAln:
+                    if obj.ptmInAln.has_key(p):
                         c, title = obj.ptmInAln[p]
                         cls.extend(c)
                     else:
                         title = seqPos
-                        if p in self.conservation:
+                        if self.conservation.has_key(p):
                             aa = alnSeq[p]
                             if self.conservation[p][0] == aa:
                                 cls.append('msa-con')
@@ -166,10 +169,10 @@ class DECORATE(object):
 
                 if boo - start == 0:
                     i = boo
-                    if i in ptm:
+                    if ptm.has_key(i):
                         cls, title = ptm[i]
                         obj.ovSeq.append(HTML(cls, title, alnSeq[i]))
-                    elif i in self.conservation:
+                    elif self.conservation.has_key(i):
                         aa = alnSeq[i]
                         if self.conservation[i][0] == aa:
                             cls = ["msa-con"]
@@ -232,7 +235,7 @@ class DECORATE(object):
     def __find_nearest_ptm(self, a, b):
         """Find nearest (to a) PTM site between position a and b. Return nearest position or False."""
         for i in range(a, b):
-            if i in self.conservation: #
+            if self.conservation.has_key(i):
                 return i
         return 0
 

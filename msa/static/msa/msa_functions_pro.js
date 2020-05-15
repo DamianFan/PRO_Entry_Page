@@ -1,9 +1,9 @@
-// $(document).ready(function(){
-// 	//init_mod_source();
-// 	//init_mod_enzyme();
-// 	//init_mod_note();
-// 	init_tooltip("pro");
-// });
+$(document).ready(function(){
+	//init_mod_source();
+	//init_mod_enzyme();
+	//init_mod_note();
+	init_tooltip("pro");
+});
 
 function msa_pro_related_links(id){
 	var id = id.trim();

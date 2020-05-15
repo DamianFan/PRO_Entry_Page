@@ -20,6 +20,10 @@ class RECORD(object):
         self.dvSeq = []
         self.ovSeq = []
 
+    def __str__(self):
+        str = "["
+        str += self.seqRecord +', '
+        str += self.align +"] "
 
 class HTML(object):
     def __init__(self, cls, title, content):

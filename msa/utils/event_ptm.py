@@ -28,6 +28,7 @@ class PTM(object):
         self.pmid = []
 
 
+
     def cls_ptm(self):
         """Return a HTML class string for one PTM. It describes enzyme, source and note."""
         cls = []
@@ -42,13 +43,17 @@ class PTM(object):
 
 
     def __str__(self):
-        str = ''
-        str += "substrate: ", self.substrate
-        str += "ptm enzyme: ", self.enzyme
-        str += "modification type: ", self.modType
-        str += "seqence position: ", self.seqPos
-        str += "amino acid: ", self.aa
-        str += "source: ", self.source
-        str += "note: ", self.note
-        str += "pmid: ", self.pmid
+        str = '['
+        str += "substrate: "+ self.substrate +", "
+        str += "ptm enzyme: "+ self.enzyme + ", "
+        str += "modification type: " + self.modType + ", "
+        str += "seqence position: " + self.seqPos + ", "
+        str += "amino acid: " + self.aa + ", "
+        str += "source: " + self.source + ", "
+        str += "note: " + self.note + ", "
+        str += "pmid: "
+        for p in self.pmid:
+            str += p + ", "
+        str += "]"
+        #print(str)
         return str

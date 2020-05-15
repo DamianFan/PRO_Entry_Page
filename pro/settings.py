@@ -37,10 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'entrypage.apps.EntrypageConfig',
+    #'entrypage.apps.EntrypageConfig',
     'database',
     'msa',
     'cytoscape',
+    'entrypage',
     #'pro',
 
 ]
@@ -55,7 +56,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'p3_pro.urls'
+ROOT_URLCONF = 'pro.urls'
 
 TEMPLATES = [
     {
@@ -74,7 +75,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'p3_pro.wsgi.application'
+WSGI_APPLICATION = 'pro.wsgi.application'
 
 
 # Database
@@ -92,8 +93,8 @@ WSGI_APPLICATION = 'p3_pro.wsgi.application'
 
 
 # MUSCLE_EXE Path
-MUSCLE_EXE = '/Users/damianfan/p3_pro/muscle/muscle3.8.31_i86darwin64'
-
+#MUSCLE_EXE = '/Users/damianfan/p3_pro/muscle/muscle3.8.31_i86darwin64'
+MUSCLE_EXE = '/Users/chenc/Documents/2020/Work/ZidaFan/PRO_Entry_Page/env/muscle3.8.31_i86darwin64'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

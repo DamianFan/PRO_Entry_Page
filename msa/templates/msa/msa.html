@@ -10,40 +10,18 @@
     <script>
         var dataUrl = "{% url 'msa:data' mod query %}";
         var prologo =  '<img id="iconPRO" class="icon-link" src="{% static 'pro/pirwww/images/PROlogofinal300.png' %}" alt="PRO" title="PRO Entry Report">';
-        var prourl = '';
+        var prourl = '{% url 'entrypage:entry' 'id' %}'
         var cytologo = '<img id="iconCyto" class="icon-link" src="{% static 'msa/images/cyto-logo.gif' %}" alt="Cyto" title="Cytoscape View">';
-        var cytourl = '/app{% if test_site%}_test{%endif%}/visual/cytoscape/pro/';
+        var cytourl = 'http://research.bioinformatics.udel.edu/pro/view/entry_cw_pro_test.php?id='
         var daglogo =  '<img id="iconDag" class="icon-link" src="{% static 'pro/pirwww/images/hierarchy.png' %}" alt="DAG" title="DAG View">';
-        var dagurl = '/cgi-bin/browser_pro{% if test_site%}_test.pl{%endif%}?ids='
+        var dagurl = 'http://pir.georgetown.edu/cgi-bin/pro/browser_pro_test.pl?ids='
     </script>
 {% endblock %}
 
 {% block msa-body %}
-
-
-<table id="sequence-alignment" class="table table-condensed table-bordered table-pro-th table-pro-toggle">
-<!--    <thead>-->
-<!--    <tr>-->
-<!--        <th colspan="2"><div class="table-pro-toggle-icon"><span class="glyphicon glyphicon-collapse-down"></span></div> Interactive Sequence View-->
-<!--            <span class="pull-right">-->
-<!--                   <a href="/app/visual/msa/tree/PR%3A000025934/" class="pretty" target="_blank">-->
-<!--               Select/align proteoforms across species</a>-->
-<!--            </span>-->
-<!--        </th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-    <tbody>
-
-
-    <tr>
-        <td colspan="2" id="msaCell" height="400" align="center">
-                <h3 id="loadingMsg">Loading...</h3>
-            <div id="msa" ng-app="msaApp" style="display: none;" onshow="init_tooltip('pro')">
-
+<h3 id="loadingMsg">Loading...</h3>
+<div id="msa" ng-app="msaApp" style="display: none;">
     <nav id="msaHeader" class="navbar navbar-default" role="navigation">
-
-
-
         <div id="msaMenu">
 {#            <form id="msaProSwitch" ng-controller="msaProSwitchController">#}
 {#                <ul class="nav navbar-nav navbar-left">#}
@@ -62,8 +40,4 @@
         {% include 'msa/msa-overview.html' %}
     </div>
 </div>
-        </td>
-    </tr>
-    </tbody>
-</table>
 {% endblock %}

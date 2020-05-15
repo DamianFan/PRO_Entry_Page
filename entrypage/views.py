@@ -3,10 +3,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .entry import *
 from .hierarchy import *
-from msa.collect import *
+#from msa.views.collect import *
 import numpy as np
 from msa.views import loadingMSA
-from msa.msa_data import *
+#from msa.msa_data import *
 
 import requests
 
@@ -34,7 +34,7 @@ def test(request):
 def entry(request, proId):
 
     content = load_entry(proId)
-    content['msaview'] = loadingMSA(request, 'entry', "PR:000025934")
+    #content['msaview'] = loadingMSA(request, 'entry', "PR:000025934")
 
     return render(request, 'base.html',content)
 
