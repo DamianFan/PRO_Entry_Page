@@ -641,8 +641,9 @@ def get_UniprotKB_ids(ids):
 
     uniprotkb = {}
     for xref in resultss:
+        print('unid: ',xref['UNIPROTKB_ID'])
         # search unirprotkb id by query
-        if xref['UNIPROTKB_ID'].find("UniProtKB") != -1:
+        if xref['UNIPROTKB_ID'].find("UniProtKB:") != -1:
             uniprotkb[xref['PRO_ID']]  = xref['UNIPROTKB_ID']
         else:
             # search uniprotkb id in definition
@@ -664,7 +665,7 @@ def get_UniprotKB_ids(ids):
 
 # done
 def get_xrefs(ids):
-
+    print('the ids is: ',ids)
     """this is update"""
     # id_set = ''
     # for i in ids:

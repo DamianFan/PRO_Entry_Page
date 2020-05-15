@@ -138,83 +138,83 @@ def get_sites(ids):
     # return MvOboModResidueCompress.objects.filter(subject__in=ids)
 
 
-# done
-def get_UniprotKB_ids(ids):
-
-    id_set = ''
-    for i in ids:
-        i = i.replace(':', '_')
-        id_set += 'obo:' + i + ' '
-
-    query_prefix = """PREFIX owl: <http://www.w3.org/2002/07/owl#>
-            PREFIX obo: <http://purl.obolibrary.org/obo/>
-            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-            PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
-            SELECT ?PRO_ID ?UNIPROTKB_ID
-            WHERE
-            {
-              values ?PRO_term {"""
-
-    query_tail = """} .
-              ?PRO_term oboInOwl:id ?PRO_ID .
-              ?PRO_term  oboInOwl:hasDbXref ?UNIPROTKB_ID .
-            }"""
-
-    query = query_prefix + id_set + query_tail
-    sparqlSearch = SparqlSearch()
-    resultss, error = sparqlSearch.executeQuery(query)
-
-    uniprotkb = {}
-    for xref in resultss:
-        # search unirprotkb id by query
-        if xref['UNIPROTKB_ID'].find("UniProtKB") != -1:
-            print('get xref from query')
-            uniprotkb[xref['PRO_ID']]  = xref['UNIPROTKB_ID']
-        else:
-            print('query has no uniprotkb xref')
-            # search uniprotkb id in definition
-            defurl = "https://research.bioinformatics.udel.edu/PRO_API/V1/pros/" + xref['PRO_ID'] + "?showPROName=true&showPROTermDefinition=true&showCategory=true&showParent=true&showAnnotation=false&showAnyRelationship=false&showChild=false&showComment=false&showEcoCycID=false&showGeneName=false&showHGNCID=false&showMGIID=false&showOrthoIsoform=false&showOrthoModifiedForm=false&showPANTHERID=false&showPIRSFID=false&showPMID=false&showReactomeID=false&showSynonym=true&showUniProtKBID=false"
-            infoset = requests.get(defurl)
-            jinfoset = infoset.json()
-            info = jinfoset[0]
-            tar = info['termDef']
-            if tar.find('UniProtKB') != -1:
-                pos = tar.find('UniProtKB')
-                tar = tar[pos:tar.find(',')]
-                uniprotid = tar
-
-                uniprotkb[xref['PRO_ID']] = uniprotid
-
-
-
-    return uniprotkb
-
-
-# done
-def get_xrefs(ids):
-
-    """this is update"""
-
-    x1 = []
-    x2 = []
-
-
-    unids = get_UniprotKB_ids(ids)
-
-    for id in ids:
-        robj1 = MvOboRelationship()
-        robj2 = MvOboUniprotXref()
-        robj1.subject = id
-        robj1.predicate = 'term_xref'
-        robj1.object = 'UniProtKB'
-        x1.append(robj1)
-        if id in unids and unids[id] != '':
-            robj2.subject = id
-            robj2.object = unids[id]
-            x2.append(robj2)
-
-    return list(chain(x1,x2))
+# # done
+# def get_UniprotKB_ids(ids):
+#
+#     id_set = ''
+#     for i in ids:
+#         i = i.replace(':', '_')
+#         id_set += 'obo:' + i + ' '
+#
+#     query_prefix = """PREFIX owl: <http://www.w3.org/2002/07/owl#>
+#             PREFIX obo: <http://purl.obolibrary.org/obo/>
+#             PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+#             PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#             PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
+#             SELECT ?PRO_ID ?UNIPROTKB_ID
+#             WHERE
+#             {
+#               values ?PRO_term {"""
+#
+#     query_tail = """} .
+#               ?PRO_term oboInOwl:id ?PRO_ID .
+#               ?PRO_term  oboInOwl:hasDbXref ?UNIPROTKB_ID .
+#             }"""
+#
+#     query = query_prefix + id_set + query_tail
+#     sparqlSearch = SparqlSearch()
+#     resultss, error = sparqlSearch.executeQuery(query)
+#
+#     uniprotkb = {}
+#     for xref in resultss:
+#         # search unirprotkb id by query
+#         if xref['UNIPROTKB_ID'].find("UniProtKB") != -1:
+#             print('get xref from query')
+#             uniprotkb[xref['PRO_ID']]  = xref['UNIPROTKB_ID']
+#         else:
+#             print('query has no uniprotkb xref')
+#             # search uniprotkb id in definition
+#             defurl = "https://research.bioinformatics.udel.edu/PRO_API/V1/pros/" + xref['PRO_ID'] + "?showPROName=true&showPROTermDefinition=true&showCategory=true&showParent=true&showAnnotation=false&showAnyRelationship=false&showChild=false&showComment=false&showEcoCycID=false&showGeneName=false&showHGNCID=false&showMGIID=false&showOrthoIsoform=false&showOrthoModifiedForm=false&showPANTHERID=false&showPIRSFID=false&showPMID=false&showReactomeID=false&showSynonym=true&showUniProtKBID=false"
+#             infoset = requests.get(defurl)
+#             jinfoset = infoset.json()
+#             info = jinfoset[0]
+#             tar = info['termDef']
+#             if tar.find('UniProtKB') != -1:
+#                 pos = tar.find('UniProtKB')
+#                 tar = tar[pos:tar.find(',')]
+#                 uniprotid = tar
+#
+#                 uniprotkb[xref['PRO_ID']] = uniprotid
+#
+#
+#
+#     return uniprotkb
+#
+#
+# # done
+# def get_xrefs(ids):
+#
+#     """this is update"""
+#
+#     x1 = []
+#     x2 = []
+#
+#
+#     unids = get_UniprotKB_ids(ids)
+#
+#     for id in ids:
+#         robj1 = MvOboRelationship()
+#         robj2 = MvOboUniprotXref()
+#         robj1.subject = id
+#         robj1.predicate = 'term_xref'
+#         robj1.object = 'UniProtKB'
+#         x1.append(robj1)
+#         if id in unids and unids[id] != '':
+#             robj2.subject = id
+#             robj2.object = unids[id]
+#             x2.append(robj2)
+#
+#     return list(chain(x1,x2))
 
 
 # done

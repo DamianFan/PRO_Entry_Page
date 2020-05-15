@@ -9,6 +9,10 @@ from Bio import SeqIO
 from Bio.Align.Applications import MuscleCommandline
 from Bio.Align import MultipleSeqAlignment
 
+from Bio.SeqRecord import SeqRecord
+from Bio.Seq import Seq
+from Bio.Alphabet import IUPAC
+
 class MuscleWithTimeout(object):
     """
     Timeout func: http://stackoverflow.com/questions/1191374/using-module-subprocess-with-timeout
@@ -21,14 +25,16 @@ class MuscleWithTimeout(object):
     def run(self, timeout):
         def target():
             muscleCline = MuscleCommandline(settings.MUSCLE_EXE,clwstrict=True)
+            print('muscleCline: ',str(muscleCline))
             self.process = subprocess.Popen(str(muscleCline),
                                             stdin=subprocess.PIPE,
                                             stdout=subprocess.PIPE,
                                             stderr=subprocess.PIPE,
                                             shell=(sys.platform!="win32"))
 
-
+            print(type(self.data[0]))
             print('self.data',self.data)
+            # self.data = [SeqRecord(seq=Seq('MQPLWLCWALWVLPLASPGAALTGEQLLGSLLRQLQLKEVPTLDRADMEELVIPLQP', IUPAC.protein), id=u'PR:000000643', name=u'LEFTY1/iso:1/Clv:1', description='', dbxrefs=[u'UniProtKB:O75610-1']), SeqRecord(seq=Seq('MPFLWLCWALWALSLVSLREALTGEQILGSLLQQLQLDQPPVLDKADVEGMVIPLQP', IUPAC.protein), id=u'PR:000036547', name=u'mLEFTY1/iso:1/Clv:1', description='', dbxrefs=[u'UniProtKB:Q64280-1'])]
             # print('self.process.stdin',self.process.stdin)
             SeqIO.write(self.data, self.process.stdin, "fasta")
 
@@ -119,18 +125,23 @@ class ALIGN(object):
 
 
     def generate_alignment(self):
+        print('enter generate_alignment')
         """Perform alignment by MUSCLE, save result in align attribute."""
         alen = len(self.alnRecords)
+        print('check alignrecords: ',self.alnRecords)
         if alen == 1:
+            print('align = 1')
             self.align = MultipleSeqAlignment([self.alnRecords[0]])
             return
         elif alen > 20:
+            print('larger than 20')
             data = self.alnRecords[:20]
         else:
             data = self.alnRecords
         print('data in generate_alignment',data)
         muscle = MuscleWithTimeout(data)
         self.align = muscle.run(timeout=60)
+        # self.align = MultipleSeqAlignment(self.alnRecords)
 
 
     def data_organize(self):
