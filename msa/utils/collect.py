@@ -38,13 +38,17 @@ def collect_pro(dao, proid, sameTaxon=False, taxon=None):
     return all
 
 
-def collect_myself(dao, id):
+def collect_myself(dao, ids):
     # if no proteoforms is returned by collect_pro, 
     # just display the requested id itself. 
-    obj = ENTRY.batch_initial(dao, [id], True)[0]
+    obj = ENTRY.batch_initial(dao, [ids], True)[0]
     #print(obj)
-    #print(id + "???"+obj)
-    all = {id: new_seqrecord(obj)}
+    #print(id , type(id))
+    if type(ids) is not list:
+        all = {ids: new_seqrecord(obj)}
+    else:
+        for id in ids:
+            all = {id: new_seqrecord(obj)}
     return all
 
 

@@ -127,9 +127,9 @@ class ALIGN(object):
             #print(self.alnRecords[0])
             self.align = MultipleSeqAlignment([self.alnRecords[0]])
             return
-        elif alen > 20:
-            data = self.alnRecords[:20]
-            print "Only show first 20 entries"
+        elif alen > 30:
+            data = self.alnRecords[:30]
+            print "Only show first 30 entries"
         else:
             data = self.alnRecords
 

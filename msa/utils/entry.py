@@ -110,7 +110,14 @@ class ENTRY(object):
     entries = {}
     # build entries object
     for id in ids:
-      entries[id] = ENTRY(id)
+      #entries[id] = ENTRY(id)
+      #print("batch initial: ", type(id), " ", id)
+      if type(id) is list:
+        for pro_id in id:
+          #print(pro_id)
+          entries[pro_id] = ENTRY(pro_id)
+      else:
+        entries[id] = ENTRY(id)
 
     for r in dao.get_short_label(ids):
       entries[r.subject].name = r.synonym_field
@@ -133,7 +140,7 @@ class ENTRY(object):
       entries = ENTRY.batch_mod(dao, ids, entries)
       entries = ENTRY.batch_seq(dao, entries)
 
-    #print(entries.values())
+    #print(type(entries.values()))
     return entries.values()
 
   @staticmethod

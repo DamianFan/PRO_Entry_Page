@@ -49,7 +49,8 @@ class DAO:
             pro = data['pro']
             if pro['id'] == id:
                 parent = data['pro_parent']['id']
-                parents.append(parent)
+                if parent not in ROOT:
+                    parents.append(parent)
         return parents
 
     def get_taxon(self, id):
@@ -88,10 +89,16 @@ class DAO:
         return children
 
     def get_children(self, id, sameTaxon, taxon):
-        ids = (' ').join(id)
-        url = "https://research.bioinformatics.udel.edu/PRO_API/V1/dag/descendant/"+id+"?showTaxonID=true"
+        if type(id) is list:
+            ids = ""
+            for pro_id in id:
+                if pro_id not in ROOT:
+                    ids += pro_id +" "
+        else:
+            ids = id
+        #print(id)
+        url = "https://research.bioinformatics.udel.edu/PRO_API/V1/dag/descendant/"+ids+"?showTaxonID=true"
         #url = "https://research.bioinformatics.udel.edu/PRO_API/V1/dag/children/"+ids+"?showTaxonID=true"
-        #print(url)
         #print(url)
         response = requests.get(url)
         data = json.loads(response.text)

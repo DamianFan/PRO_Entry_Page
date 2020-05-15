@@ -77,8 +77,9 @@ def generate(requestList, id, mod):
     # print(mod)
 
     if entry.category == "organism-gene":
-        parent = dao.get_direct_parent(id)
-        assert parent != ''
+        # parent = dao.get_direct_parent(id)
+        # assert parent != ''
+        parent = id
     elif entry.category == "gene": # keep this condition?
         parent = id
     else:
