@@ -13,11 +13,11 @@ from itertools import chain
 import urllib
 
 # from entrypage.entry import get_xref
-# mod = {}
-# with open(os.path.join(os.path.dirname(__file__), 'mod.txt'), 'r') as csvfile:
-#   f = list(csv.reader(csvfile, delimiter='\t'))
-#   for l in f:
-#     mod[l[0]] = l[1]
+mod = {}
+with open(os.path.join(os.path.dirname(__file__), 'mod.txt'), 'r') as csvfile:
+  f = list(csv.reader(csvfile, delimiter='\t'))
+  for l in f:
+    mod[l[0]] = l[1]
 
 # mod = {}
 # class ENTRY(object):
@@ -366,105 +366,226 @@ class ENTRY(object):
     return record
 
   @staticmethod
-  def batch_initial(ids, full=True):
-    """
-     if full==True: collect entry, sequence and all modification data
-     if full==False: only collect entry data
-     """
-    entries = {}
-    print('input ids for batch_initial: ',ids)
-    # build entries object
-    for id in ids:
-      entries[id] = ENTRY(id)
+  def batch_initial(dao, ids, full=True):
+      # print("batch_initial:")
+      # print(str(ids))
+      # print(full)
 
-    for r in get_short_label(ids):
-      entries[r.subject].name = r.synonym_field
-      print('check short label: ',r.synonym_field)
-    for r in get_terms(ids):
-      if entries[r.subject].name == '':
-        entries[r.subject].name = r.name
-      entries[r.subject].definition = r.definition
-      entries[r.subject].Cat = r.category
+      """
+       if full==True: collect entry, sequence and all modification data
+       if full==False: only collect entry data
+       """
+      entries = {}
+      # build entries object
+      for id in ids:
+          # entries[id] = ENTRY(id)
+          # print("batch initial: ", type(id), " ", id)
+          if type(id) is list:
+              for pro_id in id:
+                  # print(pro_id)
+                  entries[pro_id] = ENTRY(pro_id)
+          else:
+              entries[id] = ENTRY(id)
 
-    for r in get_sites(ids):
-      entries[r.subject].description = r.residue
+      for r in dao.get_short_label(ids):
+          entries[r.subject].name = r.synonym_field
 
-    for r in get_xrefs(ids):
-      if r.object.startswith('UniProtKB:'):
-        entries[r.subject].dbxrefs.append(r.object)
-        print('check get_xrefs: ',r.object)
-    if full:
-      entries = ENTRY.batch_mod(ids, entries)
-      entries = ENTRY.batch_seq(entries)
+      for r in dao.get_terms(ids):
+          if entries[r.subject].name == '':
+              entries[r.subject].name = r.name
+          entries[r.subject].definition = r.definition
+          entries[r.subject].Cat = r.category
 
-    return entries.values()
+      for r in dao.get_sites(ids):
+          entries[r.subject].description = r.residue
 
-  @staticmethod
-  def batch_mod(ids, entries):
-    # get ptms from definition modified residue list.
-    for r in get_mod_residues(ids):
-      P = PTM()
-      P.substrate = r.subject
-      P.enzyme = ''
-      if r.mod_id.find(':') > -1:
-        P.modType = 'MOD' # need to be fix later
-      P.seqPos = r.position
-      P.aa = r.abbrev3
-      P.source = 'pro'
-      P.note = ''
-      P.pmid = ''
+      for r in dao.get_xrefs(ids):
+          # print("get_xref: "+r.subject+ " | "+r.object)
+          if r.object.startswith('UniProtKB:'):
+              entries[r.subject].dbxrefs.append(r.object)
 
-      entries[r.subject].modification[P.seqPos].append(P)
+      if full:
+          entries = ENTRY.batch_mod(dao, ids, entries)
+          entries = ENTRY.batch_seq(dao, entries)
 
-    # update the ptm with kinase/acetylase/... from comment
-    for r in get_enzymes(ids):
-      # assert entries[r.subject].modification.has_key(r.position)
-      for ptm in entries[r.subject].modification[r.position]:
-        ptm.enzyme = {r.aggkey: r.obo_dbxref_description}
-      entries[r.subject].enzyme.append(r.aggkey)
-    # update the enzyme symbol list
-    for id in entries.keys():
-      entries[id].enzyme = list(set(entries[id].enzyme))
-
-    # add pmids for each ptm
-    evidence = defaultdict(list)
-    for r in get_def_xref(ids):
-      evidence[r.subject].append(r.object)
-
-    for id in entries.keys():
-      for pos in entries[id].modification.keys():
-        for ptm in entries[id].modification[pos]:
-          ptm.pmid = evidence[id]
-
-    return entries
+      # print(type(entries.values()))
+      return entries.values()
 
   @staticmethod
-  def batch_seq(entries):
-    # collect all xref:
-    xrefList = []
-    for e in entries.values():
-      xrefList.extend(e.dbxrefs)
-      print('xrefList in batch_seq: ',xrefList)
-    # create a mapping between "UniProtKB:Q15796-2": "Q15796-2"
-    acMap = {}
-    for x in list(set(xrefList[:])):
-      d = x.split(':')
-      if d[0] == 'UniProtKB':
-        acMap[x] = d[1] if not d[1].endswith('-1') else d[1][:-2]
-    # load sequences
-    seq = {}
-    for r in get_seqs(acMap.values()):
-      seq[r.subject] = Seq(r.sequence, IUPAC.protein)
-    for ac in acMap.values():
-      if ac not in seq:
-        seq[ac] = Seq(get_seq_external(ac), IUPAC.protein)
+  def batch_mod(dao, ids, entries):
+      # get ptms from definition modified residue list.
+      for r in dao.get_mod_residues(ids):
+          P = PTM()
+          P.substrate = r.subject
+          P.enzyme = ''
+          if r.mod_id.find(':') > -1:
+              # print(r.mod_id)
+              P.modType = mod[r.mod_id.split(':')[1]]
+          P.seqPos = r.position
+          P.aa = r.abbrev3
+          P.source = 'pro'
+          P.note = ''
+          P.pmid = ''
+          # print(P)
+          entries[r.subject].modification[P.seqPos].append(P)
 
-    # add sequence to entry
-    for e in entries.values():
-      if len(e.dbxrefs) > 0:
-        e.seq = seq[acMap[e.dbxrefs[0]]]
+      # update the ptm with kinase/acetylase/... from comment
+      for r in dao.get_enzymes(ids):
+          # assert entries[r.subject].modification.has_key(r.position)
+          for ptm in entries[r.subject].modification[r.position]:
+              ptm.enzyme = {r.aggkey: r.obo_dbxref_description}
+          entries[r.subject].enzyme.append(r.aggkey)
+      # update the enzyme symbol list
+      for id in entries.keys():
+          entries[id].enzyme = list(set(entries[id].enzyme))
 
-    return entries
+      # add pmids for each ptm
+      evidence = defaultdict(list)
+      for r in dao.get_def_xref(ids):
+          # print("entry get_def_xref: "+ r.subject+ " | "+ r.object)
+          if not r.object in evidence[r.subject]:
+              evidence[r.subject].append(r.object)
+
+      for id in entries.keys():
+          for pos in entries[id].modification.keys():
+              for ptm in entries[id].modification[pos]:
+                  ptm.pmid = evidence[id]
+
+      return entries
+
+  @staticmethod
+  def batch_seq(dao, entries):
+      # collect all xref:
+      xrefList = []
+      for e in entries.values():
+          # print("dbxref: " + e.id + " | " + str(e.dbxrefs))
+          xrefList.extend(e.dbxrefs)
+      # create a mapping between "UniProtKB:Q15796-2": "Q15796-2"
+      acMap = {}
+      for x in list(set(xrefList[:])):
+          d = x.split(':')
+          if d[0] == 'UniProtKB':
+              acMap[x] = d[1] if not d[1].endswith('-1') else d[1][:-2]
+      # for x in acMap:
+      #   print(x + " <|> "+acMap[x])
+      # load sequences
+      seq = {}
+      # for r in dao.get_seqs(acMap.values()):
+      #   seq[r.subject] = Seq(r.sequence, IUPAC.protein)
+      for ac in acMap.values():
+          if ac not in seq.keys():
+              # print(ac)
+              seq[ac] = Seq(dao.get_seq_external(ac), IUPAC.protein)
+              # print(ac + " | " + dao.get_seq_external(ac))
+
+      # add sequence to entry
+      for e in entries.values():
+          # print(e)
+          if len(e.dbxrefs) > 0:
+              e.seq = seq[acMap[e.dbxrefs[0]]]
+              # print(e.id + " | seq: " + e.seq)
+
+      return entries
+
+  # def batch_initial(ids, full=True):
+  #   """
+  #    if full==True: collect entry, sequence and all modification data
+  #    if full==False: only collect entry data
+  #    """
+  #   entries = {}
+  #   print('input ids for batch_initial: ',ids)
+  #   # build entries object
+  #   for id in ids:
+  #     entries[id] = ENTRY(id)
+  #
+  #   for r in get_short_label(ids):
+  #     entries[r.subject].name = r.synonym_field
+  #     print('check short label: ',r.synonym_field)
+  #   for r in get_terms(ids):
+  #     if entries[r.subject].name == '':
+  #       entries[r.subject].name = r.name
+  #     entries[r.subject].definition = r.definition
+  #     entries[r.subject].Cat = r.category
+  #
+  #   for r in get_sites(ids):
+  #     entries[r.subject].description = r.residue
+  #
+  #   for r in get_xrefs(ids):
+  #     if r.object.startswith('UniProtKB:'):
+  #       entries[r.subject].dbxrefs.append(r.object)
+  #       print('check get_xrefs: ',r.object)
+  #   if full:
+  #     entries = ENTRY.batch_mod(ids, entries)
+  #     entries = ENTRY.batch_seq(entries)
+  #
+  #   return entries.values()
+  #
+  # @staticmethod
+  # def batch_mod(ids, entries):
+  #   # get ptms from definition modified residue list.
+  #   for r in get_mod_residues(ids):
+  #     P = PTM()
+  #     P.substrate = r.subject
+  #     P.enzyme = ''
+  #     if r.mod_id.find(':') > -1:
+  #       P.modType = 'MOD' # need to be fix later
+  #     P.seqPos = r.position
+  #     P.aa = r.abbrev3
+  #     P.source = 'pro'
+  #     P.note = ''
+  #     P.pmid = ''
+  #
+  #     entries[r.subject].modification[P.seqPos].append(P)
+  #
+  #   # update the ptm with kinase/acetylase/... from comment
+  #   for r in get_enzymes(ids):
+  #     # assert entries[r.subject].modification.has_key(r.position)
+  #     for ptm in entries[r.subject].modification[r.position]:
+  #       ptm.enzyme = {r.aggkey: r.obo_dbxref_description}
+  #     entries[r.subject].enzyme.append(r.aggkey)
+  #   # update the enzyme symbol list
+  #   for id in entries.keys():
+  #     entries[id].enzyme = list(set(entries[id].enzyme))
+  #
+  #   # add pmids for each ptm
+  #   evidence = defaultdict(list)
+  #   for r in get_def_xref(ids):
+  #     evidence[r.subject].append(r.object)
+  #
+  #   for id in entries.keys():
+  #     for pos in entries[id].modification.keys():
+  #       for ptm in entries[id].modification[pos]:
+  #         ptm.pmid = evidence[id]
+  #
+  #   return entries
+  #
+  # @staticmethod
+  # def batch_seq(entries):
+  #   # collect all xref:
+  #   xrefList = []
+  #   for e in entries.values():
+  #     xrefList.extend(e.dbxrefs)
+  #     print('xrefList in batch_seq: ',xrefList)
+  #   # create a mapping between "UniProtKB:Q15796-2": "Q15796-2"
+  #   acMap = {}
+  #   for x in list(set(xrefList[:])):
+  #     d = x.split(':')
+  #     if d[0] == 'UniProtKB':
+  #       acMap[x] = d[1] if not d[1].endswith('-1') else d[1][:-2]
+  #   # load sequences
+  #   seq = {}
+  #   for r in get_seqs(acMap.values()):
+  #     seq[r.subject] = Seq(r.sequence, IUPAC.protein)
+  #   for ac in acMap.values():
+  #     if ac not in seq:
+  #       seq[ac] = Seq(get_seq_external(ac), IUPAC.protein)
+  #
+  #   # add sequence to entry
+  #   for e in entries.values():
+  #     if len(e.dbxrefs) > 0:
+  #       e.seq = seq[acMap[e.dbxrefs[0]]]
+  #
+  #   return entries
 
 #
 # def check_fasta(seqRecord):

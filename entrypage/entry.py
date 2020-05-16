@@ -22,12 +22,12 @@ def add_url(id):
 
 def load_entry(id):
     content = {}
+    content['checkroot'] = True
     content['id'] = id
-
-
     content['url'] = add_url(id)
     content['jstreeurl'] = '/idtree/'+id
     content['jstreenameurl'] = '/nametree/'+id
+    content['msatreeurl'] = '/msa/tree/'+id
     # content['obo_url'] = 'https://proconsortium.org/app/export/obo/' + id
     content['obo_url'] = '/obo/' + id
     category = ''
