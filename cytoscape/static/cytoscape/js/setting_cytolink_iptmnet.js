@@ -1,1 +1,0 @@
-var cytourl = 'entry_iptmnet.php';
