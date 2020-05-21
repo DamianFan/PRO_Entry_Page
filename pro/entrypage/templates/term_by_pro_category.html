@@ -1,0 +1,177 @@
+<tr>
+        <td>Terms by PRO Category</td>
+
+        {% if terms_cat == True %}
+        <td>
+            <span class="pull-right">
+                <a target="_blank">Retrieve All terms OBO Stanza</a>
+                / <a  target="_blank">PAF</a>
+            </span>
+            <table class="table table-hover table-striped table-condensed table-pro-summary">
+
+                    <thead>
+
+                    <tr>
+{#                        <th colspan="2">Organism-Independent</th>#}
+                        <th colspan="2">Organism-Specific</th>
+                    </tr>
+                    <tr>
+{#                        <th class="col-md-3">Category</th>#}
+{#                        <th class="col-md-3">Number of Terms</th>#}
+                        <th class="col-md-3">Category</th>
+                        <th class="col-md-3">Number of Terms</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+
+                    {% if term_pro_cat.0 != 0 %}
+                        <td><span title="organism-gene"
+                          data-toggle="tooltip"
+                          data-placement="left"
+                          class="hand">
+                            organism-gene</span>
+                        </td>
+                        <td><a class="term-cat-num" title="check only terms in this category in protein form table">
+                                {{ term_pro_cat.0 }}</a></td>
+                    {% endif %}
+
+
+                    </tr>
+                    <tr>
+                        {% if term_pro_cat.1 != 0 %}
+                        <td><span title="organism-sequence"
+                          data-toggle="tooltip"
+                          data-placement="left"
+                          class="hand">
+                            organism-sequence</span>
+                        </td>
+                        <td><a class="term-cat-num" title="check only terms in this category in protein form table">
+                                {{ term_pro_cat.1 }}</a></td>
+                    {% endif %}
+                    </tr>
+                    <tr>
+                        {% if term_pro_cat.2 != 0 %}
+                        <td><span title="organism-modification"
+                          data-toggle="tooltip"
+                          data-placement="left"
+                          class="hand">
+                            organism-modification</span>
+                        </td>
+                        <td><a class="term-cat-num" title="check only terms in this category in protein form table">
+                                {{ term_pro_cat.2 }}</a></td>
+                    {% endif %}
+                    </tr>
+                    </tbody>
+                    </table>
+
+        </td>
+        {% endif %}
+
+
+        {% if terms_cat == False %}
+        <td>
+            <span class="pull-right">
+                <a target="_blank">Retrieve All terms OBO Stanza</a>
+                / <a  target="_blank">PAF</a>
+            </span>
+            <table class="table table-hover table-striped table-condensed table-pro-summary">
+
+                    <thead>
+
+                    <tr>
+                        <th colspan="2">Organism-Independent</th>
+                        <th colspan="2">Organism-Specific</th>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3">Category</th>
+                        <th class="col-md-3">Number of Terms</th>
+                        <th class="col-md-3">Category</th>
+                        <th class="col-md-3">Number of Terms</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+
+                     {% if term_pro_cat.0 != 0 %}
+                        <td><span title="gene"
+                          data-toggle="tooltip"
+                          data-placement="left"
+                          class="hand">
+                            gene</span>
+                        </td>
+                        <td><a class="term-cat-num" title="check only terms in this category in protein form table">
+                                {{ term_pro_cat.0 }}</a></td>
+                    {% endif %}
+
+
+
+                    {% if term_pro_cat.1 != 0 %}
+                        <td><span title="organism-gene"
+                          data-toggle="tooltip"
+                          data-placement="left"
+                          class="hand">
+                            organism-gene</span>
+                        </td>
+                        <td><a class="term-cat-num" title="check only terms in this category in protein form table">
+                                {{ term_pro_cat.1 }}</a></td>
+                    {% endif %}
+
+
+                    </tr>
+                    <tr>
+                        {% if term_pro_cat.2 != 0 %}
+                        <td><span title="sequence"
+                          data-toggle="tooltip"
+                          data-placement="left"
+                          class="hand">
+                            sequence</span>
+                        </td>
+                        <td><a class="term-cat-num" title="check only terms in this category in protein form table">
+                                {{ term_pro_cat.2 }}</a></td>
+                    {% endif %}
+
+                        {% if term_pro_cat.3 != 0 %}
+                        <td><span title="organism-sequence"
+                          data-toggle="tooltip"
+                          data-placement="left"
+                          class="hand">
+                            organism-sequence</span>
+                        </td>
+                        <td><a class="term-cat-num" title="check only terms in this category in protein form table">
+                                {{ term_pro_cat.3 }}</a></td>
+                    {% endif %}
+                    </tr>
+                    <tr>
+                    {% if term_pro_cat.4 != 0 %}
+                        <td><span title="modification"
+                          data-toggle="tooltip"
+                          data-placement="left"
+                          class="hand">
+                            modification</span>
+                        </td>
+                        <td><a class="term-cat-num" title="check only terms in this category in protein form table">
+                                {{ term_pro_cat.4 }}</a></td>
+                    {% endif %}
+
+
+
+
+                        {% if term_pro_cat.5 != 0 %}
+                        <td><span title="organism-modification"
+                          data-toggle="tooltip"
+                          data-placement="left"
+                          class="hand">
+                            organism-modification</span>
+                        </td>
+                        <td><a class="term-cat-num" title="check only terms in this category in protein form table">
+                                {{ term_pro_cat.5 }}</a></td>
+                    {% endif %}
+                    </tr>
+                    </tbody>
+                    </table>
+
+        </td>
+        {% endif %}
+
+    </tr>

@@ -1,0 +1,187 @@
+{% load staticfiles %}
+
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>PRO Entry Report</title>
+    <!-- jQuery -->
+    {% load staticfiles %}
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script type="text/javascript" src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+      <!-- Bootstrap -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/themes/default/style.min.css" />
+    <style>
+        .wrapper1, .wrapper2 {
+            width: 293px;
+            height:auto;
+            overflow-x: scroll;
+            overflow-y:hidden;
+        }
+        .div1 {
+            width:293px;
+            height: 20px;
+        }
+        .sidarbar-span {
+            width:293px;
+            overflow: auto;
+        }
+    </style>
+    <script src="{% static 'js/test_js.js' %}"></script>
+    <script src="{% static 'js/qtip.js' %}"></script>
+    <script src="{% static 'js/for_entrypage.js' %}"></script>
+    <script src="{% static 'js/entry.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'js/skin-win7/ui.fancytree.css' %}">
+    <script type="text/javascript" src="{% static 'js/jquery.fancytree.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.fancytree.gridnav.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.fancytree.table.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/forms.js' %}?v=0612"></script>
+    <script> var msaEntryUrl="{{ msaEntryUrl }};" </script>
+{#    local css#}
+    <link rel="stylesheet" href="{% static "css/simple-sidebar.css" %}" >
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <link rel="stylesheet" href="{% static "css/qtip.css" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/themes/default/style.min.css" />
+    <style>
+    span.fancytree-title {
+        cursor: default !important;
+    }
+    </style>
+{#    <script type="text/javascript" src="{% static 'msa/msa_functions.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'msa/msa_functions_pro.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'msa/app.js' %}"></script>#}
+{#        <!--MSA-->#}
+{#    <script type="text/javascript" src="{% static 'msa/setting.js' %}"></script>#}
+{#    <!--tooltipster-->#}
+{#    <script type="text/javascript" src="{% static 'msa/jquery.tooltipster.min.js' %}"></script>#}
+{#    <script>#}
+{#        var dataUrl = "{% url 'msa:data' mod query %}";#}
+{#        var prologo =  '<img id="iconPRO" class="icon-link" src="{% static 'pro/pirwww/images/PROlogofinal300.png' %}" alt="PRO" title="PRO Entry Report">';#}
+{#        var prourl = '';#}
+{#        var cytologo = '<img id="iconCyto" class="icon-link" src="{% static 'msa/images/cyto-logo.gif' %}" alt="Cyto" title="Cytoscape View">';#}
+{#        var cytourl = '/app{% if test_site%}_test{%endif%}/visual/cytoscape/pro/';#}
+{#        var daglogo =  '<img id="iconDag" class="icon-link" src="{% static 'pro/pirwww/images/hierarchy.png' %}" alt="DAG" title="DAG View">';#}
+{#        var dagurl = '/cgi-bin/browser_pro{% if test_site%}_test.pl{%endif%}?ids='#}
+{#    </script>#}
+
+</head>
+<body>
+this is test page
+
+<table id="forms" class="table table-condensed table-bordered table-pro-th">
+    <thead>
+    <tr title="Click to show/hide the table.">
+        <th colspan="7">
+            <div class="table-pro-toggle-icon">
+                <span class="glyphicon glyphicon-collapse-down"></span>
+            <button id="testbutton" class="forms-button">thisbutton</button>
+            </div>
+            Protein Forms
+            <div class="pull-right">
+                <div id="filter_category_dropdown" class="dropdown">
+    <small>Display Category: </small>
+    <button type="button" class="btn btn-default btn-xs" id="filter_category_dropdown_button" data-toggle="dropdown" role="button">
+        <span id="selected"> All </span><span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a>All</a></li>
+                    <li><a>organism-gene</a></li>
+                    <li><a>organism-sequence</a></li>
+                    <li><a>organism-modification</a></li>
+                    <li><a>this-is-test-category</a></li>
+    </ul>
+</div>
+
+
+
+            </div>
+        </th>
+    </tr>
+    </thead>
+    <tbody id="forms-body">
+    <tr>
+        <td>
+            <table id="tree" class="table table-condensed table-striped table-hover borderless table-pro-th-second fancytree-container fancytree-ext-table fancytree-ext-gridnav" tabindex="0">
+                <colgroup>
+                    <col width="260px">
+                    <col width="200px">
+                    <col width="max-width:15%">
+                    <col width="max-width:50%; min-width:30%">
+                </colgroup>
+                <thead>
+                <tr>
+
+                    <th>PRO ID &amp; Category
+                        <span class="label label-warning pull-right">Annotation</span>
+
+                            <span class="label label-success pull-right">Complex</span>
+
+                    </th>
+                    <th>Name</th>
+                    <th>Short Label</th>
+                    <th>Definition &amp; Comment</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="test-class">
+                    <td>
+                            <a href="/app/entry/PR:Q15796" target="_blank" title="">PR:Q15796</a><br>organism-gene</span></span>
+                    </td>
+                    <td>mothers against decapentaplegic homolog 2 (human)</td>
+                    <td>hSMAD2</td>
+                    <td><span class="add-link">A smad2 that is encoded in the genome of human.</span><br>
+                        <span class="add-link"></span>
+                    </td>
+                </tr>
+                <tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:000000470" target="_blank" title="">PR:000000470</a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning"><a href="#paf-PR:000000470" title="annotation" class="form-tag">3</a></span><br>organism-sequence</span></span></td><td>smad2 sequence variant R133C (human)</td><td>hSMAD2/var:R133C</td><td><span class="add-link">A mothers against decapentaplegic homolog 2 (human) that has a Cys residue at the position equivalent to Arg-133 of the amino acid sequence represented by <a href="http://www.uniprot.org/uniprot/Q15796-1" target="_blank" title="">UniProtKB:Q15796-1</a>. Example: <a href="http://www.uniprot.org/uniprot/Q15796-1" target="_blank" title="">UniProtKB:Q15796-1</a>, Arg-133, <a href="http://purl.obolibrary.org/obo/CHEBI_29950" target="_blank" title="">CHEBI:29950</a>.</span><br><span class="add-link"></span></td></tr><tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:000000471" target="_blank" title="">PR:000000471</a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning"><a href="#paf-PR:000000471" title="annotation" class="form-tag">1</a></span><br>organism-sequence</span></span></td><td>smad2 sequence variant L440R (human)</td><td>hSMAD2/var:L440R</td><td><span class="add-link">A mothers against decapentaplegic homolog 2 (human) that has an Arg residue at the position equivalent to Leu-440 of the amino acid sequence represented by <a href="http://www.uniprot.org/uniprot/Q15796-1" target="_blank" title="">UniProtKB:Q15796-1</a>. Example: <a href="http://www.uniprot.org/uniprot/Q15796-1" target="_blank" title="">UniProtKB:Q15796-1</a>, Leu-440, <a href="http://purl.obolibrary.org/obo/CHEBI_29952" target="_blank" title="">CHEBI:29952</a>.</span><br><span class="add-link"></span></td></tr><tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:000000472" target="_blank" title="">PR:000000472</a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning"><a href="#paf-PR:000000472" title="annotation" class="form-tag">2</a></span><br>organism-sequence</span></span></td><td>smad2 sequence variant P445H (human)</td><td>hSMAD2/var:P445H</td><td><span class="add-link">A mothers against decapentaplegic homolog 2 (human) that has a His residue at the position equivalent to Pro-445 of the amino acid sequence represented by <a href="http://www.uniprot.org/uniprot/Q15796-1" target="_blank" title="">UniProtKB:Q15796-1</a>. Example: <a href="http://www.uniprot.org/uniprot/Q15796-1" target="_blank" title="">UniProtKB:Q15796-1</a>, Pro-445, <a href="http://purl.obolibrary.org/obo/CHEBI_29979" target="_blank" title="">CHEBI:29979</a>.</span><br><span class="add-link"></span></td></tr><tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:000000473" target="_blank" title="">PR:000000473</a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning"><a href="#paf-PR:000000473" title="annotation" class="form-tag">2</a></span><br>organism-sequence</span></span></td><td>smad2 sequence variant D450E (human)</td><td>hSMAD2/var:D450E</td><td><span class="add-link">A mothers against decapentaplegic homolog 2 (human) that has a Glu residue at the position equivalent to Asp-450 of the amino acid sequence represented by <a href="http://www.uniprot.org/uniprot/Q15796-1" target="_blank" title="">UniProtKB:Q15796-1</a>. Example: <a href="http://www.uniprot.org/uniprot/Q15796-1" target="_blank" title="">UniProtKB:Q15796-1</a>, Asp-450, <a href="http://purl.obolibrary.org/obo/CHEBI_29972" target="_blank" title="">CHEBI:29972</a>.</span><br><span class="add-link"></span></td></tr><tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:000000474" target="_blank" title="">PR:000000474</a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning"><a href="#paf-PR:000000474" title="annotation" class="form-tag">2</a></span><br>organism-sequence</span></span></td><td>smad2 sequence variant 5 (human)</td><td>hSMAD2/var:5</td><td><span class="add-link">A mothers against decapentaplegic homolog 2 (human) that has a fifteen-residue deletion at the position equivalent to region 344-358 of the amino acid sequence represented by <a href="http://www.uniprot.org/uniprot/Q15796-1" target="_blank" title="">UniProtKB:Q15796-1</a>. Example: <a href="http://www.uniprot.org/uniprot/Q15796-1" target="_blank" title="">UniProtKB:Q15796-1</a>, 2-343, 359-467.</span><br><span class="add-link"></span></td></tr><tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:000025960" target="_blank" title="">PR:000025960</a>&nbsp;&nbsp;&nbsp;&nbsp;<br>organism-modification</span></span></td><td>smad2 isoform unphosphorylated 1 (human)</td><td>hSMAD2/iso:[Long/Short]/UnPhos:1</td><td><span class="add-link">A mothers against decapentaplegic homolog 2 (human) that lacks phosphorylation on the last two Ser of the C-terminal SSxS motif.</span><br><span class="add-link"></span></td></tr><tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:000049281" target="_blank" title="">PR:000049281</a>&nbsp;&nbsp;&nbsp;&nbsp;<br>organism-modification</span></span></td><td>mothers against decapentaplegic homolog 2, initiator methionine removed form (human)</td><td>hSMAD2/InitMet-</td><td><span class="add-link">A mothers against decapentaplegic homolog 2 (human) that has had the initiator methionine removed. <a href="http://www.uniprot.org/uniprot/Q15796" target="_blank" title="">UniProtKB:Q15796</a>, 2-467.</span><br><span class="add-link"></span></td></tr><tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:000049282" target="_blank" title="">PR:000049282</a>&nbsp;&nbsp;&nbsp;&nbsp;<br>organism-modification</span></span></td><td>mothers against decapentaplegic homolog 2, initiator methionine removed phosphorylated 1 (human)</td><td>hSMAD2/InitMet-/Phos:1</td><td><span class="add-link">A mothers against decapentaplegic homolog 2 (human) that has had the initiator methionine removed and has been post-translationally modified to include phosphoserine at positions 465 and 467 of the amino acid sequence represented by <a href="http://www.uniprot.org/uniprot/Q15796" target="_blank" title="">UniProtKB:Q15796</a>. <a href="http://www.uniprot.org/uniprot/Q15796" target="_blank" title="">UniProtKB:Q15796</a>, 2-467, Ser-465/Ser-467, <a href="http://purl.obolibrary.org/obo/MOD_00046" target="_blank" title="">MOD:00046</a>.</span><br><span class="add-link"></span></td></tr><tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:000049283" target="_blank" title="">PR:000049283</a>&nbsp;&nbsp;&nbsp;&nbsp;<br>organism-modification</span></span></td><td>mothers against decapentaplegic homolog 2, initiator methionine removed phosphorylated 5 (human)</td><td>hSMAD2/InitMet-/Phos:5</td><td><span class="add-link">A mothers against decapentaplegic homolog 2 (human) that has had the initiator methionine removed and has been post-translationally modified to include phosphothreonine at position 220, and phosphoserine at positions 465 and 467 of the amino acid sequence represented by <a href="http://www.uniprot.org/uniprot/Q15796" target="_blank" title="">UniProtKB:Q15796</a>. <a href="http://www.uniprot.org/uniprot/Q15796" target="_blank" title="">UniProtKB:Q15796</a>, 2-467, Thr-220, <a href="http://purl.obolibrary.org/obo/MOD_00047" target="_blank" title="">MOD:00047</a>|Ser-465/Ser-467, <a href="http://purl.obolibrary.org/obo/MOD_00046" target="_blank" title="">MOD:00046</a>.</span><br><span class="add-link"></span></td></tr><tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:000049284" target="_blank" title="">PR:000049284</a>&nbsp;&nbsp;&nbsp;&nbsp;<br>organism-modification</span></span></td><td>mothers against decapentaplegic homolog 2, initiator methionine removed ubiquitinated form (human)</td><td>hSMAD2/InitMet-/UbiqLys+</td><td><span class="add-link">A mothers against decapentaplegic homolog 2 (human) that has had the initiator methionine removed and that includes at least one ubiquitinated lysine. <a href="http://www.uniprot.org/uniprot/Q15796" target="_blank" title="">UniProtKB:Q15796</a>, 2-467, <a href="http://purl.obolibrary.org/obo/MOD_01148" target="_blank" title="">MOD:01148</a>.</span><br><span class="add-link"></span></td></tr><tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:Q15796-1" target="_blank" title="">PR:Q15796-1</a>&nbsp;&nbsp;&nbsp;&nbsp;<br>organism-sequence</span></span></td><td>mothers against decapentaplegic homolog 2 isoform Long (human)</td><td>hSMAD2/iso:Long</td><td><span class="add-link">A smad2 isoform Long that is encoded in the genome of human.</span><br><span class="add-link"></span></td></tr><tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:000045371" target="_blank" title="">PR:000045371</a>&nbsp;&nbsp;&nbsp;<span class="label label-success"><a href="#complex-PR:000045371" title="complex" class="form-tag">2</a></span>&nbsp;<span class="label label-warning"><a href="#paf-PR:000045371" title="annotation" class="form-tag">4</a></span><br>organism-modification</span></span></td><td>smad2 isoform Long unphosphorylated 1 (human)</td><td>hSMAD2/iso:Long/UnPhos:1</td><td><span class="add-link">A mothers against decapentaplegic homolog 2 isoform Long (human) that lacks phosphorylation on the two last Ser of the C-terminal SSxS motif in human. <a href="http://www.uniprot.org/uniprot/Q15796-1" target="_blank" title="">UniProtKB:Q15796-1</a>, Ser-465/Ser-467, <a href="/app/entry/PR:000026291" target="_blank" title="">PR:000026291</a>.</span><br><span class="add-link"></span></td></tr><tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:000036554" target="_blank" title="">PR:000036554</a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning"><a href="#paf-PR:000036554" title="annotation" class="form-tag">3</a></span><br>organism-modification</span></span></td><td>smad2 isoform Long acetylated and phosphorylated 1 (human)</td><td>hSMAD2/iso:Long/AcPhos:1</td><td><span class="add-link">A smad2 isoform Long acetylated and phosphorylated 1 in human. <a href="http://www.uniprot.org/uniprot/Q15796-1" target="_blank" title="">UniProtKB:Q15796-1</a>, Lys-19, <a href="http://purl.obolibrary.org/obo/MOD_00064" target="_blank" title="">MOD:00064</a>|Ser-465/Ser-467, <a href="http://purl.obolibrary.org/obo/MOD_00046" target="_blank" title="">MOD:00046</a>.</span><br><span class="add-link"></span></td></tr><tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:000025934" target="_blank" title="">PR:000025934</a>&nbsp;&nbsp;&nbsp;<span class="label label-success"><a href="#complex-PR:000025934" title="complex" class="form-tag">2</a></span>&nbsp;<span class="label label-warning"><a href="#paf-PR:000025934" title="annotation" class="form-tag">8</a></span><br>organism-modification</span></span></td><td>smad2 isoform Long phosphorylated 1 (human)</td><td>hSMAD2/iso:Long/Phos:1</td><td><span class="add-link">A smad2 isoform Long phosphorylated 1 in human. This form is phosphorylated in the two last Ser of the C-terminal SSxS motif. <a href="http://www.uniprot.org/uniprot/Q15796-1" target="_blank" title="">UniProtKB:Q15796-1</a>, Ser-465/Ser-467, <a href="http://purl.obolibrary.org/obo/MOD_00046" target="_blank" title="">MOD:00046</a>.</span><br><span class="add-link">Kinase=("TGFBR1"; <a href="/app/entry/PR:000025963" target="_blank" title="">PR:000025963</a>; Ser-465/Ser-467)</span></td></tr><tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:000025935" target="_blank" title="">PR:000025935</a>&nbsp;&nbsp;&nbsp;<span class="label label-success"><a href="#complex-PR:000025935" title="complex" class="form-tag">1</a></span>&nbsp;<span class="label label-warning"><a href="#paf-PR:000025935" title="annotation" class="form-tag">6</a></span><br>organism-modification</span></span></td><td>smad2 isoform Long phosphorylated 2 (human)</td><td>hSMAD2/iso:Long/Phos:2</td><td><span class="add-link">A smad2 isoform Long phosphorylated 2 in human. This form is phosphorylated at the N-terminal Px[ST]P motif, multiple Ser and/or Thr residues in the linker region and the SSxS C-terminal motif. Example: <a href="http://www.uniprot.org/uniprot/Q15796-1" target="_blank" title="">UniProtKB:Q15796-1</a>, Thr-8/Thr-220, <a href="http://purl.obolibrary.org/obo/MOD_00047" target="_blank" title="">MOD:00047</a>|Ser-245/Ser-250/Ser-255/Ser-465/Ser-467, <a href="http://purl.obolibrary.org/obo/MOD_00046" target="_blank" title="">MOD:00046</a>.</span><br><span class="add-link">Kinase=("MAPK3"; <a href="/app/entry/PR:000026189" target="_blank" title="">PR:000026189</a>; Thr-8/Thr-220/Ser-245/Ser-250/Ser-255). Kinase=("TGFBR1"; <a href="/app/entry/PR:000025963" target="_blank" title="">PR:000025963</a>; Ser-465/Ser-467)</span></td></tr><tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:000025936" target="_blank" title="">PR:000025936</a>&nbsp;&nbsp;&nbsp;<span class="label label-success"><a href="#complex-PR:000025936" title="complex" class="form-tag">1</a></span>&nbsp;<span class="label label-warning"><a href="#paf-PR:000025936" title="annotation" class="form-tag">5</a></span><br>organism-modification</span></span></td><td>smad2 isoform Long phosphorylated 3 (human)</td><td>hSMAD2/iso:Long/Phos:3</td><td><span class="add-link">A smad2 isoform Long phosphorylated 3 in human. This form is phosphorylated on a [S/T] residue within the MH1-MH2 domain linker region, in addition to the two last Ser residues of the SSxS C-terminal motif. <a href="http://www.uniprot.org/uniprot/Q15796-1" target="_blank" title="">UniProtKB:Q15796-1</a>, Ser-240/Ser-465/Ser-467, <a href="http://purl.obolibrary.org/obo/MOD_00046" target="_blank" title="">MOD:00046</a>.</span><br><span class="add-link">Kinase=("CAMK-II"; <a href="/app/entry/PR:000003197" target="_blank" title="">PR:000003197</a>; Ser-240). Kinase=("TGFBR1"; <a href="/app/entry/PR:000025963" target="_blank" title="">PR:000025963</a>; Ser-465/Ser-467)</span></td></tr><tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:000025937" target="_blank" title="">PR:000025937</a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning"><a href="#paf-PR:000025937" title="annotation" class="form-tag">2</a></span><br>organism-modification</span></span></td><td>smad2 isoform Long phosphorylated 4 (human)</td><td>hSMAD2/iso:Long/Phos:4</td><td><span class="add-link">A smad2 isoform Long phosphorylated 4 in human. This form is phosphorylated at the clusters of [S/T]P motifs within the MH1-MH2 domain linker region. <a href="http://www.uniprot.org/uniprot/Q15796-1" target="_blank" title="">UniProtKB:Q15796-1</a>, Thr-220, <a href="http://purl.obolibrary.org/obo/MOD_00047" target="_blank" title="">MOD:00047</a>|Ser-245/Ser-250/Ser-255, <a href="http://purl.obolibrary.org/obo/MOD_00046" target="_blank" title="">MOD:00046</a>.</span><br><span class="add-link">Kinase=("MAP2K1"; <a href="/app/entry/PR:000026196" target="_blank" title="">PR:000026196</a>; Thr-220/Ser-245/Ser-250/Ser-255)</span></td></tr><tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:Q15796-2" target="_blank" title="">PR:Q15796-2</a>&nbsp;&nbsp;&nbsp;&nbsp;<br>organism-sequence</span></span></td><td>mothers against decapentaplegic homolog 2 isoform Short (human)</td><td>hSMAD2/iso:Short</td><td><span class="add-link">A smad2 isoform Short that is encoded in the genome of human.</span><br><span class="add-link"></span></td></tr><tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:000045494" target="_blank" title="">PR:000045494</a>&nbsp;&nbsp;&nbsp;&nbsp;<br>organism-modification</span></span></td><td>smad2 isoform Short unphosphorylated 1 (human)</td><td>hSMAD2/iso:Short/UnPhos:1</td><td><span class="add-link">A mothers against decapentaplegic homolog 2 isoform Short (human) that lacks phosphorylation on the last two Ser of the C-terminal SSxS motif. <a href="http://www.uniprot.org/uniprot/Q15796-2" target="_blank" title="">UniProtKB:Q15796-2</a>, Ser-435/Ser-437, <a href="/app/entry/PR:000026291" target="_blank" title="">PR:000026291</a>.</span><br><span class="add-link"></span></td></tr><tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:000036556" target="_blank" title="">PR:000036556</a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning"><a href="#paf-PR:000036556" title="annotation" class="form-tag">3</a></span><br>organism-modification</span></span></td><td>smad2 isoform Short acetylated and phosphorylated 1 (human)</td><td>hSMAD2/iso:Short/AcPhos:1</td><td><span class="add-link">A smad2 isoform Short acetylated and phosphorylated 1 in human. <a href="http://www.uniprot.org/uniprot/Q15796-2" target="_blank" title="">UniProtKB:Q15796-2</a>, Lys-19, <a href="http://purl.obolibrary.org/obo/MOD_00064" target="_blank" title="">MOD:00064</a>|Ser-435/Ser-437, <a href="http://purl.obolibrary.org/obo/MOD_00046" target="_blank" title="">MOD:00046</a>.</span><br><span class="add-link"></span></td></tr><tr class="fancytree-expanded fancytree-exp-n fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:000025938" target="_blank" title="">PR:000025938</a>&nbsp;&nbsp;&nbsp;<span class="label label-success"><a href="#complex-PR:000025938" title="complex" class="form-tag">1</a></span>&nbsp;<span class="label label-warning"><a href="#paf-PR:000025938" title="annotation" class="form-tag">4</a></span><br>organism-modification</span></span></td><td>smad2 isoform Short phosphorylated 1 (human)</td><td>hSMAD2/iso:Short/Phos:1</td><td><span class="add-link">A smad2 isoform Short phosphorylated 1 in human. This form is phosphorylated in the two last Ser of the C-terminal SSxS motif. <a href="http://www.uniprot.org/uniprot/Q15796-2" target="_blank" title="">UniProtKB:Q15796-2</a>, Ser-435/Ser-437, <a href="http://purl.obolibrary.org/obo/MOD_00046" target="_blank" title="">MOD:00046</a>.</span><br><span class="add-link">Kinase=("TGFBR1"; <a href="/app/entry/PR:000025963" target="_blank" title="">PR:000025963</a>; Ser-435/Ser-437)</span></td></tr><tr class="fancytree-expanded fancytree-lastsib fancytree-exp-nl fancytree-ico-e"><td><span class="fancytree-node" style="margin-left: 0px;"><span class="fancytree-expander"></span><span class="fancytree-title"><a href="/app/entry/PR:000050145" target="_blank" title="">PR:000050145</a>&nbsp;&nbsp;&nbsp;&nbsp;<br>organism-modification</span></span></td><td>smad2 phosphorylated 1 (human)</td><td>hSMAD2/Phos:1</td><td><span class="add-link">A smad2 phosphorylated 1 in human. This form is phosphorylated in the last two Ser of the C-terminal SSxS motif. <a href="http://www.uniprot.org/uniprot/Q15796" target="_blank" title="">UniProtKB:Q15796</a>, Ser-465/Ser-467, <a href="http://purl.obolibrary.org/obo/MOD_00046" target="_blank" title="">MOD:00046</a>.</span><br><span class="add-link">Kinase=("TGFBR1"; <a href="/app/entry/PR:000025963" target="_blank" title="">PR:000025963</a>; Ser-465/Ser-467)</span></td></tr></tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+
+</body>
+
+<style>
+    #filter_category_dropdown a {
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    var checkflag = 0;
+$('#testbutton').click(function (e){
+    console.log("succeed222");
+    var buttonid = $(this).attr("class");
+    var buttttt = $(this).attr("id");
+    var tableid = buttonid.replace('button','body');
+
+    console.log(buttonid);
+    if (checkflag==0) {
+        console.log(checkflag);
+        $("#"+tableid).css("display","none");
+        checkflag =1;
+    }
+    else{
+        console.log(checkflag);
+        $("#"+tableid).css("display","inline");
+        checkflag = 0;
+    }
+});
+
+
+</script>
+</html>

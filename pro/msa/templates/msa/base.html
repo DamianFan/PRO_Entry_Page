@@ -1,0 +1,41 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="google" content="notranslate">
+    <meta http-equiv="Content-Language" content="en">
+    <title>PRO Interactive Sequence Alignment {% block msa-title %}View{% endblock %}</title>
+
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <!-- Angular.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js"></script>
+    <!--MSA-->
+    <script type="text/javascript" src="{% static 'msa/setting.js' %}"></script>
+    <!--tooltipster-->
+    <script type="text/javascript" src="{% static 'msa/jquery.tooltipster.min.js' %}"></script>
+    <!-- Bootstrap -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <!-- jQuery UI-->
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <!-- jQuery UI-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <!--MSA-->
+    <link rel="stylesheet" type="text/css" href="{% static 'msa/style_msa.css' %}"/>
+    <!--tooltipster-->
+    <link rel="stylesheet" type="text/css" href="{% static 'msa/tooltipster.css' %}"/>
+
+    <!-- other scripts -->
+    {% block msa-scripts %} {% endblock %}
+
+</head>
+
+<body>
+{% block msa-body %} {% endblock %}
+</body>
+</html>

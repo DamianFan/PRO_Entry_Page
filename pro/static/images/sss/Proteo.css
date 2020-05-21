@@ -1,0 +1,495 @@
+BODY {
+	FONT-SIZE: 12px; COLOR: #333333; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+TD {
+	FONT-SIZE: 12px; COLOR: #333333; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+TH {
+	FONT-SIZE: 12px; COLOR: #333333; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+BODY {
+	BACKGROUND-IMAGE: url(../images/SolidBrwn.gif); MARGIN: 0px; BACKGROUND-COLOR: #666666
+}
+A.pagelink:link {
+	COLOR: #0066ff
+}
+A:visited {
+	COLOR: #993333
+}
+A:hover {
+	COLOR: #ffcc33
+}
+UL {
+	MARGIN-RIGHT: 18px
+}
+.srchtxt {
+	FONT-WEIGHT: bolder; FONT-SIZE: 10px; MARGIN-LEFT: 610px; COLOR: #660033; LINE-HEIGHT: 12px; TEXT-ALIGN: left
+}
+.srchtxt1 {
+	PADDING-LEFT: 600px; FONT-WEIGHT: bolder; FONT-SIZE: 10px; BACKGROUND-IMAGE: url(../images/Proteomics_Header.gif); MARGIN-LEFT: 0px; COLOR: #660033; LINE-HEIGHT: 12px; BACKGROUND-REPEAT: no-repeat; TEXT-ALIGN: left
+}
+.srchtxt1blue {
+	PADDING-LEFT: 600px; FONT-WEIGHT: bolder; FONT-SIZE: 10px; BACKGROUND-IMAGE: url(../images/Proteomics_HeaderNew.gif); MARGIN-LEFT: 0px; COLOR: #660033; LINE-HEIGHT: 12px; BACKGROUND-REPEAT: no-repeat; TEXT-ALIGN: left
+}
+.navanim {
+	COLOR: #993333
+}
+#p7TMctrl {
+	DISPLAY: block; FONT-SIZE: 10px; MARGIN: 10px 0px 5px 10px
+}
+#p7TMctrl A:link {
+	COLOR: #993333; TEXT-ALIGN: center
+}
+#p7TMctrl A:visited {
+	COLOR: #993333; TEXT-ALIGN: center
+}
+#p7TMctrl A:hover {
+	COLOR: #993333; TEXT-ALIGN: center
+}
+#p7TMsty1 {
+	FONT-WEIGHT: bolder; FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: "Trebuchet MS", Arial, sans-serif
+}
+#p7TMsty1small {
+	FONT-WEIGHT: bolder; FONT-SIZE: 10px; COLOR: #ffffff; FONT-FAMILY: "Trebuchet MS", Arial, sans-serif
+}
+#p7TMnav {
+	LINE-HEIGHT: 1
+}
+#p7TMnav {
+	BORDER-RIGHT: #ffffff 1px dotted; BORDER-TOP: #ffffff 1px dotted; BORDER-LEFT: #ffffff 1px dotted; BORDER-BOTTOM: 0px
+}
+#p7TMnav DIV {
+	BACKGROUND-COLOR: #c8a251
+}
+#p7TMnav DIV DIV {
+	MARGIN: 0px 0px 0px 10px; BORDER-LEFT: #ffffff 1px dotted; BACKGROUND-COLOR: #000000
+}
+#p7TMnav DIV DIV DIV {
+	BACKGROUND-COLOR: #806560
+}
+#p7TMnav DIV DIV DIV DIV {
+	BACKGROUND-COLOR: #cccccc
+}
+#p7TMnav DIV DIV DIV DIV DIV {
+	BACKGROUND-COLOR: #c0c0c0
+}
+#p7TMnav DIV A {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: "Trebuchet MS", Arial, sans-serif
+}
+#p7TMnav DIV A {
+	BORDER-RIGHT: 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: #dddee8 1px solid; DISPLAY: block; PADDING-LEFT: 10px; PADDING-BOTTOM: 2px; BORDER-LEFT: #dddee8 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: #666666 1px solid; BACKGROUND-COLOR: transparent; TEXT-DECORATION: none
+}
+#p7TMnav DIV A:visited {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: "Trebuchet MS", Arial, sans-serif
+}
+#p7TMnav DIV A:hover {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: "Trebuchet MS", Arial, sans-serif; BACKGROUND-COLOR: #e4c885
+}
+#p7TMnav DIV DIV A {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: "Trebuchet MS", Arial, sans-serif
+}
+#p7TMnav DIV DIV A:hover {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: "Trebuchet MS", Arial, sans-serif; BACKGROUND-COLOR: #999966
+}
+#p7TMnav DIV DIV DIV A {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: "Trebuchet MS", Arial, sans-serif
+}
+.p7plusmark {
+	PADDING-RIGHT: 0px! important; BACKGROUND-POSITION: 8px 50%; PADDING-LEFT: 20px! important; BACKGROUND-IMAGE: url(css/p7t_plus.gif); PADDING-BOTTOM: 0px! important; PADDING-TOP: 0px! important; BACKGROUND-REPEAT: no-repeat
+}
+.p7minusmark {
+	PADDING-RIGHT: 0px! important; BACKGROUND-POSITION: 8px 50%; PADDING-LEFT: 20px! important; BACKGROUND-IMAGE: url(css/p7t_minus.gif); PADDING-BOTTOM: 2px! important; PADDING-TOP: 2px! important; BACKGROUND-REPEAT: no-repeat
+}
+.p7defmark {
+	PADDING-RIGHT: 0px! important; PADDING-LEFT: 20px! important; BACKGROUND-IMAGE: none; PADDING-BOTTOM: 2px! important; PADDING-TOP: 2px! important
+}
+.p7currentmark {
+	PADDING-RIGHT: 0px! important; PADDING-LEFT: 20px! important; FONT-WEIGHT: bold; PADDING-BOTTOM: 2px! important; COLOR: #ffffff! important; PADDING-TOP: 2px! important; BACKGROUND-COLOR: transparent! important
+}
+.Welcomehdr {
+	FONT-WEIGHT: bolder; FONT-SIZE: 19pt; COLOR: #000000; FONT-STYLE: italic; FONT-FAMILY: "Trebuchet MS", Arial, sans-serif
+}
+.Welcometxt {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; FONT-SIZE: 11px; PADDING-BOTTOM: 3px; MARGIN-LEFT: 18px; COLOR: #003399; MARGIN-RIGHT: 18px; PADDING-TOP: 3px; FONT-STYLE: italic; FONT-FAMILY: Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #e2e2e2
+}
+.Welcometxtbx {
+	PADDING-RIGHT: 6px; PADDING-LEFT: 6px; FONT-SIZE: 11px; PADDING-BOTTOM: 6px; COLOR: #003399; PADDING-TOP: 6px; FONT-STYLE: italic; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.Welcometxt1 {
+	PADDING-RIGHT: 3px; MARGIN-TOP: -27px; PADDING-LEFT: 3px; FONT-SIZE: 11px; PADDING-BOTTOM: 3px; MARGIN-LEFT: 18px; COLOR: #003399; LINE-HEIGHT: 13px; MARGIN-RIGHT: 18px; PADDING-TOP: 3px; FONT-STYLE: italic; FONT-FAMILY: Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #e2e2e2
+}
+.conthdr {
+	FONT-WEIGHT: bold; FONT-SIZE: 18px; MARGIN-LEFT: 18px
+}
+.contxt {
+	MARGIN-LEFT: 18px; MARGIN-RIGHT: 18px
+}
+.contxtbx {
+	PADDING-RIGHT: 6px; PADDING-LEFT: 6px; FONT-SIZE: 12px; PADDING-BOTTOM: 6px; PADDING-TOP: 6px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.contxtbxred {
+	PADDING-RIGHT: 6px; PADDING-LEFT: 6px; FONT-WEIGHT: bold; FONT-SIZE: 12px; PADDING-BOTTOM: 6px; COLOR: #990000; LINE-HEIGHT: 24px; PADDING-TOP: 6px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.contxtbxredr {
+	PADDING-RIGHT: 6px; PADDING-LEFT: 6px; FONT-WEIGHT: bold; FONT-SIZE: 12px; PADDING-BOTTOM: 6px; COLOR: #990000; LINE-HEIGHT: 24px; PADDING-TOP: 6px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.contxtflushcat {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 1px; COLOR: #333333; LINE-HEIGHT: 15px; MARGIN-RIGHT: 0px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.contxtflushcatr {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 1px; COLOR: #333333; LINE-HEIGHT: 15px; MARGIN-RIGHT: 0px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.cattble {
+	MARGIN-LEFT: 18px; MARGIN-RIGHT: 18px; BACKGROUND-COLOR: #e2e2e2
+}
+.acred {
+	PADDING-LEFT: 9px; FONT-WEIGHT: bold; FONT-SIZE: 17px; BACKGROUND-IMAGE: url(../images/GrayBkgd.gif); WIDTH: 440px; COLOR: #ffffff; PADDING-TOP: 6px; BACKGROUND-REPEAT: no-repeat
+}
+.acwhite {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #ffffff
+}
+achelp {
+	BORDER-RIGHT: #ff0066 thin inset; BORDER-TOP: #660000 thin outset; PADDING-LEFT: 6px; FONT-WEIGHT: bolder; FONT-SIZE: 15px; BORDER-LEFT: #660000 thin outset; WIDTH: 24px; COLOR: #ffffff; BORDER-BOTTOM: #ff0066 thin inset; BACKGROUND-COLOR: #cc0033
+}
+A.achelp:link {
+	BORDER-RIGHT: #ff0066 thin inset; BORDER-TOP: #660000 thin outset; PADDING-LEFT: 6px; FONT-WEIGHT: bolder; FONT-SIZE: 15px; BORDER-LEFT: #660000 thin outset; WIDTH: 24px; COLOR: #ffffff; BORDER-BOTTOM: #ff0066 thin inset; BACKGROUND-COLOR: #cc0033
+}
+A.achelp:visited {
+	BORDER-RIGHT: #ff0066 thin inset; BORDER-TOP: #660000 thin outset; PADDING-LEFT: 6px; FONT-WEIGHT: bolder; FONT-SIZE: 15px; BORDER-LEFT: #660000 thin outset; WIDTH: 24px; COLOR: #ffffff; BORDER-BOTTOM: #ff0066 thin inset; BACKGROUND-COLOR: #cc0033
+}
+A.achelp:hover {
+	BORDER-RIGHT: #ff0066 thin inset; BORDER-TOP: #660000 thin outset; PADDING-LEFT: 6px; FONT-WEIGHT: bolder; FONT-SIZE: 15px; BORDER-LEFT: #660000 thin outset; WIDTH: 24px; COLOR: #ffcc33; BORDER-BOTTOM: #ff0066 thin inset; BACKGROUND-COLOR: #cc0033
+}
+.actext {
+	PADDING-LEFT: 3px; FONT-WEIGHT: bold; FONT-SIZE: 12px; BORDER-LEFT: #660000 solid; COLOR: #333333
+}
+.actext1 {
+	PADDING-LEFT: 3px; FONT-WEIGHT: bold; FONT-SIZE: 12px; BORDER-LEFT: #660000 solid; COLOR: #333333
+}
+.actext2 {
+	PADDING-LEFT: 3px; FONT-WEIGHT: bold; FONT-SIZE: 12px; MARGIN-LEFT: 157px; BORDER-LEFT: #660000 solid; COLOR: #333333
+}
+.actext3 {
+	PADDING-LEFT: 3px; FONT-WEIGHT: normal; FONT-SIZE: 12px; BORDER-LEFT: #660000 solid; COLOR: #333333; LINE-HEIGHT: 18px
+}
+.actext3a {
+	PADDING-LEFT: 3px; FONT-WEIGHT: normal; FONT-SIZE: 12px; BORDER-LEFT: #660000 solid; COLOR: #333333; LINE-HEIGHT: 18px
+}
+.actext4 {
+	PADDING-LEFT: 3px; FONT-WEIGHT: normal; FONT-SIZE: 12px; LEFT: 507px; BORDER-LEFT: #660000 solid; WIDTH: 160px; COLOR: #333333; POSITION: absolute; TOP: 336px
+}
+.newsboxtop {
+	PADDING-LEFT: 20px; FONT-WEIGHT: bold; FONT-SIZE: 8px; BACKGROUND-IMAGE: url(../images/Newsbox_top.gif); MARGIN-LEFT: 0px; WIDTH: 139px; COLOR: #660000; LINE-HEIGHT: 13px; MARGIN-RIGHT: 0px; PADDING-TOP: 0px; BACKGROUND-REPEAT: no-repeat; FONT-FAMILY: Trebuchet MS, Verdana, sans-serif
+}
+.newsboxctr {
+	MARGIN-TOP: -27px; PADDING-LEFT: 6px; FONT-WEIGHT: bold; FONT-SIZE: 11px; BACKGROUND-IMAGE: url(../images/Newsbox_short.gif); MARGIN-LEFT: 0px; WIDTH: 139px; COLOR: #993333; LINE-HEIGHT: 13px; MARGIN-RIGHT: 0px; PADDING-TOP: 0px; BACKGROUND-REPEAT: repeat-y; FONT-FAMILY: Trebuchet MS, Verdana, sans-serif
+}
+.newsboxtxt {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; WIDTH: 125px; COLOR: #993333; LINE-HEIGHT: 13px; FONT-FAMILY: Trebuchet MS, Verdana, sans-serif
+}
+A.nwsbx:link {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; WIDTH: 125px; COLOR: #993333; LINE-HEIGHT: 13px; FONT-FAMILY: Trebuchet MS, Verdana, sans-serif; TEXT-DECORATION: none
+}
+A.nwsbx:visited {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; WIDTH: 125px; COLOR: #993333; LINE-HEIGHT: 13px; FONT-FAMILY: Trebuchet MS, Verdana, sans-serif; TEXT-DECORATION: none
+}
+A.nwsbx:hover {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; WIDTH: 125px; COLOR: #993333; LINE-HEIGHT: 13px; FONT-FAMILY: Trebuchet MS, Verdana, sans-serif; TEXT-DECORATION: none
+}
+A.nwsbx1:link {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; WIDTH: 125px; COLOR: #cc0033; LINE-HEIGHT: 13px; FONT-FAMILY: Trebuchet MS, Verdana, sans-serif; TEXT-DECORATION: none
+}
+A.nwsbx1:visited {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; WIDTH: 125px; COLOR: #cc0033; LINE-HEIGHT: 13px; FONT-FAMILY: Trebuchet MS, Verdana, sans-serif; TEXT-DECORATION: none
+}
+A.nwsbx1:hover {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; WIDTH: 125px; COLOR: #cc0033; LINE-HEIGHT: 13px; FONT-FAMILY: Trebuchet MS, Verdana, sans-serif; TEXT-DECORATION: none
+}
+A.nwsbx2:link {
+	FONT-WEIGHT: bolder; FONT-SIZE: 10px; WIDTH: 105px; COLOR: #993333; LINE-HEIGHT: 13px; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+A.nwsbx2:visited {
+	FONT-WEIGHT: bolder; FONT-SIZE: 10px; WIDTH: 105px; COLOR: #993333; LINE-HEIGHT: 13px; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+A.nwsbx2:hover {
+	FONT-WEIGHT: bolder; FONT-SIZE: 10px; WIDTH: 105px; COLOR: #993333; LINE-HEIGHT: 13px; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.newsboxbtm {
+	MARGIN-TOP: -25px; PADDING-LEFT: 12px; FONT-WEIGHT: bolder; FONT-SIZE: 10px; BACKGROUND-IMAGE: url(../images/Newsbox_bttm.gif); PADDING-BOTTOM: 20px; MARGIN-LEFT: 0px; WIDTH: 139px; COLOR: #993333; LINE-HEIGHT: 13px; MARGIN-RIGHT: 0px; PADDING-TOP: 0px; BACKGROUND-REPEAT: no-repeat; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.quotetxt {
+	FONT-WEIGHT: bold; FONT-SIZE: 13px; MARGIN-LEFT: 3px; COLOR: #990000; MARGIN-RIGHT: 27px; FONT-STYLE: italic; TEXT-ALIGN: center
+}
+.quotesource {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; MARGIN-LEFT: 3px; COLOR: #990000; MARGIN-RIGHT: 27px; FONT-STYLE: normal; TEXT-ALIGN: right
+}
+.contentheader {
+	FONT-WEIGHT: bold; FONT-SIZE: 16px; MARGIN-LEFT: 18px; MARGIN-RIGHT: 18px; TEXT-ALIGN: center
+}
+.contentsubhead {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; MARGIN-LEFT: 18px; MARGIN-RIGHT: 18px; TEXT-ALIGN: center
+}
+.contentsubhead1 {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 18px; MARGIN-RIGHT: 18px
+}
+.contentsubhead2 {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; TEXT-ALIGN: center
+}
+.contxtflush {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 1px; COLOR: #333333; MARGIN-RIGHT: 0px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.contxtflushitalic {
+	FONT-SIZE: 12px; MARGIN-LEFT: 1px; COLOR: #333333; MARGIN-RIGHT: 0px; FONT-STYLE: italic; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.contxtrgtbx {
+	FONT-SIZE: 12px; MARGIN-LEFT: 9px; COLOR: #333333; MARGIN-RIGHT: 18px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.maroontextbold {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; MARGIN-LEFT: 18px; COLOR: #990000; MARGIN-RIGHT: 18px
+}
+.maroontextboldrgtbx {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; MARGIN-LEFT: 9px; COLOR: #990000; MARGIN-RIGHT: 18px
+}
+.maroontextboldflush {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; MARGIN-LEFT: 1px; COLOR: #990000; MARGIN-RIGHT: 0px
+}
+.maroontextbold14 {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; MARGIN-LEFT: 18px; COLOR: #990000; MARGIN-RIGHT: 18px
+}
+.redtext {
+	FONT-SIZE: 12px; COLOR: #ff0000
+}
+.redtextbold {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ff0000
+}
+.smallfont {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; COLOR: #333333; LINE-HEIGHT: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal
+}
+.smallfontred {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; COLOR: #ff0000; LINE-HEIGHT: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal
+}
+.smallfontredind {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; MARGIN-LEFT: 18px; COLOR: #ff0000; LINE-HEIGHT: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal
+}
+.bestview {
+	FONT-SIZE: 9px; COLOR: #666666
+}
+A.tblconf:link {
+	FONT-WEIGHT: bold; COLOR: #993333
+}
+A.tblconf:visited {
+	FONT-WEIGHT: bold; COLOR: #993333
+}
+A.tblconf:hover {
+	FONT-WEIGHT: bold; COLOR: #006699
+}
+.tble {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; MARGIN: 4px; WIDTH: 25px; COLOR: #ffffff; FONT-FAMILY: Arial, Helvetica, sans-serif; HEIGHT: 50px; BACKGROUND-COLOR: #dcd183; TEXT-ALIGN: left
+}
+.dirhead {
+	FONT-WEIGHT: normal; FONT-SIZE: 16px; COLOR: #333333; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.dirheadgrn {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; COLOR: #009999; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.dirline {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px; COLOR: #339999; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.dirlist {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px; COLOR: #333333; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; LIST-STYLE-TYPE: square
+}
+.dirsubhead {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #109e9c; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.dirtext {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px; COLOR: #333333; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.ligray {
+	BORDER-TOP: #006666 thin groove; PADDING-BOTTOM: 6px; MARGIN: 18px; PADDING-TOP: 6px; BORDER-BOTTOM: #006666 thin groove; BACKGROUND-COLOR: #e6e6e6
+}
+.ligraypres {
+	BORDER-TOP: #006666 thin groove; MARGIN-TOP: 18px; MARGIN-BOTTOM: 18px; PADDING-BOTTOM: 6px; PADDING-TOP: 6px; BORDER-BOTTOM: #006666 thin groove; BACKGROUND-COLOR: #e6e6e6
+}
+.secbullet {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: #ffcc66; FONT-FAMILY: Arial, Helvetica, sans-serif; LIST-STYLE-TYPE: square
+}
+.secbullettext {
+	COLOR: #333333
+}
+.subcaption {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: #333333; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.secbullettext {
+	COLOR: #333333
+}
+.newsg {
+	BORDER-TOP: #006666 thin groove; MARGIN-TOP: 18px; MARGIN-LEFT: 18px; MARGIN-RIGHT: 18px; PADDING-TOP: 6px; BACKGROUND-COLOR: #e6e6e6
+}
+.newsg2 {
+	BORDER-TOP: #006666 thin groove; PADDING-BOTTOM: 18px; MARGIN: 18px; PADDING-TOP: 6px; BORDER-BOTTOM: #006666 thin groove; BACKGROUND-COLOR: #e6e6e6
+}
+.newsw {
+	BORDER-TOP: #006666 thin groove; MARGIN-TOP: 18px; MARGIN-LEFT: 18px; MARGIN-RIGHT: 18px; PADDING-TOP: 6px; BACKGROUND-COLOR: #ffffff
+}
+.newsw2 {
+	BORDER-TOP: #006666 thin groove; PADDING-BOTTOM: 18px; MARGIN: 18px; PADDING-TOP: 6px; BORDER-BOTTOM: #006666 thin groove; BACKGROUND-COLOR: #ffffff
+}
+A.nwsltr:link {
+	FONT-SIZE: 10px; COLOR: #006699; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+A.nwsltr:visited {
+	FONT-SIZE: 10px; COLOR: #993366; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+A.nwsltr:hover {
+	FONT-SIZE: 10px; COLOR: #993366; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+A.nwsltrb:link {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #006699; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+A.nwsltrb:visited {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #993366; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+A.nwsltrb:hover {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #993366; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+A.nwsltrbfav:link {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #006699; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+A.nwsltrbfav:visited {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #993366; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+A.nwsltrbfav:hover {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #993366; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+A.nwsltrfooter:link {
+	FONT-SIZE: 10px; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+A.nwsltrfooter:visited {
+	FONT-SIZE: 10px; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+A.nwsltrfooter:hover {
+	FONT-SIZE: 10px; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.nwsltrfooter {
+	FONT-SIZE: 10px; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.nwsltrcaption {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px; COLOR: #993366; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.nwsltrcaptionplus {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px; COLOR: #993366; LINE-HEIGHT: 13px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.nwsltrfav {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.nwsltrgoldtxt {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #999933; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.nwsltrhead1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 24px; COLOR: #000000; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.nwsltrhead1plus {
+	FONT-WEIGHT: bold; FONT-SIZE: 26px; COLOR: #000000; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.nwsltrhead1tight {
+	FONT-WEIGHT: bold; FONT-SIZE: 24px; COLOR: #000000; LINE-HEIGHT: 26px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.nwsltrhead2 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #000000; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.nwsltrhead2tight {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #000000; LINE-HEIGHT: 13px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.nwsltrquote {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: #000000; FONT-STYLE: italic; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.nwsltrvolpg {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #000000; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.nwsltrtighttxt {
+	FONT-SIZE: 10px; WORD-SPACING: -1px; COLOR: #000000; LINE-HEIGHT: 11px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.nwsltrtxt {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px; COLOR: #000000; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.nwsltrtxtplus {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px; COLOR: #000000; LINE-HEIGHT: 13px; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.nwsltrtxtb {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #000000; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.nwsltrtxtbNR {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #990000; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: center
+}
+.nwsltrfooterdot {
+	FONT-SIZE: 14px; COLOR: #cc9900
+}
+.orgchrthead {
+	FONT-WEIGHT: bold; FONT-SIZE: 16px; COLOR: #000000; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-ALIGN: center
+}
+.orgchrtcolhead {
+	FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-ALIGN: center
+}
+.orgchrtblcktxt {
+	FONT-SIZE: 10px; COLOR: #000000; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-ALIGN: left
+}
+.orgchrtprpltxt {
+	FONT-SIZE: 10px; COLOR: #6633cc; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-ALIGN: left
+}
+.orgchrtredtxt {
+	FONT-SIZE: 10px; COLOR: #cc3300; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-ALIGN: left
+}
+.orgchrttealtxt {
+	FONT-SIZE: 10px; COLOR: #669999; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-ALIGN: left
+}
+.orgchrtwhtetxt {
+	FONT-WEIGHT: bolder; FONT-SIZE: 10px; COLOR: #ffffff; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-ALIGN: left
+}
+LI.sitemaphdr {
+	MARGIN-TOP: 12px; FONT-WEIGHT: bold; FONT-SIZE: 12px; LIST-STYLE-IMAGE: url(../images/sitemapbullet.gif); COLOR: #333333; TEXT-INDENT: 6px; LINE-HEIGHT: 20px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+LI.sitemapsubhd {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; LIST-STYLE-IMAGE: url(../images/sitemapbulletwht.gif); COLOR: #990000; TEXT-INDENT: 6px; LINE-HEIGHT: 20px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+LI.sitemaptxt {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; LIST-STYLE-IMAGE: url(../images/sitemapbullet1.gif); MARGIN-LEFT: 18px; COLOR: #333333; TEXT-INDENT: 3px; LINE-HEIGHT: 20px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+#containerul {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 15px; FONT-WEIGHT: normal; FONT-SIZE: 11px; PADDING-BOTTOM: 0px; MARGIN: 0px; COLOR: #333333; LINE-HEIGHT: normal; PADDING-TOP: 5px; FONT-FAMILY: Arial, Helvetica, sans-serif; HEIGHT: 20px; TEXT-ALIGN: left; FONT-VARIANT: normal
+}
+#containerul UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 15px; FONT-WEIGHT: normal; FONT-SIZE: 11px; PADDING-BOTTOM: 0px; MARGIN: 0px; COLOR: #333333; LINE-HEIGHT: normal; PADDING-TOP: 5px; FONT-FAMILY: Arial, Helvetica, sans-serif; HEIGHT: 20px; TEXT-ALIGN: left; FONT-VARIANT: normal
+}
+#containerul LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 3px 12px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+#containerul .clicker {
+	BACKGROUND-POSITION: 0px 50%; DISPLAY: block; PADDING-LEFT: 15px; BACKGROUND-REPEAT: no-repeat
+}
+#containerul .symbols {
+	BACKGROUND-POSITION: 0px 50%; FLOAT: left; BACKGROUND-REPEAT: no-repeat; HEIGHT: 1em
+}
+LI.catalog {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; MARGIN-LEFT: 18px; MARGIN-RIGHT: 18px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.catalogunbold {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 18px; MARGIN-RIGHT: 18px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+UL.catalog {
+	LIST-STYLE-IMAGE: url(../images/bullet2.gif)
+}
+.vieworghd {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-ALIGN: center
+}
+.vieworgtxt {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-ALIGN: center
+}
+#ht1 {
+	Z-INDEX: 100; LEFT: 10px; VISIBILITY: hidden; POSITION: absolute; TOP: 0px
+}
+#ht2 {
+	Z-INDEX: 100; LEFT: 10px; VISIBILITY: hidden; POSITION: absolute; TOP: 0px
+}
+.hyperText {
+	BORDER-RIGHT: #ff6666 2px solid; PADDING-RIGHT: 5px; BORDER-TOP: #ff6666 2px solid; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; FONT: 10px/12px "Trebuchet MS", Arial, Helvetical, Geneva, sans-serif; BORDER-LEFT: #ff6666 2px solid; WIDTH: 250px; COLOR: #333333; PADDING-TOP: 5px; BORDER-BOTTOM: #ff6666 2px solid; BACKGROUND-COLOR: #cccccc; layer-background-color: #CCCCCC
+}

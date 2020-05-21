@@ -1,0 +1,17 @@
+<thead>
+<tr>
+    <th>&nbsp;</th>
+    <th>&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<tr data-ng-repeat="seq in msa.seqRec" ng-class="{+seq.group+}">
+    <td class="msa-table-id">
+        <div class="msa-table-id-div">{+seq.id+}</div>
+    </td>
+    <td class="msa-table-label" sites="{+seq.sites+}" enzymes="{+seq.enzymes+}"
+        def="{+seq.definition+}">
+        {+seq.name+}
+    </td>
+</tr>
+</tbody>

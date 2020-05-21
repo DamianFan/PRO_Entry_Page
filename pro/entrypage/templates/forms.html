@@ -1,0 +1,210 @@
+{% load staticfiles %}
+
+
+<link rel="stylesheet" href="{% static 'js/skin-win7/ui.fancytree.css' %}">
+{#<script type="text/javascript" src="{% static 'js/jquery.fancytree.js' %}"></script>#}
+{#<script type="text/javascript" src="{% static 'js/jquery.fancytree.gridnav.js' %}"></script>#}
+{#<script type="text/javascript" src="{% static 'js/jquery.fancytree.table.js' %}"></script>#}
+{#<script type="text/javascript" src="{% static 'js/forms.js' %}?v=0612"></script>#}
+<script type="text/javascript">
+    {#var proEntryUrl = "{% url 'webpage:entry' '.' %}".slice(0, -2);#}
+    {#var ROOT = eval('(' + '{{ json|replace:"'||\'"|safe }}' + ')');#}
+</script>
+<style>
+    span.fancytree-title {
+        cursor: default !important;
+    }
+</style>
+
+<table id="forms" class="table table-condensed table-bordered table-pro-th">
+    <thead>
+    <tr>
+        <th colspan="7">
+            <div id="formbutton" class="table-pro-toggle-icon">
+                <span class="glyphicon glyphicon-collapse-down"></span>
+            </div> 
+            {{formTableName}} Forms
+            <div class="pull-right">
+                {% include "filter_category_dropdown.html" %}
+            </div>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            <table id="formstree" class="table table-condensed table-striped table-hover borderless table-pro-th-second">
+                <colgroup>
+                    <col width="260px"> {# pro_id #}
+                    <col width="200px"> {# name #}
+                    <col width="max-width:15%"> {# label #}
+                    <col width="max-width:50%; min-width:30%"> {# def#}
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>PRO ID & Category
+                        <span class="label label-warning pull-right">Annotation</span>
+                        {% if formTableName == "Protein" %}
+                            <span class="label label-success pull-right">Complex</span>
+                        {% else %}
+                            <span class="label label-primary pull-right">Subunits</span>
+                        {% endif %}
+                    </th> 
+                    <th>Name</th>
+                    <th>Short Label</th>
+                    <th>Definition & Comment</th>
+                </tr>
+                </thead>
+                <tbody id="formsbody">
+                {% for i in forms %}
+                    <tr class="{{ i.3 }}" style="visibility: visible;">
+                    <td><a href="/pro2/entry/{{ i.0 }}" target="_blank" title="">{{ i.0 }}</a><br />{{ i.3 }}</td>
+                    <td>{{ i.1 }}</td>
+                    <td>{{ i.4 }}</td>
+                    <td>{{ i.2|safe }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+
+
+{#<style>#}
+{#    #filter_category_dropdown a {#}
+{#        text-decoration: none;#}
+{#        cursor: pointer;#}
+{#    }#}
+{#    #}
+{#    #}
+{#</style>#}
+
+
+<script>
+
+    $('#filter_category_dropdown a').click(function (e){
+    var selectedCat = $(this).text();
+    $('#selected').text(selectedCat);
+    if (selectedCat == 'All'){
+            console.log(selectedCat);
+            {#$('#filter_category_dropdown_button')#}
+            {#    .removeClass('btn-danger')#}
+            {#    .addClass('btn-default');#}
+            {#redraw_forms(ROOT);#}
+            {#console.log(selectedCat);#}
+            $('.gene').css("display","");
+            $('.organism-gene').css("display","");
+            $('.sequence').css("display","");
+            $('.organism-sequence').css("display","");
+            $('.modification').css("display","");
+            $('.organism-modification').css("display","");
+        }
+     if (selectedCat == 'gene'){
+            console.log(selectedCat);
+            {#$('#filter_category_dropdown_button')#}
+            {#    .removeClass('btn-danger')#}
+            {#    .addClass('btn-default');#}
+            {#redraw_forms(ROOT);#}
+            $('.gene').css("display","");
+            $('.organism-gene').css("display","none");
+            $('.sequence').css("display","none");
+            $('.organism-sequence').css("display","none");
+            $('.modification').css("display","none");
+            $('.organism-modification').css("display","none");
+        }
+     if (selectedCat == 'organism-gene'){
+            console.log(selectedCat);
+            {#$('#filter_category_dropdown_button')#}
+            {#    .removeClass('btn-danger')#}
+            {#    .addClass('btn-default');#}
+            {#redraw_forms(ROOT);#}
+            $('.gene').css("display","none");
+            $('.organism-gene').css("display","");
+            $('.sequence').css("display","none");
+            $('.organism-sequence').css("display","none");
+            $('.modification').css("display","none");
+            $('.organism-modification').css("display","none");
+        }
+     if (selectedCat == 'sequence'){
+            console.log(selectedCat);
+            {#$('#filter_category_dropdown_button')#}
+            {#    .removeClass('btn-danger')#}
+            {#    .addClass('btn-default');#}
+            {#redraw_forms(ROOT);#}
+            $('.gene').css("display","none");
+            $('.organism-gene').css("display","none");
+            $('.sequence').css("display","");
+            $('.organism-sequence').css("display","none");
+            $('.modification').css("display","none");
+            $('.organism-modification').css("display","none");
+        }
+     if (selectedCat == 'organism-sequence'){
+            console.log(selectedCat);
+            {#$('#filter_category_dropdown_button')#}
+            {#    .removeClass('btn-danger')#}
+            {#    .addClass('btn-default');#}
+            {#redraw_forms(ROOT);#}
+            $('.gene').css("display","none");
+            $('.organism-gene').css("display","none");
+            $('.sequence').css("display","none");
+            $('.organism-sequence').css("display","");
+            $('.modification').css("display","none");
+            $('.organism-modification').css("display","none");
+        }
+     if (selectedCat == 'modification'){
+            console.log(selectedCat);
+            {#$('#filter_category_dropdown_button')#}
+            {#    .removeClass('btn-danger')#}
+            {#    .addClass('btn-default');#}
+            {#redraw_forms(ROOT);#}
+            $('.gene').css("display","none");
+            $('.organism-gene').css("display","none");
+            $('.sequence').css("display","none");
+            $('.organism-sequence').css("display","none");
+            $('.modification').css("display","");
+            $('.organism-modification').css("display","none");
+        }
+     if (selectedCat == 'organism-modification'){
+            console.log(selectedCat);
+            {#$('#filter_category_dropdown_button')#}
+            {#    .removeClass('btn-danger')#}
+            {#    .addClass('btn-default');#}
+            {#redraw_forms(ROOT);#}
+            $('.gene').css("display","none");
+            $('.organism-gene').css("display","none");
+            $('.sequence').css("display","none");
+            $('.organism-sequence').css("display","none");
+            $('.modification').css("display","none");
+            $('.organism-modification').css("display","");
+        }
+        });
+</script>
+
+<script>
+    var checkflag = 0;
+$('#formbutton').click(function (e){
+    {#console.log("succeed222");#}
+    {#var buttonid = $(this).attr("class");#}
+    {#var buttttt = $(this).attr("id");#}
+    {#var tableid = buttonid.replace('button','body');#}
+
+    {#console.log(buttonid);#}
+    if (checkflag==0) {
+
+        $("#formstree").css("display","none");
+        $('#formbutton').html('<span class="glyphicon glyphicon-collapse-up"></span>');
+        checkflag =1;
+    }
+    else{
+
+        $("#formstree").css("display","");
+        $('#formbutton').html('<span class="glyphicon glyphicon-collapse-down"></span>');
+        checkflag = 0;
+    }
+});
+
+
+</script>
