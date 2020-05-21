@@ -51,6 +51,10 @@ def load_entry(id):
     content['checkanno'] = True
     content['termscategory'] = False
     content['msaEntryUrl'] = '/msa/view/entry/'+id
+    content['hasmsa'] = True
+    content['hashierarchy'] = True
+    content['hashierarchytext'] = 'True'
+    content['checkpaf'] = False
     # content['msaview'] = loadingMSA(request,'entry',id)
     xref_set = get_xref(id)
     for i in range(len(xref_set)):
@@ -92,6 +96,9 @@ def load_entry(id):
         content['has_parent'] = False
         content['checkforms'] = False
         content['terms_cat'] = False
+        content['hasmsa'] = False
+        content['hashierarchy'] = False
+        content['hashierarchytext'] = 'false'
         return content
     else:
         paf_frontend = {id: {'name': Name, 'set': []}}
@@ -254,6 +261,8 @@ def load_entry(id):
 
         if content['forms'] != []:
             content['checkforms']=True
+        if content['paf'] != []:
+            content['checkpaf'] = True
         return content
 
 

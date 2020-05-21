@@ -171,8 +171,10 @@
 {#<div class="wrapper1">#}
 {#    <div class="div1"></div>#}
 {#</div>#}
+    {% if hashierarchy %}
      <img id="treeicon" src="{% static '/images/leafLessTree.png' %}" width="20" height="20">
      <input type="button" id="showname" onclick="showname()" style="width: 130px;font-weight: bold; color:#336699; height: 28px;  font-size: 13px"; value="Show PRO Name">
+    {% endif %}
 </div>
 {#            "{% static '/images/arrow01.png' %}"#}
 {#            <img id="arr" src="{% static '/images/arrow01.png' %}" width="10" height="10">#}
@@ -182,8 +184,10 @@
 {#            <img id="arr" src="{% static '/images/arrow01.png' %}" width="10" height="10">#}
 {#        </button>#}
     <div class="wrapper2">
+        {% if hashierarchy %}
     <div id="hierarchytree" class="sidarbar-span">
     </div>
+        {% endif %}
     </div>
 
 
@@ -200,6 +204,8 @@
         {% include "table_borderless.html" %}
     </div>
         <div id="page-content-wrapper" id="main">
+
+            {% if hashierarchy %}
         <button type="button" id="menu-toggle">
             <a id="buttext" style="color:#336699;font-weight: bold;" onclick="zoomhierarchy()">Hide Hierarchy</a>
         </button>
@@ -208,15 +214,21 @@
         <button type="button" id="menu-toggle2" style="float: right" onclick="changegrid()">
             <a id="righttext" style="color:#336699;font-weight: bold;" onclick="">Hide Display Options</a>
         </button>
+
+            {% endif %}
     </div>
     <div id="ontology-information">
         {% include "ontology_information.html" %}
     </div>
+    {% if hashierarchy %}
     {% if checkrcr %}
     <div id="related-cross-reference" style="display: inline;">
         {% include "xref.html" %}
     </div>
     {% endif %}
+    {% endif %}
+
+
     <div id="msa" style="display: none;">
 {#        {% include 'alignment.html' %}#}
             <table id="sequence-alignment" class="table table-condensed table-bordered table-pro-th table-pro-toggle">
@@ -247,6 +259,7 @@
     <br/>
     </div>
 
+    {% if hashierarchy %}
     <div id="forms">
         {% include 'forms.html' %}
     </div>
@@ -258,11 +271,12 @@
     </div>
 
     <div id="complex-subunits"></div>
-
+    {% if checkpaf %}
     <div id="functional-annotation">
         {% include "paf.html" %}
     </div>
-
+    {% endif %}
+    {% endif %}
 
 </div>
 </div>
@@ -283,6 +297,7 @@
         </tr>
     </thead>
     <tbody>
+
     {% if checkrcr %}
         <tr>
         <td width="20px"><input class="toggle-section" id="tg_names_and_taxonomy" type="checkbox" checked="checked"></td>
@@ -584,6 +599,7 @@ function zoomhierarchy(){
         }
         document.getElementById('righttext').innerText = 'Show Display Options';
         rightflag=1;
+        console.log("aaaaa");
     }
     else{
         rside.style.display='inline';
@@ -595,6 +611,7 @@ function zoomhierarchy(){
         }
         document.getElementById('righttext').innerText = 'Hide Display Options';
         rightflag=0;
+        console.log("bbbb");
     }
 
 
@@ -708,7 +725,16 @@ $(function () {
 
 
 <script>
+    var checkhierarchy = {{ hashierarchytext }};
+    $(document).ready(function () {
 
+        if(checkhierarchy ==false){
+            document.getElementById('container').style.gridTemplateColumns = "0% 100% 0%";
+            document.getElementById('rsidebartable').style.display = none;
+            document.getElementById('lsidebar').style.visibility = none;
+            $('wrapper2').css('overflow-x','hidden');
+        }
+    })
 
 </script>
 {#<script>#}
