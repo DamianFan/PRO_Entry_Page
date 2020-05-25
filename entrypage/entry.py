@@ -17,7 +17,7 @@ def content_test(request):
     return render(request,'entry_page_test.html',content)
 
 def add_url(id):
-    url = '/pro2/eontry/'+id
+    url = '/pro2/entry/'+id
     return url
 
 def load_entry(id):
