@@ -148,6 +148,7 @@ def get_category_by_ids(ids):
             BIND(strafter(strbefore(str(?_Category), "."), "=") as ?Category) .
         }
         """
+
     sparqlSearch = SparqlSearch()
     IdAndCategory, error = sparqlSearch.executeQuery(query)
     return IdAndCategory
@@ -156,6 +157,7 @@ def get_category_by_ids(ids):
 
 def pass_pro_term(jsondata):
     # PROTerm: 0 id  1 Name  2 Def  3 Category  4 Label  5 Mapping  6 Shape  7 ptm 8(add by zida) Group
+    # 0 id  1 Name  2 Def  3 Category  4 Label  5 Sites  6 Mapping  7 Shape  8 ptm 9	evidence
     # jsonexample {u'category': u'organism-gene', u'comment': u'Category=organism-gene.', u'termDef': u'A smad2 that is encoded in the genome of mouse. [UniProtKB:Q62432]', u'id': u'PR:Q62432', u'name': u'mothers against decapentaplegic homolog 2 (mouse)'}
     id = ''
     Name = ''
@@ -163,6 +165,7 @@ def pass_pro_term(jsondata):
     Category = ''
     Label = ''
     Mapping = ''
+    Sites = ''
     Shape = ''
     ptm = ''
     # Group = ''
@@ -195,7 +198,9 @@ def pass_pro_term(jsondata):
                     Label = j[1].replace('"', '')
                 elif syns.find('UniProtKB') == -1 and syns.find('(') == -1:
                     Label = syns
-    result_list = [id,Name,Def,Category,Label,Mapping,Shape,ptm,evidence]
+    if Label == '':
+        Label = Name
+    result_list = [id,Name,Def,Category,Label,Sites,Mapping,Shape,ptm,evidence]
     return result_list
 
 def get_name_by_ids(ids):
@@ -1113,6 +1118,7 @@ def get_xref_by_ids(ids):
     ?PRO_term  oboInOwl:hasDbXref ?DbRef .
     }
     """
+
     sparqlSearch = SparqlSearch()
     xrefs, error = sparqlSearch.executeQuery(query)
     return xrefs
@@ -1158,6 +1164,5 @@ def get_only_syn(ids):
     """
     sparqlSearch = SparqlSearch()
     SynAndProteo, error = sparqlSearch.executeQuery(query)
-    for i in SynAndProteo:
-        print(i)
+
     return SynAndProteo
