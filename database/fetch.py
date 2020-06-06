@@ -7,6 +7,16 @@ import requests
 import re
 import msa.models as ma
 hierarchy_root = g.ROOT+g.DELROOT
+import os
+
+mod = {}
+with open(os.path.join(os.path.dirname(__file__), 'mod.txt'), 'r') as csvfile:
+  f = list(csv.reader(csvfile, delimiter='\t'))
+  for l in f:
+    mod[l[0]] = l[1]
+
+
+aminodict = {'Ala':'A','Arg':'R','Asn':'N','Asp':'D','Cys':'C','Gln':'Q','Glu':'E','Gly':'G','His':'H','Ile':'I','Leu':'L','Lys':'K','Met':'M','Phe':'F','Pro':'P','Pyl':'O','Ser':'S','Sec':'U','Thr':'T','Trp':'W','Tyr':'Y','Val':'V','Asx':'B','Glx':'Z','Xaa':'X','Xle':'J'}
 
 """General Utilities"""
 
@@ -170,7 +180,7 @@ def pass_pro_term(jsondata):
     ptm = ''
     # Group = ''
     evidence = ''  # this column exits in SQLite table, but hasn't been used at this function
-
+    site = ''
     if 'id' in jsondata:
         id = jsondata['id']
         if id.startswith(r'CHEBI'):
@@ -180,6 +190,29 @@ def pass_pro_term(jsondata):
         Label = Name
     if 'PRO_termDef' in jsondata:
         Def = jsondata['PRO_termDef']
+        defset = Def.split('|')
+        for d in defset:
+            dd = d.split('.')
+            for modresidue in dd:
+                if modresidue.find('MOD:') != -1:
+                    submod = modresidue.split(',')
+                    modtype = ''
+                    sitelist = []
+                    for subsubmod in submod:
+                        if subsubmod.find('UniProtKB:') == -1:
+                            # modtype = ''
+                            # sitelist = []
+                            if subsubmod.find('MOD:') !=-1:
+                                modid = subsubmod.replace('MOD:','')
+                                modid = modid.replace(' ','')
+                                modtype = mod[modid]
+                            else:
+                                sitelist = subsubmod.split('/')
+                            if modtype != '' and sitelist != []:
+                                for outputsite in sitelist:
+                                    site += modtype + outputsite.replace(' ','') + ','
+                                    # else:
+                                    #     site += modtype + outputsite.replace(' ','') + ','
     if 'Category' in jsondata:
         Category = ''
         tem_category = jsondata['Category']
@@ -193,13 +226,18 @@ def pass_pro_term(jsondata):
         else:
             synonym = jsondata['synonym'].split(';')
             for syns in synonym:
-                if syns.find('EXACT PRO-short-label') != -1:
-                    j = syns.split(' ')
-                    Label = j[1].replace('"', '')
-                elif syns.find('UniProtKB') == -1 and syns.find('(') == -1:
+                if syns.find('PRO') != -1: continue
+                # if syns.find('EXACT PRO-short-label') != -1:
+                #     j = syns.split(' ')
+                #     Label = j[1].replace('"', '')
+                # elif syns.find('UniProtKB') == -1 and syns.find('(') == -1:
+                #     Label = syns
+                if len(syns) < len(Label):
                     Label = syns
     if Label == '':
         Label = Name
+    if site != '':
+        Label = Label + '(' + site + ')'
     result_list = [id,Name,Def,Category,Label,Sites,Mapping,Shape,ptm,evidence]
     return result_list
 
