@@ -28,6 +28,7 @@ def load_entry(id):
     content['jstreeurl'] = '/idtree/'+id
     content['jstreenameurl'] = '/nametree/'+id
     content['msatreeurl'] = '/msa/tree/'+id
+    content['msaparenturl'] = '/msa/tree/'+id
     # content['obo_url'] = 'https://proconsortium.org/app/export/obo/' + id
     content['obo_url'] = '/obo/' + id
     category = ''
@@ -55,6 +56,7 @@ def load_entry(id):
     content['hashierarchy'] = True
     content['hashierarchytext'] = 'True'
     content['checkpaf'] = False
+    finalparentlist = []
     # content['msaview'] = loadingMSA(request,'entry',id)
     xref_set = get_xref(id)
     for i in range(len(xref_set)):
@@ -91,6 +93,7 @@ def load_entry(id):
         if 'PRO_termDef' in info:
             definition = info['PRO_termDef']
             content['definition'] = modify_info_url(definition)
+            # print(content['definition'])
         else: content['definition'] = ''
     if id in hroot:
         content['has_parent'] = False
@@ -109,6 +112,8 @@ def load_entry(id):
             for i in dir_parent:
                 pid = i[0]
                 i.append(add_url(pid))
+                # parentcatelist = get_category_by_ids([pid])
+
         content['checkforms'] = False
         forms = [[id,Name,modify_info_url(definition),category,Label,'','','','']]
         # content['forms'] = [[id,Name,modify_info_url(definition),category,Label,[],[],[],[]]]
@@ -124,11 +129,20 @@ def load_entry(id):
             has_component,copx_and_conp = pass_complex(id)
             content['has_component'] = has_component
             content['copx_and_conp'] = copx_and_conp
+
             conp = []
             for cc in copx_and_conp:
                 if cc[3] not in conp:
                     conp.append(cc[3])
             if category == 'organism-gene':
+                for i in dir_parent:
+                    finalparentlist.append(i[0])
+                parentidandcate = get_category_by_ids(finalparentlist)
+                for i in parentidandcate:
+                    if 'Category' in i and i['Category'] == 'gene':
+                        trueparentforog = i['id']
+                        print(trueparentforog)
+                        content['msaparenturl'] = '/msa/tree/' + trueparentforog
                 ogcount = [0, 0, 0]
                 nodeinfo,formschild = view_organismgene(children)
                 content['checkforms'] = formschild
@@ -175,6 +189,7 @@ def load_entry(id):
                 category_types.append(i[3])
 
         content['forms'] = forms
+        # print(forms)
         content['category_types'] = category_types
         # print(category_types)
         for i in children:
@@ -222,7 +237,7 @@ def load_entry(id):
                 # <a target="_blank" href="http://www.reactome.org/content/detail/REACT_7382" title="">Reactome:REACT_7382</a>
                 paf_frontend_after.append([i,paf_frontend[i]['name'],resources,len(paf_frontend[i]['set'])+1])
         content['paf'] = paf_frontend_after
-
+        # print(content['paf'])
         for i in go_frontend:
             for j in go_frontend[i]['set']:
                 evis = j[2].split(',')
@@ -263,6 +278,7 @@ def load_entry(id):
             content['checkforms']=True
         if content['paf'] != []:
             content['checkpaf'] = True
+        # print(content['copx_and_conp'])
         return content
 
 
@@ -351,6 +367,7 @@ def view_hierarchy(request,proId):
             }"""
 
     fnewquery = newquery + proId + newquerymiddle + proId + newquerymiddle2 + proId + newquerymiddle3 + proId + newquerymiddle4 + proId + newquerytail
+
     sparqlSearch = SparqlSearch()
     proIDs, error = sparqlSearch.executeQuery(fnewquery)
     if error == None:
