@@ -98,7 +98,7 @@ class DAO:
         # print(url)
         response = requests.get(url)
         data = json.loads(response.text)
-        children = []
+        children = [id]
         for child in data:
             # print('this is child in dao.children',child)
             pro_taxon = None
