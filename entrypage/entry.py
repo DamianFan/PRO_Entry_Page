@@ -589,20 +589,20 @@ def modify_info_url(string):
     for i in range(len(list)):
         if list[i].find('UniProtKB:')!=-1 and len(list[i].split(' '))<=2:
             list[i] = list[i].replace(' ', '')
-            list[i] = '<a href=\"http://www.uniprot.org/uniprot/' + list[i].replace('UniProtKB:','') + '\" target=\"_blank\" title=\"\">'+list[i]+'</a>'
+            list[i] = ' <a href=\"http://www.uniprot.org/uniprot/' + list[i].replace('UniProtKB:','') + '\" target=\"_blank\" title=\"\">'+list[i]+'</a>'
         elif list[i].find('MOD:')!=-1 and len(list[i].split(' '))<=2:
             list[i] = list[i].replace(' ', '')
-            list[i] = '<a href=\"http://purl.obolibrary.org/obo/' + list[i].replace(':','_') + '\" target=\"_blank\" title=\"\">'+list[i]+'</a>'
+            list[i] = ' <a href=\"http://purl.obolibrary.org/obo/' + list[i].replace(':','_') + '\" target=\"_blank\" title=\"\">'+list[i]+'</a>'
         elif list[i].find('CHEBI:')!=-1 and len(list[i].split(' '))<=2:
             list[i] = list[i].replace(' ', '')
-            list[i] = '<a href=\"http://purl.obolibrary.org/obo/' + list[i].replace(':','_') + '\" target=\"_blank\" title=\"\">'+list[i]+'</a>'
+            list[i] = ' <a href=\"http://purl.obolibrary.org/obo/' + list[i].replace(':','_') + '\" target=\"_blank\" title=\"\">'+list[i]+'</a>'
         elif list[i].find('PR:')!=-1 and len(list[i].split(' '))<=2:
             list[i] = list[i].replace(' ', '')
-            list[i] = '<a href=\"/entry/' + list[i] + '\" target=\"_blank\" title=\"\">'+list[i]+'</a>'
+            list[i] = ' <a href=\"/entry/' + list[i] + '\" target=\"_blank\" title=\"\">'+list[i]+'</a>'
         # <a target="_blank" href="http://www.reactome.org/content/detail/R-HSA-177099" title="">Reactome:R-HSA-177099</a>
         elif list[i].find('Reactome:')!=-1 and len(list[i].split(' '))<=2:
             list[i] = list[i].replace(' ', '')
-            list[i] = '<a href=\"http://www.reactome.org/content/detail/' + list[i].replace('Reactome:','') + '\" target=\"_blank\" title=\"\">' + list[i] + '</a>'
+            list[i] = ' <a href=\"http://www.reactome.org/content/detail/' + list[i].replace('Reactome:','') + '\" target=\"_blank\" title=\"\">' + list[i] + '</a>'
     afterstring = ''.join(list)
     afterstring = afterstring.replace('Example,', 'Example:')
     return afterstring
