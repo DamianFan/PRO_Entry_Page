@@ -98,7 +98,10 @@ class DAO:
         # print(url)
         response = requests.get(url)
         data = json.loads(response.text)
-        children = [id]
+        if data == []:
+            children = []
+        else:
+            children = [id]
         for child in data:
             # print('this is child in dao.children',child)
             pro_taxon = None
@@ -112,11 +115,14 @@ class DAO:
             if sameTaxon:
                 if taxon is not None:
                     if pro_descendant_taxon == taxon:
-                        children.append(pro_descendant)
+                        if pro_descendant not in children:
+                            children.append(pro_descendant)
                 else:
-                    children.append(pro_descendant)
+                    if pro_descendant not in children:
+                        children.append(pro_descendant)
             else:
-                children.append(pro_descendant)
+                if pro_descendant not in children:
+                    children.append(pro_descendant)
         children = list(set(children))
         #print(children)
         return children
