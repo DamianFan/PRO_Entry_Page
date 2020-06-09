@@ -203,6 +203,12 @@ def pass_pro_term(jsondata):
                             # modtype = ''
                             # sitelist = []
                             if subsubmod.find('MOD:') !=-1:
+                                # print('check subsubmod in fetch', subsubmod)
+                                if subsubmod.find('or') != -1:
+                                    locateminusone = subsubmod.find('or')
+                                    subsubmod = subsubmod[:locateminusone]
+                                subsubmod = subsubmod.replace(')','')
+                                # print('check subsubmod in fetch',subsubmod)
                                 modid = subsubmod.replace('MOD:','')
                                 modid = modid.replace(' ','')
                                 modtype = mod[modid]

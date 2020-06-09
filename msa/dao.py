@@ -313,6 +313,9 @@ class DAO:
                     if len(match) > 3:
                         sites = match[3].replace('; ', '')
                         for site in sites.split('/'):
+                            # print('check site in get_enzymes, line 316: ',site)
+                            if site == '':
+                                continue
                             oboEnzyme.abbrev3 = site.split('-')[0]
                             oboEnzyme.position = site.split('-')[1]
                     enzymes.append(oboEnzyme)
