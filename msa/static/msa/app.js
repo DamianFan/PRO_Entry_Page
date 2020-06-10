@@ -14,7 +14,7 @@
                 $scope.$apply();
                 if (data.ov.numOfSeq == 0) {
                     console.log('no sequence');
-                    $('#loadingMsg').html('Sorry, the server is not able to return the alignment.');
+                    $('#loadingMsg').html('Sorry, no protein sequence is associated with this PRO Term. The server is not able to run the alignment.');
                 }
                 else {
                     stat = data.stat;
@@ -24,7 +24,7 @@
                 }
             },
             error: function() {
-                $('#loadingMsg').html('Sorry, the server is not able to return the alignment.');
+                $('#loadingMsg').html('Sorry, no protein sequence is associated with this PRO Term. The server is not able to run the alignment.');
             }
         });
     });
