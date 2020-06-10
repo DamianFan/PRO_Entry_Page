@@ -9,12 +9,12 @@
     <script type="text/javascript" src="{% static 'msa/app.js' %}"></script>
     <script>
         var dataUrl = "{% url 'msa:data' mod query %}";
-        var prologo =  '<img id="iconPRO" class="icon-link" src="{% static 'pro/pirwww/images/PROlogofinal300.png' %}" alt="PRO" title="PRO Entry Report">';
-        var prourl = '';
+        var prologo =  '<img id="iconPRO" class="icon-link" src="{% static 'msa/images/PROlogofinal300.png' %}" alt="PRO" title="PRO Entry Report">';
+        var prourl = '/entry/PR:';
         var cytologo = '<img id="iconCyto" class="icon-link" src="{% static 'msa/images/cyto-logo.gif' %}" alt="Cyto" title="Cytoscape View">';
-        var cytourl = '/app{% if test_site%}_test{%endif%}/visual/cytoscape/pro/';
-        var daglogo =  '<img id="iconDag" class="icon-link" src="{% static 'pro/pirwww/images/hierarchy.png' %}" alt="DAG" title="DAG View">';
-        var dagurl = '/cgi-bin/browser_pro{% if test_site%}_test.pl{%endif%}?ids='
+        var cytourl = '/cytoscape/view/';
+        var daglogo =  '<img id="iconDag" class="icon-link" src="{% static 'msa/images/hierarchy.png' %}" alt="DAG" title="DAG View">';
+        var dagurl = 'https://proconsortium.org//cgi-bin/browser_pro?ids='
     </script>
 {% endblock %}
 

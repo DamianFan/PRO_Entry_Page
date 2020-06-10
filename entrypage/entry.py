@@ -603,6 +603,10 @@ def modify_info_url(string):
         elif list[i].find('Reactome:')!=-1 and len(list[i].split(' '))<=2:
             list[i] = list[i].replace(' ', '')
             list[i] = ' <a href=\"http://www.reactome.org/content/detail/' + list[i].replace('Reactome:','') + '\" target=\"_blank\" title=\"\">' + list[i] + '</a>'
+        elif list[i].find('Alzforum_mut:')!=-1 and len(list[i].split(' '))<=2:
+            list[i] = list[i].replace(' ', '')
+            list[i] = ' <a href=\"https://www.alzforum.org/mutations/' + list[i].replace('Alzforum_mut:','') + '\" target=\"_blank\" title=\"\">' + list[i] + '</a>'
+
     afterstring = ''.join(list)
     afterstring = afterstring.replace('Example,', 'Example:')
     return afterstring
