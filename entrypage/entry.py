@@ -17,7 +17,7 @@ def content_test(request):
     return render(request,'entry_page_test.html',content)
 
 def add_url(id):
-    url = '/pro2/eontry/'+id
+    url = '/pro2/entry/'+id
     return url
 
 def load_entry(id):
@@ -28,6 +28,7 @@ def load_entry(id):
     content['jstreeurl'] = '/pro2/idtree/'+id
     content['jstreenameurl'] = '/pro2/nametree/'+id
     content['msatreeurl'] = '/pro2/msa/tree/'+id
+    content['msaparenturl'] = '/pro2/msa/tree/'+id
     # content['obo_url'] = 'https://proconsortium.org/app/export/obo/' + id
     content['obo_url'] = '/pro2/obo/' + id
     category = ''
@@ -53,8 +54,9 @@ def load_entry(id):
     content['msaEntryUrl'] = '/pro2/msa/view/entry/'+id
     content['hasmsa'] = True
     content['hashierarchy'] = True
-    content['hashierarchytext'] = 'true'
+    content['hashierarchytext'] = 'True'
     content['checkpaf'] = False
+    finalparentlist = []
     # content['msaview'] = loadingMSA(request,'entry',id)
     xref_set = get_xref(id)
     for i in range(len(xref_set)):
@@ -91,6 +93,7 @@ def load_entry(id):
         if 'PRO_termDef' in info:
             definition = info['PRO_termDef']
             content['definition'] = modify_info_url(definition)
+            # print(content['definition'])
         else: content['definition'] = ''
     if id in hroot:
         content['has_parent'] = False
@@ -109,6 +112,8 @@ def load_entry(id):
             for i in dir_parent:
                 pid = i[0]
                 i.append(add_url(pid))
+                # parentcatelist = get_category_by_ids([pid])
+
         content['checkforms'] = False
         forms = [[id,Name,modify_info_url(definition),category,Label,'','','','']]
         # content['forms'] = [[id,Name,modify_info_url(definition),category,Label,[],[],[],[]]]
@@ -124,11 +129,20 @@ def load_entry(id):
             has_component,copx_and_conp = pass_complex(id)
             content['has_component'] = has_component
             content['copx_and_conp'] = copx_and_conp
+
             conp = []
             for cc in copx_and_conp:
                 if cc[3] not in conp:
                     conp.append(cc[3])
             if category == 'organism-gene':
+                for i in dir_parent:
+                    finalparentlist.append(i[0])
+                parentidandcate = get_category_by_ids(finalparentlist)
+                for i in parentidandcate:
+                    if 'Category' in i and i['Category'] == 'gene':
+                        trueparentforog = i['id']
+                        print(trueparentforog)
+                        content['msaparenturl'] = '/pro2/msa/tree/' + trueparentforog
                 ogcount = [0, 0, 0]
                 nodeinfo,formschild = view_organismgene(children)
                 content['checkforms'] = formschild
@@ -175,6 +189,7 @@ def load_entry(id):
                 category_types.append(i[3])
 
         content['forms'] = forms
+        # print(forms)
         content['category_types'] = category_types
         # print(category_types)
         for i in children:
@@ -222,7 +237,7 @@ def load_entry(id):
                 # <a target="_blank" href="http://www.reactome.org/content/detail/REACT_7382" title="">Reactome:REACT_7382</a>
                 paf_frontend_after.append([i,paf_frontend[i]['name'],resources,len(paf_frontend[i]['set'])+1])
         content['paf'] = paf_frontend_after
-
+        # print(content['paf'])
         for i in go_frontend:
             for j in go_frontend[i]['set']:
                 evis = j[2].split(',')
@@ -263,6 +278,7 @@ def load_entry(id):
             content['checkforms']=True
         if content['paf'] != []:
             content['checkpaf'] = True
+        # print(content['copx_and_conp'])
         return content
 
 
@@ -351,6 +367,7 @@ def view_hierarchy(request,proId):
             }"""
 
     fnewquery = newquery + proId + newquerymiddle + proId + newquerymiddle2 + proId + newquerymiddle3 + proId + newquerymiddle4 + proId + newquerytail
+
     sparqlSearch = SparqlSearch()
     proIDs, error = sparqlSearch.executeQuery(fnewquery)
     if error == None:
@@ -572,20 +589,20 @@ def modify_info_url(string):
     for i in range(len(list)):
         if list[i].find('UniProtKB:')!=-1 and len(list[i].split(' '))<=2:
             list[i] = list[i].replace(' ', '')
-            list[i] = '<a href=\"http://www.uniprot.org/uniprot/' + list[i].replace('UniProtKB:','') + '\" target=\"_blank\" title=\"\">'+list[i]+'</a>'
+            list[i] = ' <a href=\"http://www.uniprot.org/uniprot/' + list[i].replace('UniProtKB:','') + '\" target=\"_blank\" title=\"\">'+list[i]+'</a>'
         elif list[i].find('MOD:')!=-1 and len(list[i].split(' '))<=2:
             list[i] = list[i].replace(' ', '')
-            list[i] = '<a href=\"http://purl.obolibrary.org/obo/' + list[i].replace(':','_') + '\" target=\"_blank\" title=\"\">'+list[i]+'</a>'
+            list[i] = ' <a href=\"http://purl.obolibrary.org/obo/' + list[i].replace(':','_') + '\" target=\"_blank\" title=\"\">'+list[i]+'</a>'
         elif list[i].find('CHEBI:')!=-1 and len(list[i].split(' '))<=2:
             list[i] = list[i].replace(' ', '')
-            list[i] = '<a href=\"http://purl.obolibrary.org/obo/' + list[i].replace(':','_') + '\" target=\"_blank\" title=\"\">'+list[i]+'</a>'
+            list[i] = ' <a href=\"http://purl.obolibrary.org/obo/' + list[i].replace(':','_') + '\" target=\"_blank\" title=\"\">'+list[i]+'</a>'
         elif list[i].find('PR:')!=-1 and len(list[i].split(' '))<=2:
             list[i] = list[i].replace(' ', '')
-            list[i] = '<a href=\"/pro2/entry/' + list[i] + '\" target=\"_blank\" title=\"\">'+list[i]+'</a>'
+            list[i] = ' <a href=\"/pro2/entry/' + list[i] + '\" target=\"_blank\" title=\"\">'+list[i]+'</a>'
         # <a target="_blank" href="http://www.reactome.org/content/detail/R-HSA-177099" title="">Reactome:R-HSA-177099</a>
         elif list[i].find('Reactome:')!=-1 and len(list[i].split(' '))<=2:
             list[i] = list[i].replace(' ', '')
-            list[i] = '<a href=\"http://www.reactome.org/content/detail/' + list[i].replace('Reactome:','') + '\" target=\"_blank\" title=\"\">' + list[i] + '</a>'
+            list[i] = ' <a href=\"http://www.reactome.org/content/detail/' + list[i].replace('Reactome:','') + '\" target=\"_blank\" title=\"\">' + list[i] + '</a>'
     afterstring = ''.join(list)
     afterstring = afterstring.replace('Example,', 'Example:')
     return afterstring
@@ -943,9 +960,9 @@ def view_hierarchy_name(request, proId):
 #             proparentname = keyname['Parent_name']
 #             parent_url = keyname['Parent']
 #             if proname not in linkset:
-#                 linkset[proname] = '/pro2/entry/' + child_url[31:].replace('_',':')
+#                 linkset[proname] = '/entry/' + child_url[31:].replace('_',':')
 #             if proparentname not in linkset:
-#                 linkset[proparentname] = '/pro2/entry/' + parent_url[31:].replace('_',':')
+#                 linkset[proparentname] = '/entry/' + parent_url[31:].replace('_',':')
 #
 #
 #         for x in proIDs:

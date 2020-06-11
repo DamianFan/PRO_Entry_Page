@@ -227,17 +227,19 @@
     </div>
     {% endif %}
     {% endif %}
+{#    <div id="testmsa">#}
+{#    {% include 'alignment.html' %}#}
+{#    </div>#}
 
-{% if hasmsa %}
-    <div id="msa" style="display: block;">
+    <div id="msa">
 {#        {% include 'alignment.html' %}#}
-            <table id="sequence-alignment" class="table table-condensed table-bordered table-pro-th table-pro-toggle">
+            <table id="sequence-alignment" class="table table-condensed table-bordered table-pro-th">
         <thead>
         <tr>
-            <th colspan="2"><div class="table-pro-toggle-icon"><span class="glyphicon glyphicon-collapse-down"></span></div> Interactive Sequence View
+            <th colspan="2"><div id="msabutton" class="table-pro-toggle-icon table-pro-toggle"><span class="glyphicon glyphicon-collapse-down"></span></div> Interactive Sequence View
                 <span class="pull-right">
                    {% if category == 'organism-gene' %}
-                       <a href="{{ msatreeurl }}" class="pretty" target="_blank">
+                       <a href="{{ msaparenturl }}" class="pretty" target="_blank">
                    {% else %}
                        <a href="{{ msatreeurl }}" class="pretty" target="_blank">
                    {% endif %}Select/align proteoforms across species</a>
@@ -245,7 +247,7 @@
             </th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="msabody">
         <tr>
             <td colspan="2" id="msaCell" height="400" align="center">
                 <div id="msaResult">
@@ -258,7 +260,6 @@
     </table>
     <br/>
     </div>
-{% endif %}
 
     {% if hashierarchy %}
     <div id="forms">
@@ -720,7 +721,7 @@ $(function () {
 
 <script>
     $(document).ready(function () {
-        $("#msaResult").html('<object  width="100%" height="400" data="{{ msaEntryUrl }}" type="text/html">');
+        $("#msaResult").html('<object  width="100%" height="400" data="' + {{ msaEntryUrl }} + '" type="text/html">');
     });
 </script>
 
@@ -736,6 +737,33 @@ $(function () {
             $('wrapper2').css('overflow-x','hidden');
         }
     })
+
+</script>
+
+
+<script>
+    var checkflagformsa = 0;
+$('#msabutton').click(function (e){
+    {#console.log("succeed222");#}
+    {#var buttonid = $(this).attr("class");#}
+    {#var buttttt = $(this).attr("id");#}
+    {#var tableid = buttonid.replace('button','body');#}
+
+    {#console.log(buttonid);#}
+    if (checkflagformsa==0) {
+
+        $("#msabody").css("display","none");
+        $('#msabutton').html('<span class="glyphicon glyphicon-collapse-up"></span>');
+        checkflagformsa =1;
+    }
+    else{
+
+        $("#msabody").css("display","");
+        $('#msabutton').html('<span class="glyphicon glyphicon-collapse-down"></span>');
+        checkflagformsa = 0;
+    }
+});
+
 
 </script>
 {#<script>#}

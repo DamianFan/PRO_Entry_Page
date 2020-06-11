@@ -95,28 +95,34 @@ class DAO:
         url = "https://research.bioinformatics.udel.edu/PRO_API/V1/dag/descendant/"+id+"?showTaxonID=true"
         #url = "https://research.bioinformatics.udel.edu/PRO_API/V1/dag/children/"+ids+"?showTaxonID=true"
         #print(url)
-        print(url)
+        # print(url)
         response = requests.get(url)
         data = json.loads(response.text)
-        children = []
+        if data == []:
+            children = []
+        else:
+            children = [id]
         for child in data:
-            #print(child)
+            # print('this is child in dao.children',child)
             pro_taxon = None
             pro_descendant_taxon = None
             pro = child['pro']['id']
-            if  child['pro'].has_key("taxonId"):
-                pro_taxon  = child['pro']['taxonID']
+            if  child['pro'].has_key("taxonID"):
+                pro_taxon  = child['pro']['taxonID'].replace('NCBITaxon:','')
             pro_descendant = child['pro_descendant']['id']
-            if child['pro_descendant'].has_key("taxonId"):
-                pro_descendant_taxon = child['pro_descendant']['taxonID']
+            if child['pro_descendant'].has_key("taxonID"):
+                pro_descendant_taxon = child['pro_descendant']['taxonID'].replace('NCBITaxon:','')
             if sameTaxon:
                 if taxon is not None:
                     if pro_descendant_taxon == taxon:
-                        children.append(pro_descendant)
+                        if pro_descendant not in children:
+                            children.append(pro_descendant)
                 else:
-                    children.append(pro_descendant)
+                    if pro_descendant not in children:
+                        children.append(pro_descendant)
             else:
-                children.append(pro_descendant)
+                if pro_descendant not in children:
+                    children.append(pro_descendant)
         children = list(set(children))
         #print(children)
         return children

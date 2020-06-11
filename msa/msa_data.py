@@ -233,7 +233,7 @@ class DAO:
                                             oboModResidue.position = int(position)
                                             oboModResidue.mod_id = mod_id
                                             mod_residues.append(oboModResidue)
-        mod_residues = list(dict.fromkeys(mod_residues))
+        #mod_residues = list(dict.fromkeys(mod_residues))
         # print(mod_residues)
         return mod_residues
 
