@@ -15,7 +15,7 @@
       <!-- Bootstrap -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
-    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+{#    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>#}
 
     <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
@@ -230,7 +230,7 @@
 {#    <div id="testmsa">#}
 {#    {% include 'alignment.html' %}#}
 {#    </div>#}
-
+    {% if hasmsa %}
     <div id="msa">
 {#        {% include 'alignment.html' %}#}
             <table id="sequence-alignment" class="table table-condensed table-bordered table-pro-th">
@@ -260,6 +260,7 @@
     </table>
     <br/>
     </div>
+    {% endif %}
 
     {% if hashierarchy %}
     <div id="forms">
@@ -409,9 +410,9 @@ function showname(){
           $('#hierarchytree').jstree({'plugins':["wholerow"],
             'core' : {
               'data' : {
-                  //[{"text" : "amino acid chain","a_attr" : "{'href': 'http://purl.obolibrary.org/obo/PR_000018263'}"}, "chidren": []]
+
                   "url": treeid,
-                "dataType" : "json" ,// needed only if you do not supply JSON headers
+                "dataType" : "json" ,
               },
                 'themes' : {
                   "icons" : false
@@ -456,22 +457,18 @@ function showname(){
 
 
 $(function() {
-//alert(url);
   $('#hierarchytree').jstree({'plugins':["wholerow"],
     'core' : {
       'data' : {
           "title":"test tittle",
-          //[{"text" : "amino acid chain","a_attr" : "{'href': 'http://purl.obolibrary.org/obo/PR_000018263'}"}, "chidren": []]
           "url": "{{ jstreeurl }}",
-        "dataType" : "json" ,// needed only if you do not supply JSON headers
+        "dataType" : "json" ,
       },
         'themes' : {
           "icons" : false
         }
     }
-
   })
-
 });
 
 

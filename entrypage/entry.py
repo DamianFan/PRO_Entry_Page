@@ -56,6 +56,8 @@ def load_entry(id):
     content['hashierarchy'] = True
     content['hashierarchytext'] = 'True'
     content['checkpaf'] = False
+    content['has_category'] = True
+    content['category'] = ''
     finalparentlist = []
     # content['msaview'] = loadingMSA(request,'entry',id)
     xref_set = get_xref(id)
@@ -95,7 +97,9 @@ def load_entry(id):
             content['definition'] = modify_info_url(definition)
             # print(content['definition'])
         else: content['definition'] = ''
-    if id in hroot:
+    if content['category'] == '':
+        content['has_category'] = False
+    if id in hroot or content['has_category'] == False:
         content['has_parent'] = False
         content['checkforms'] = False
         content['terms_cat'] = False
@@ -121,6 +125,7 @@ def load_entry(id):
         children = get_children_by_query(id)
         children.append(id)
         checkcate = ['gene','organism-gene']
+        print('check category at 78', category)
         if content['category'] in checkcate:
             content['termscategory'] = True
              # 0 organism-gene, 1 organism-sequence, 2 organism-modification
