@@ -8,7 +8,7 @@
     <ul class="dropdown-menu">
         <li><a class="dropdown-selection">All</a></li>
         {% for i in category_types %}
-            <li><a class="dropdown-selection">{{ i }}</a></li>
+            <li><a id="filter_category_dropdown_{{ i }}" class="dropdown-selection">{{ i }}</a></li>
         {% endfor %}
     </ul>
 </div>

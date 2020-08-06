@@ -108,6 +108,7 @@ def load_entry(id):
         content['hashierarchytext'] = 'false'
         return content
     else:
+        print('the category is:', category, content['category'])
         paf_frontend = {id: {'name': Name, 'set': []}}
         dir_parent = get_all_direct_parent(id)
         if dir_parent != []:
@@ -124,8 +125,10 @@ def load_entry(id):
         content['terms_cat'] = ''
         children = get_children_by_query(id)
         children.append(id)
+        # print('check children at 127:',children) //correct
         checkcate = ['gene','organism-gene']
-        print('check category at 78', category)
+
+        # print('check category at 78', category)
         if content['category'] in checkcate:
             content['termscategory'] = True
              # 0 organism-gene, 1 organism-sequence, 2 organism-modification
@@ -146,10 +149,11 @@ def load_entry(id):
                 for i in parentidandcate:
                     if 'Category' in i and i['Category'] == 'gene':
                         trueparentforog = i['id']
-                        print(trueparentforog)
+                        # print(trueparentforog)
                         content['msaparenturl'] = '/msa/tree/' + trueparentforog
                 ogcount = [0, 0, 0]
                 nodeinfo,formschild = view_organismgene(children)
+                # print('check nodeinfo at 154:',nodeinfo)
                 content['checkforms'] = formschild
                 for i in nodeinfo:
                     i[2] = modify_info_url(i[2])
@@ -188,11 +192,38 @@ def load_entry(id):
                         ogcount[6] += 1
                 content['term_pro_cat'] = ogcount
             children.extend(conp)
+        if category == 'sequence':
+            content['checkpaf'] = False
+            print('enter sequence at line 194')
+            # content['terms_cat'] = False
+            ogcount = [0, 0, 0, 0, 0, 0, 0]
+            nodeinfo, formschild = view_organismgene(children)
+            content['checkforms'] = formschild
+            for i in nodeinfo:
+                if i not in forms:
+                    forms.append(i)
+            for i in forms:
+                if i[3] == 'gene':
+                    ogcount[0] += 1
+                if i[3] == 'organism-gene':
+                    ogcount[1] += 1
+                if i[3] == 'sequence':
+                    ogcount[2] += 1
+                if i[3] == 'organism-sequence':
+                    ogcount[3] += 1
+                if i[3] == 'modification':
+                    ogcount[4] += 1
+                if i[3] == 'organism-modification':
+                    ogcount[5] += 1
+                if i[3] == 'union':
+                    ogcount[6] += 1
+            content['term_pro_cat'] = ogcount
+        # children.extend(conp)
 
         for i in forms:
             if i[3] != '' and i[3] not in category_types:
                 category_types.append(i[3])
-
+        print('check category at 194:', category_types)
         content['forms'] = forms
         # print(forms)
         content['category_types'] = category_types
@@ -281,9 +312,10 @@ def load_entry(id):
 
         if content['forms'] != []:
             content['checkforms']=True
-        if content['paf'] != []:
+        if content['paf'] != [] and content['category'] != 'sequence':
             content['checkpaf'] = True
         # print(content['copx_and_conp'])
+        print('check content checkpaf',content['checkpaf'])
         return content
 
 

@@ -32,7 +32,7 @@
                           class="hand">
                             organism-gene</span>
                         </td>
-                        <td><a class="term-cat-num" title="check only terms in this category in protein form table">
+                        <td><a id="organism-gene-1" class="term-cat-num" title="check only terms in this category in protein form table" href="#forms">
                                 {{ term_pro_cat.0 }}</a></td>
                     {% endif %}
 
@@ -46,7 +46,7 @@
                           class="hand">
                             organism-sequence</span>
                         </td>
-                        <td><a class="term-cat-num" title="check only terms in this category in protein form table">
+                        <td><a id="organism-sequence-1" class="term-cat-num" title="check only terms in this category in protein form table" href="#forms">
                                 {{ term_pro_cat.1 }}</a></td>
                     {% endif %}
                     </tr>
@@ -58,7 +58,7 @@
                           class="hand">
                             organism-modification</span>
                         </td>
-                        <td><a class="term-cat-num" title="check only terms in this category in protein form table">
+                        <td><a id="organism-modification-1" class="term-cat-num" title="check only terms in this category in protein form table" href="#forms">
                                 {{ term_pro_cat.2 }}</a></td>
                     {% endif %}
                     </tr>
@@ -100,7 +100,7 @@
                           class="hand">
                             gene</span>
                         </td>
-                        <td><a class="term-cat-num" title="check only terms in this category in protein form table">
+                        <td><a id="gene-2" class="term-cat-num" title="check only terms in this category in protein form table" href="#forms">
                                 {{ term_pro_cat.0 }}</a></td>
                     {% endif %}
 
@@ -113,7 +113,7 @@
                           class="hand">
                             organism-gene</span>
                         </td>
-                        <td><a class="term-cat-num" title="check only terms in this category in protein form table">
+                        <td><a id="organism-gene-2" class="term-cat-num" title="check only terms in this category in protein form table" href="#forms">
                                 {{ term_pro_cat.1 }}</a></td>
                     {% endif %}
 
@@ -127,7 +127,7 @@
                           class="hand">
                             sequence</span>
                         </td>
-                        <td><a class="term-cat-num" title="check only terms in this category in protein form table">
+                        <td><a id="sequence-2" class="term-cat-num" title="check only terms in this category in protein form table" href="#forms">
                                 {{ term_pro_cat.2 }}</a></td>
                     {% endif %}
 
@@ -138,7 +138,7 @@
                           class="hand">
                             organism-sequence</span>
                         </td>
-                        <td><a class="term-cat-num" title="check only terms in this category in protein form table">
+                        <td><a id="organism-sequence-2" class="term-cat-num" title="check only terms in this category in protein form table" href="#forms">
                                 {{ term_pro_cat.3 }}</a></td>
                     {% endif %}
                     </tr>
@@ -150,7 +150,7 @@
                           class="hand">
                             modification</span>
                         </td>
-                        <td><a class="term-cat-num" title="check only terms in this category in protein form table">
+                        <td><a id="modification-2" class="term-cat-num" title="check only terms in this category in protein form table" href="#forms">
                                 {{ term_pro_cat.4 }}</a></td>
                     {% endif %}
 
@@ -164,7 +164,7 @@
                           class="hand">
                             organism-modification</span>
                         </td>
-                        <td><a class="term-cat-num" title="check only terms in this category in protein form table">
+                        <td><a id="organism-modification-2" class="term-cat-num" title="check only terms in this category in protein form table" href="#forms">
                                 {{ term_pro_cat.5 }}</a></td>
                     {% endif %}
                     </tr>
@@ -175,3 +175,70 @@
         {% endif %}
 
     </tr>
+
+
+<script>
+    var responseforms = 'All';
+$('#organism-gene-1').click(function (e){
+    $('#filter_category_dropdown_organism-gene').trigger('click');
+ responseforms = 'organism-gene';
+ console.log(responseforms);
+
+});
+
+$('#organism-sequence-1').click(function (e){
+    $('#filter_category_dropdown_organism-sequence').trigger('click');
+ responseforms = 'organism-sequence';
+ console.log(responseforms);
+
+});
+
+$('#organism-modification-1').click(function (e){
+    $('#filter_category_dropdown_organism-modification').trigger('click');
+ responseforms = 'organism-modification';
+ console.log(responseforms);
+
+});
+
+$('#gene-2').click(function (e){
+    $('#filter_category_dropdown_gene').trigger('click');
+ responseforms = 'gene';
+ console.log(responseforms);
+
+});
+
+$('#organism-gene-2').click(function (e){
+    $('#filter_category_dropdown_organism-gene').trigger('click');
+ responseforms = 'organism-gene';
+ console.log(responseforms);
+
+});
+
+$('#sequence-2').click(function (e){
+    $('#filter_category_dropdown_sequence').trigger('click');
+ responseforms = 'sequence';
+ console.log(responseforms);
+
+});
+$('#organism-sequence-2').click(function (e){
+    $('#filter_category_dropdown_organism-sequence').trigger('click');
+ responseforms = 'organism-sequence';
+ console.log(responseforms);
+
+});
+
+$('#modification-2').click(function (e){
+    $('#filter_category_dropdown_modification').trigger('click');
+ responseforms = 'modification';
+ console.log(responseforms);
+
+});
+
+$('#organism-modification-2').click(function (e){
+    $('#filter_category_dropdown_organism-modification').trigger('click');
+ responseforms = 'organism-modification';
+ console.log(responseforms);
+
+});
+
+</script>
